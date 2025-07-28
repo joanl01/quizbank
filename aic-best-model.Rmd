@@ -1,0 +1,42 @@
+```{r, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams, tidymodels, gt)
+data(mpg)
+
+M1 <- lm(cty ~ displ, data = mpg)
+M2 <- lm(cty ~ displ + cyl, data = mpg)
+M3 <- lm(cty ~ displ + cyl + trans, data = mpg)
+M4 <- lm(cty ~ displ + cyl + trans + fl, data = mpg)
+
+```
+
+
+Question
+==========
+Using AIC, which is the best model ?
+```{r, echo=FALSE}
+list('M1' = M1, 'M2' = M2,'M3' = M3, 'M4' = M4) %>% 
+  map_df(glance, .id = "Model") %>% 
+  select(Model, logLik, AIC, BIC) %>% gt()
+
+```
+
+Answerlist
+------------
+
+* M1
+* M2
+* M3
+* M4
+
+Solution
+==========
+
+The best model is M4 as it has the smallest AIC. 
+
+
+Meta-information
+===================
+extype: schoice
+exsolution: 0001
+exname: AIC
+exmarks: 1
