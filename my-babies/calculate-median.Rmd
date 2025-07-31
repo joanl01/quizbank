@@ -1,0 +1,39 @@
+```{r data generation, echo = FALSE, results = "hide"}
+sample <- rnorm(14, mean = 50, sd = 20)
+sample <- round(sample,0)
+length <- length(sample)
+sorted <- sort(sample)
+sol <- round(median(sample),1)
+```
+
+Question
+===============
+Calculate the median for the following sample: 
+
+$$`r sample`$$
+Please give your answer to 1 decimal place. 
+
+
+
+Solution
+========
+We obtain the median of a sample by first arranging the data points from smallest to largest
+
+$$ `r sorted`$$
+
+then take the central number. If there are 2 numbers in the middle, the median is the average of those 2 numbers. 
+If the size of the data, $n$, is off, the median is the value at position $p$, where
+
+$$p = \frac{n+1}{2}$$
+
+If $n$ is even then the median is the average/mean of the values at positions $p$ and $p+1$ where
+$$p = \frac{n}{2} $$
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 1)`
+extol: 0.01
+exname: calculate sample mean

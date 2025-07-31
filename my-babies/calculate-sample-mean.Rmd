@@ -1,0 +1,29 @@
+```{r data generation, echo = FALSE, results = "hide"}
+sample <- rnorm(8, mean = 7, sd = 2.5)
+sample <- round(sample,1)
+length <- length(sample)
+sol <- round(mean(sample),1)
+```
+
+Question
+===============
+Calculate the sample mean for the following sample: 
+$$`r sample`$$
+Please give your answer to 1 decimal place. 
+
+
+
+Solution
+========
+We obtain the mean of a sample using 
+$$ mean = \frac{\sum x_i}{n}$$
+in this case: 
+$$ mean = \frac{\sum (`r fmt(sample,1)`)}{`r fmt(length)`} = `r sol`$$
+
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 1)`
+extol: 0.01
+exname: calculate sample mean

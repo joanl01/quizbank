@@ -1,0 +1,52 @@
+```{r data generation, echo = FALSE, results = "hide"}
+pacman::p_load(tidyverse, exams, gt)
+# Original sample
+sample <- rnorm(15, mean = 50, sd = 30)
+sample <- round(sample,0)
+
+# Repeat a random element by 2 times 
+rep_element <- sample(1:length(sample),1)
+modified_sample <- append(sample, values = rep(sample[rep_element], 2))
+# Shuffle order of modified sample with repeated values
+modified_sample <- sample(modified_sample)
+
+# Check result
+length <- length(modified_sample)
+sorted <- sort(modified_sample)
+
+tab <- data_frame(
+  number = table(modified_sample) %>% names(),
+  frequency = table(modified_sample) %>% as.numeric()
+) %>% gt()
+
+# Find mode (most frequent value) of modified_sample
+find_mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+sol <- find_mode(modified_sample)
+```
+
+
+Question
+===========
+What is the mode for the following sample?:
+
+$$`r modified_sample`$$
+
+Solution
+============
+Mode is the value or values in the data set that occur most frequently
+`r tab`
+
+From the table above, it can be seen that `r sol` has the highest frequency of occurring. 
+
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 1)`
+extol: 0.01
+exname: find mode
+
+
