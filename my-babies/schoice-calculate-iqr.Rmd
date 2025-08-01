@@ -1,0 +1,72 @@
+```{r data generation, echo = FALSE, results = "hide"}
+pacman::p_load(tidyverse, exams)
+sample <- sample(0:100, 14, replace = TRUE)
+sample <- round(sample,0)
+length <- length(sample)
+sorted <- sort(sample)
+sol <- round(IQR(sample),1)
+median <- median(sample)
+Q1 <- quantile(sample, probs = 0.25) %>% as.numeric()
+Q3 <- quantile(sample, probs = 0.75) %>% as.numeric()
+
+
+list_of_answers <- c(sol, Q1, Q3, median(sample))
+list_of_correct <- c(TRUE, FALSE, FALSE, FALSE)
+
+order_of_questions <- sample.int(4,4,replace = FALSE)
+
+list_of_answers <- list_of_answers[order_of_questions]
+
+list_of_correct <- list_of_correct[order_of_questions]
+# Q3-Q1
+```
+
+Question 
+==============
+
+What is the interquartile range of the following sample:
+
+$`r sample`$
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(list_of_answers)
+```
+
+
+Solution
+=================
+
+The interquartile range of the sample is:
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(list_of_correct, "TRUE", "FALSE"), markup = "markdown")
+```
+
+<br>
+<br>
+The interquartile range is calculated by taking the difference of the third quartile and first quartile. 
+
+First order the samples from low to high 
+
+$$`r sorted`$$
+
+
+then take the median (central number).<br>
+
+<br>
+The first quartile is the median of the lower half of the numbers (all the numbers below the median):
+<br>
+$$`r sorted[1:(length(sample)/2)]`$$
+<br>
+and the third quartile is the median of the upper half of the numbers(the numbers above the overall median):
+<br>
+
+$$ `r sorted[(length(sample)/2+1):length(sample)]`$$
+
+
+Meta-information
+================
+
+extype: schoice
+exsolution: `r mchoice2string(list_of_correct, single = TRUE)`
+exname: calculate iqr
