@@ -1,4 +1,5 @@
 ```{r data generation, echo = FALSE, results = "hide"}
+pacman::p_load(exams)
 ## data
 n <- 40 + sample(1:12, 2) * 3
 Waiting <- rnorm(sum(n), sd = sample(30:40, 1)/10) + rep(sample(30:80, 2)/10, n)
