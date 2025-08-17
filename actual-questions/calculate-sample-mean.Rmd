@@ -1,4 +1,5 @@
 ```{r data generation, echo = FALSE, results = "hide"}
+pacman::p_load(exams, tidyverse)
 sample <- rnorm(8, mean = 7, sd = 2.5)
 sample <- round(sample,1)
 length <- length(sample)
@@ -20,6 +21,20 @@ $$ mean = \frac{\sum x_i}{n}$$
 in this case: 
 $$ mean = \frac{\sum (`r fmt(sample,1)`)}{`r fmt(length)`} = `r sol`$$
 
+In R, the data can be entered using:
+```{r, echo = FALSE}
+cat('sample=c(',paste(sample, collapse=','), ')\n', sep = '')
+
+```
+
+
+Then you can compute the mean like so:
+ 
+```{r}
+mean(sample)
+```
+ 
+which rounded to one decimal place is `r sol`.
 
 Meta-information
 ================

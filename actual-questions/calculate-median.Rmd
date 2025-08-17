@@ -29,6 +29,20 @@ $$p = \frac{n+1}{2}$$
 If $n$ is even then the median is the average/mean of the values at positions $p$ and $p+1$ where
 $$p = \frac{n}{2} $$
 
+In R, the data can be entered using:
+```{r, echo = FALSE}
+cat('sample=c(',paste(sample, collapse=','), ')\n', sep = '')
+
+```
+
+
+Then you can compute the median like so:
+ 
+```{r}
+median(sample)
+```
+ 
+which rounded to one decimal place is `r sol`.
 
 
 Meta-information

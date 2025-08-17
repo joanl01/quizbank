@@ -62,7 +62,23 @@ and the third quartile is the median of the upper half of the numbers(the number
 <br>
 
 $$ `r sorted[(length(sample)/2+1):length(sample)]`$$
+<br>
 
+In R, the data can be entered using:
+<br>
+```{r, echo = FALSE}
+cat('sample=c(',paste(sample, collapse=','), ')\n', sep = '')
+
+```
+
+<br>
+Then you can compute the interquartile range (IQR) like so:
+<br>
+```{r}
+IQR(sample)
+```
+<br>
+which rounded to one decimal place is `r sol`.
 
 Meta-information
 ================
