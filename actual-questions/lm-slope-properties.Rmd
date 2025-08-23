@@ -1,0 +1,30 @@
+```{r data generation, echo=FALSE, results='hide'}
+ans <- character(4)
+
+ans[1] <- "The slope tells us the predicted value of $Y$ when $X = 0$."
+ans[2] <- "The slope represents the change in $Y$ for a one-unit increase in $X$, holding other variables constant."
+ans[3] <-  "The slope measures how well the model fits the data."
+ans[4] <- "The slope is always between $-1$ and $1$."
+
+```
+
+Question
+==================
+In the simple linear regression model  
+
+$$
+Y = \beta_0 + \beta_1 X + \epsilon,
+$$  
+
+which of the following statements about the slope coefficient $\beta_1$ is true?
+```{r solutionlist, echo=FALSE, results = "asis"}
+answerlist(ans, markup = "markdown")
+```
+
+
+Meta-information
+================
+exname: slope-properties
+extype: schoice
+exsolution: 0100
+exshuffle: TRUE

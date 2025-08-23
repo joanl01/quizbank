@@ -1,0 +1,35 @@
+```{r data generation, echo=FALSE, results='hide'}
+ans <- character(4)
+
+
+ans[1] <- "The intercept tells us the predicted value of $Y$ when $X = 0$."
+ans[2] <- "The intercept represents the change in $Y$ for a one-unit increase in $X$, holding other variables constant."
+ans[3] <-  "The intercept measures the strength of the linear relationship between $X$ and $Y$"
+ans[4] <- "The intercept is always 0."
+sol <- c(1,0,0,0)
+
+
+```
+
+Question
+==================
+In the simple linear regression model  
+
+$$
+Y = \beta_0 + \beta_1 X + \epsilon,
+$$  
+
+which of the following statements about the intercept coefficient $\beta_0$ is true?
+```{r solutionlist, echo=FALSE, results = "asis"}
+answerlist(ans, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+exname: intercept-properties
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

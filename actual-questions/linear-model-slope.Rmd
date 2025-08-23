@@ -1,0 +1,39 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+data(mtcars)
+
+lm <- lm(mpg~wt, data = mtcars)
+
+
+sol <- round(lm$coefficients[2], 2)
+```
+
+Question 
+============
+You are working as a data analyst for an environmental research group studying the relationship between car characteristic and fuel efficiency. Your research team is particularly interested in how the the cars' miles per gallon (`mpg`) performance is influcenced by weight of the car (`wt`).
+
+The output of the linear regression fitted is shown below:
+```{r test output, echo=FALSE, comment=NA}
+summary(lm)
+```
+
+
+What is the estimated slope coefficient for this model? (Give your answer to 2 decimal places)
+
+
+
+Solution
+===========
+The slope estimate is the number under the `estimate` column, and the `wt` row
+
+which rounded to 2 decimal places is `r sol`.
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 2)`
+extol: 0.01
+exname: calculate sample mean
+
+
+
