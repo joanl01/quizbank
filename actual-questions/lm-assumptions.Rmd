@@ -1,0 +1,38 @@
+```{r data generation, echo=FALSE, results='hide'}
+ans <- character(5)
+
+ans[1] <- "Observation comes from a binomial distribution."
+ans[2] <- "Linearity."
+ans[3] <-  "Constant spread of residuals."
+ans[4] <- "Normality of residuals."
+ans[5] <- "Independence of residuals."
+sol <- c(TRUE,FALSE,FALSE,FALSE, FALSE)
+
+
+```
+
+Question
+==================
+Which of the following is not an assumption for a linear regression model?
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(ans, markup = "markdown")
+```
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: lm-assumptions
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

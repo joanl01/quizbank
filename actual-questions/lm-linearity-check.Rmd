@@ -1,11 +1,10 @@
 ```{r data generation, echo=FALSE, results='hide'}
 ans <- character(4)
 
-
-ans[1] <- "The intercept tells us the predicted value of $Y$ when $X = 0$."
-ans[2] <- "The intercept represents the change in $Y$ for a one-unit increase in $X$, holding other variables constant."
-ans[3] <-  "The intercept measures the strength of the linear relationship between $X$ and $Y$"
-ans[4] <- "The intercept is always 0."
+ans[1] <- "Fitted values vs residuals plot"
+ans[2] <- "Normal Q-Q plot"
+ans[3] <-  "Plot of $Y$ (response variable) vs $X$ (independent variable)"
+ans[4] <- "Fitted values vs observed values plot"
 sol <- c(TRUE,FALSE,FALSE,FALSE)
 
 
@@ -13,13 +12,8 @@ sol <- c(TRUE,FALSE,FALSE,FALSE)
 
 Question
 ==================
-In the simple linear regression model  
+Which of the following plots would you use to test the assumption of linearity of a model?
 
-$$
-Y = \beta_0 + \beta_1 X + \epsilon,
-$$  
-
-which of the following statements about the intercept coefficient $\beta_0$ is true?
 ```{r questionlist, echo=FALSE, results = "asis"}
 answerlist(ans, markup = "markdown")
 ```
@@ -37,7 +31,7 @@ answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 
 Meta-information
 ================
-exname: intercept-properties
+exname: lm-linearity-check
 extype: schoice
 exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
 exshuffle: TRUE
