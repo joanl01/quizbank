@@ -1,5 +1,5 @@
 ```{r data generation, echo=FALSE, results='hide'}
-pacman::p_load(tidyverse, exams)
+pacman::p_load(tidyverse, exams, patchwork)
 x <- 1:100
 
 # Good model
@@ -16,7 +16,6 @@ model_het <- lm(y_het ~ x)
 
 
 # Lots of outliers
-y_out <- 3 * x_out + rbeta(100, shape1 = 0.1, shape2 = 0.5)
 model_out <- lm(y_out ~ x)
 # Helper function to create residual plots
 
