@@ -1,0 +1,81 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams, patchwork,qqplotr)
+x <- 1:100
+
+# Good model
+y_good <- 5 * x + rnorm(100, mean = 0, sd = 10)
+model_good <- lm(y_good ~ x)
+
+# Non-linear
+y_nl <- 0.3 * x^2 + rnorm(100, mean = 0, sd = 50)
+model_nl <- lm(y_nl~x)
+
+# Heteroscedasticity
+y_het <- -0.2 * x^2 + rnorm(100, mean = 0, sd = x * 0.5)
+model_het <- lm(y_het ~ x)
+
+
+# Lots of outliers
+y_out <- 3 * x + rbeta(100, shape1 = 0.1, shape2 = 0.5)
+model_out <- lm(y_out ~ x)
+# Helper function to create residual plots
+
+plot_residuals <- function(model, title) {
+  df <- data.frame(Fitted = fitted(model), Residuals = resid(model))
+  ggplot(df, aes(sample = Residuals)) +
+    stat_qq_line(col = "red") +
+          stat_qq_point(alpha = 0.7) +
+          labs(x = "Theoretical Quantiles", y = "Sample Quantiles", 
+               title = title) + theme_minimal()
+}
+
+# Generate the 4 plots
+plot1 <- plot_residuals(model_het, "Plot A")
+plot2 <- plot_residuals(model_nl, "Plot B")
+plot3 <- plot_residuals(model_good, "Plot C")
+plot4 <- plot_residuals(model_out, "Plot D")
+
+# Display all 4 together
+
+all_plots <- (plot1 | plot2) / (plot3 | plot4)
+all_plots
+
+# Generate selection
+ans <- character(4)
+ans[1] <- "Plot A"
+ans[2] <- "Plot B"
+ans[3] <- "Plot C"
+ans[4] <- "Plot D"
+sol <- c(FALSE,FALSE, TRUE, FALSE)
+
+```
+
+Question
+==================
+Which of the plots below shows that linearity is a reasonable assumption for normality of residuals of a model?
+
+```{r questionplot, echo = FALSE, results='markup'}
+all_plots
+```
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(ans, markup = "markdown")
+```
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: lm-normality-plots
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`

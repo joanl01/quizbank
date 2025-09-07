@@ -1,0 +1,37 @@
+```{r data generation, echo=FALSE, results='hide'}
+ans <- character(4)
+
+ans[1] <- "Fitted values vs residuals plot"
+ans[2] <- "Normal Q-Q plot"
+ans[3] <-  "Plot of $Y$ (response variable) vs $X$ (independent variable)"
+ans[4] <- "Fitted values vs observed values plot"
+sol <- c(TRUE,FALSE,FALSE,FALSE)
+
+
+```
+
+Question
+==================
+Which of the following plots would you use to test the assumption of homoscedasticity (constant spread) of a model?
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(ans, markup = "markdown")
+```
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: lm-homoscedasticity-check
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

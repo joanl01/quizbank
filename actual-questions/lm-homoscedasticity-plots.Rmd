@@ -1,0 +1,92 @@
+```{r data generation, echo: FALSE, results='hide'}
+pacman::p_load(tidyverse, exams, patchwork)
+# Generate a dataset for testing homoscedasticity
+n <- 100
+
+# 1. Homoscedastic plot (constant variance)
+x <- rnorm(n)
+y_homo <- 2*x + rnorm(n) + rnorm(n)
+df_homo <- data.frame(x, y_homo)
+
+# 2. Heteroscedastic plot (increasing variance)
+y_hetero_inc <- x + rnorm(n, sd = 2*abs(x))  # Increasing variance
+df_hetero_inc <- data.frame(x, y_hetero_inc)
+
+# 3. Heteroscedastic plot (decreasing variance)
+y_hetero_dec <- x + rnorm(n, sd = 1 / ( 1 +1.5* abs(x)))  # Decreasing variance
+df_hetero_dec <- data.frame(x, y_hetero_dec)
+
+# 4. Stronger Bimodal heteroscedasticity (Two distinct variance groups)
+# Split `x` into two groups and create residuals with different variances for each group
+x_group1 <- rnorm(n / 2, mean = -2)  # Group 1: smaller variance
+x_group2 <- rnorm(n / 2, mean = 3)   # Group 2: larger variance
+y_bimodal <- c(x_group1 + rnorm(n / 2, sd = 0.2), x_group2 + rnorm(n / 2, sd = 5))  # Different variances
+
+# Combine the data into one data frame
+df_bimodal <- data.frame(x = c(x_group1, x_group2), y = y_bimodal)
+
+# Fit linear models
+lm_homo <- lm(y_homo ~ x, data = df_homo)
+lm_hetero_inc <- lm(y_hetero_inc ~ x, data = df_hetero_inc)
+lm_hetero_dec <- lm(y_hetero_dec ~ x, data = df_hetero_dec)
+lm_bimodal <- lm(y_bimodal ~ x, data = df_bimodal)
+
+plot_residuals <- function(model, title) {
+  df <- data.frame(Fitted = fitted(model), Residuals = resid(model))
+  ggplot(df, aes(x = Fitted, y = Residuals)) +
+    geom_point(alpha = 0.6) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+    labs(title = title, x = "Fitted Values", y = "Residuals") +
+    theme_minimal()
+}
+
+# Generate the 4 plots
+plot1 <- plot_residuals(lm_bimodal, "Plot A")
+plot2 <- plot_residuals(lm_hetero_inc, "Plot B")
+plot3 <- plot_residuals(lm_hetero_dec, "Plot C")
+plot4 <- plot_residuals(lm_homo, "Plot D")
+
+
+# Display all 4 together
+
+all_plots <- (plot1 | plot2) / (plot3 | plot4)
+all_plots
+
+# Generate selection
+ans <- character(4)
+ans[1] <- "Plot A"
+ans[2] <- "Plot B"
+ans[3] <- "Plot C"
+ans[4] <- "Plot D"
+sol <- c(FALSE,FALSE, FALSE, TRUE)
+
+```
+Question
+==================
+Which of the plots below shows that homoscedasticity (constant spread) is a reasonable assumption for a linear regression model?
+
+```{r questionplot, echo = FALSE, results='markup'}
+all_plots
+```
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(ans, markup = "markdown")
+```
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: lm-homoscedasticity-plots
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
