@@ -54,7 +54,7 @@ Question
 ==================
 Which of the plots below shows that linearity is a reasonable assumption for normality of residuals of a model?
 
-```{r questionplot, echo = FALSE, results='markup'}
+```{r questionplot, echo = FALSE, results='asis'}
 all_plots
 ```
 
@@ -72,6 +72,7 @@ The correct answer is
 answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 ```
 
+For the assumption of normality to be valid, we would want to observe the points fall along the reference (red) line tightly. 
 
 
 Meta-information

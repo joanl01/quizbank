@@ -28,6 +28,7 @@ answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 ```
 
 
+The plot used to check the assumption of linearity is the residuals vs fitted plot. 
 
 Meta-information
 ================

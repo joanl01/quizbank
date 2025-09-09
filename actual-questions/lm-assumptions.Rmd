@@ -28,7 +28,11 @@ The correct answer is
 answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 ```
 
-
+The 4 assumptions for a linear model are:
+-    Independent (no correlation between residuals)
+-    Linearity (linear relationship between variables)
+-    Normality (residuals are normally distributed)
+-    Homoscedasticity/Constant spread (variance of the residuals should be constant)
 
 Meta-information
 ================

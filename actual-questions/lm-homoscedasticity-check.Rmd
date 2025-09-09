@@ -28,7 +28,7 @@ answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 ```
 
 
-
+The plot used to check for homoscedasticity (constant spread) is the residuals vs fitted plot. 
 Meta-information
 ================
 exname: lm-homoscedasticity-check

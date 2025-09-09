@@ -28,6 +28,7 @@ The correct answer is
 answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 ```
 
+The plot to observe to check normality is the QQ-plot.
 
 
 Meta-information

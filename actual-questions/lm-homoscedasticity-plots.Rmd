@@ -83,7 +83,7 @@ The correct answer is
 answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
 ```
 
-
+For the assumption of constant spread (homoscedasticity) to be valid, we want to observe an even spread of point from left to right in the residuals vs fitted plot. 
 
 Meta-information
 ================
