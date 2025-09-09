@@ -29,7 +29,7 @@ What is the interquartile range of the following sample:
 $`r sample`$
 
 ```{r questionlist, echo = FALSE, results = "asis"}
-answerlist(list_of_answers)
+answerlist(list_of_answers,markup = "markdown")
 ```
 
 
