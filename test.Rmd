@@ -1,0 +1,60 @@
+```{r data generation, echo=FALSE, results='hide'}
+# Data generation 
+n <- 40 + sample(1:12, 2) *3
+
+# queue
+waiting <- rnorm(sum(n), sd = sample(30:40,1)/10 + rep(sample(30:80, 2)/10), n)
+waiting[waiting < 0 ] <- 0
+
+df <- data.frame(
+  waiting = waiting,
+  supermarket = factor(rep(1:2, c(n[1], n[2])), levels = 1:2, c("Foodland", "Aldi"))
+)
+
+
+tt <- t.test(data = df, waiting~supermarket, var.equal = TRUE, alternative = sample(c("less", "greater", "two.sided"),1))
+
+list_of_ans <- c("True", "False")
+if (tt$statistic>1.96){
+  sol <- c(TRUE, FALSE)
+} else sol <- c(FALSE, TRUE)
+
+
+
+```
+
+
+Question 
+=================
+
+The waiting time (in minutes) at the self-checkout of two suprermarket chains is compared. The following statistical test was performed:
+
+```{r test output, echo=FALSE, comment=NA}
+print(tt)
+```
+
+From the output above, is this statement correct?:
+
+
+"The absolute value of the test statistic is greater than 1.96."
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(list_of_ans,  markup = "markdown")
+```
+
+
+Solution
+=====================
+```{r solutionlist, echo=FALSE, results='asis'}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+The test-statistic can be found by looking at the \texttt{t = `r tt$statistic`}
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: read-test-statistic-2sample-ttest
+
