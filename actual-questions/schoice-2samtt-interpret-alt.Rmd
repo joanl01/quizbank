@@ -46,6 +46,10 @@ answerlist(list_of_ans,  markup = "markdown")
 ```
 
 
+Solution 
+===============
+The test aims at showing that the difference of means is `r switch(tt$alternative, "two.sided" = "unequal to", "less" = "smaller than", "greater" = "larger than")`  0.
+
 Meta-information
 ================
 extype: schoice

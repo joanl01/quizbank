@@ -1,0 +1,102 @@
+```{r data generation, echo=FALSE, results='hide'}
+# Data generation 
+n <- 40 + sample(1:12, 2) *3
+
+# queue
+waiting <- rnorm(sum(n), sd = sample(30:40,1)/10 + rep(sample(30:80, 2)/10), n)
+waiting[waiting < 0 ] <- 0
+
+df <- data.frame(
+  waiting = waiting,
+  supermarket = factor(rep(1:2, c(n[1], n[2])), levels = 1:2, c("Foodland", "Aldi"))
+)
+
+
+tt <- t.test(data = df, waiting~supermarket, var.equal = TRUE, alternative =
+               sample(c("less", "greater", "two.sided"),1))
+
+
+list_of_ans <- character(4)
+list_of_ans[3] <- paste("The p-value is", format.pval(tt$p.value, digits = 3), 
+  "and it is greater than 0.05. Therefore, the test result is not statistically significant, and we cannot conclude that the waiting times differ between the supermarkets.")
+
+list_of_ans[1] <- paste("The p-value is", format.pval(tt$p.value, digits = 3),
+  "and it is greater than 0.05. The test shows that the waiting time is significantly longer at Foodland than at Aldi.")
+
+list_of_ans[2] <- paste("The p-value is", format.pval(tt$p.value, digits = 3),
+  "and it is less than 0.05. The test shows that the waiting time is significantly shorter at Foodland than at Aldi.")
+
+list_of_ans[4] <- paste("The p-value is", format.pval(tt$p.value, digits = 3),
+  "which is less than zero. This indicates strong evidence against the null hypothesis that the means are equal.")
+
+
+# Define the solutions based on the t-test results
+solutions <- logical(4)
+
+# Based on p-value comparison and alternative hypothesis
+solutions[3] <- ifelse(tt$p.value > 0.05, TRUE, FALSE)  # Check if p-value is greater than 0.05 (not significant)
+
+solutions[1] <- FALSE 
+
+solutions[2] <- ifelse(tt$p.value < 0.05 && tt$alternative != "greater" && diff(tt$estimate) > 0, TRUE, FALSE)  # Significant & Foodland < Aldi
+
+solutions[4] <- ifelse(tt$p.value < 0, TRUE, FALSE)  # Strong evidence against null hypothesis
+
+# Print solutions for reference (for the instructor or auto-grading purposes)
+# solutions
+
+
+explain <- character(4)
+explain[1] <- "For the result to be statistically significant, the p-value has to be less than the significance level"
+explain[2] <- if(solutions[2]) paste("The test result is significant ($p < 0.05$)",
+  "and hence the alternative is shown, that the difference of means are",
+  ifelse(tt$alternative == "two.sided", "unequal to", "smaller than"),
+  "0.") else paste(ifelse(tt$alternative != "greater", "", 
+  paste("The test aims at showing that the waiting time at Foodland is longer than at Aldi.")),
+  ifelse(tt$p.value < 0.05, "", "The test result is not significant ($p \\ge 0.05$)."))
+
+explain[4] <- "P-values cannot have values less than 0, because they are probabilities, which can only have values between 0 and 1."
+
+
+
+```
+
+
+Question 
+=================
+
+The waiting time (in minutes) at the self-checkout of two suprermarket chains is compared. The following statistical test was performed:
+
+```{r test output, echo=FALSE, comment=NA}
+print(tt)
+```
+
+
+From the output above, what is the p-value, and what can you conclude from the p-value for a significance level of 5%?
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(list_of_ans,  markup = "markdown")
+```
+
+
+
+
+Solution
+============
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(solutions, "True", "False"),explain, markup = "markdown")
+```
+
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(solutions, single = TRUE)`
+exname: read pval 2sample ttest
+
