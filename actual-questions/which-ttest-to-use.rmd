@@ -1,0 +1,121 @@
+```{r data generation, echo = FALSE, results = "hide"}
+scenarios <- character(12)
+solution <- character(12)
+explain <- character(1)
+
+# Generate scenarios 
+scenarios[1] <- "A researcher wants to determine if the average age of students at a university is different from the national average of 21 years. They collect data from 50 students at the university. \n Which test should you use to measure the difference from the national average?"
+
+solution[1] <- "One sample t-test"
+
+scenarios[2] <- "A teacher wants to compare the average test scores between two classes: Class A and Class B. They collect data from 30 students in each class. \n 
+Which test should you use to compare the test scores?"
+
+solution[2] <- "Two sample t-test"
+
+scenarios[3] <- "A nutritionist wants to test whether a new diet program improves the cholesterol levels of participants. They measure their cholesterol levels before and after the program. \n Which test should you use to measure the effect of the diet program?"
+
+solution[3] <- "Matched pairs t-test"
+
+scenarios[4] <- "A company claims that its product lasts an average of 100 hours. You test 15 products and measure their lifespans. \n
+Which test should you use to compare the sample mean with the company's claim?"
+
+solution[4] <- "One sample t-test"
+
+
+scenarios[5] <- "You want to compare the average salaries of employees working in two different departments: Marketing and Sales. You collect salary data from 40 employees in each department.\n
+Which test should you use to compare the salaries between the two departments?"
+
+solution[5] <- "Two sample t-test"
+
+
+scenarios[6] <- "A psychologist wants to test if a new therapy method reduces anxiety. They measure anxiety levels of 20 patients before and after the therapy. \n 
+Which test should you use to measure the effect of the therapy?"
+
+solution[6] <- "Matched pairs t-test"
+
+
+scenarios[7] <- "A study is conducted to compare the mean weight loss of two groups of individuals following different exercise programs. 30 people are assigned to each program. \n
+Which test should you use to compare the weight loss between the two groups?"
+
+solution[7] <- "Two sample t-test"
+
+
+scenarios[8] <- "A researcher wants to know if a new app is effective at reducing screen time. They collect data from 25 people before and after using the app for a month. \n
+Which test should you use to measure the effect of the app?"
+
+solution[8] <- "Matched pairs t-test"
+
+
+
+scenarios[9] <- "A scientist wants to determine if the average concentration of a chemical in a sample differs from the known concentration of 5 mg/L. They collect data from 12 samples. \n
+Which test should you use to measure the difference in concentration?"
+
+solution[9] <- "One sample t-test"
+
+
+
+scenarios[10] <- "You are comparing the mean blood pressure levels before and after an intervention on 40 patients. Each patient's blood pressure is measured at both times. \n
+Which test should you use to compare the two time points?"
+
+solution[10] <- "Matched pairs t-test"
+
+scenarios[11] <- "A factory claims that its new machine produces an average of 100 units per hour. You randomly select 25 hours of production and record the output. \n
+Which test should you use to compare the sample mean production rate with the claimed rate?"
+
+solution[11] <-  "One sample t-test"
+
+
+scenarios[12] <- "A medical researcher wants to compare the effectiveness of two different treatments for high blood pressure. She tests each treatment on 50 different patients. \n
+Which test should you use to compare the two treatments?"
+
+solution[12] <- "Matched pairs t-test"
+
+
+choices <- character(3)
+choices[1] <- "One sample t-test"
+choices[2] <- "Two sample t-test"
+choices[3] <- "Matched pairs t-test"
+
+
+sample <- sample(1:12, 1)
+
+correct <- ifelse(choices == solution[sample], TRUE, FALSE)
+
+if(solution[sample] == "One sample t-test"){
+  explain <- "You are comapring the mean of a sampled population to an assumed mean, therefore it is a one sample t-test"
+} else if(solution[sample] == "Two sample t-test") {
+   explain <- "The data is comapring the means of two independent populations/groups, it is therefore a two sample t-test"
+} else if(solution[sample] == "Matched pairs t-test"){
+  explain <- "The data used is paired, in other words, for the same subject, you have a pair of observations (X,Y) recorded, therefore a matched pairs t-test should be used."
+}
+
+```
+
+
+Question 
+===============
+`r scenarios[sample]`
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+==================
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(correct, "TRUE", "FALSE"), markup = "markdown")
+```
+<br>
+
+`r explain`
+
+Meta-information
+================
+exname: which ttest to use
+extype: schoice
+exsolution: exsolution: `r mchoice2string(correct, single = TRUE)`
+
+
