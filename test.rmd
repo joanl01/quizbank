@@ -1,0 +1,68 @@
+```{r data generation, echo=FALSE, results='hide'}
+after2020 <- rnorm(36, mean = 253.24, sd =  44.85194)
+before2020 <- rnorm(36, mean = 231.5, sd =  27.62659)
+
+music <- data.frame(
+  before2020 = rnorm(36, mean = 221.5, sd =  27.62659),
+  after2020 = rnorm(36, mean = 253.24, sd =  44.85194))
+
+res <- t.test(before2020, after2020, paired = TRUE)
+
+
+rcode <- character(4)
+sol <- c(FALSE, FALSE, FALSE, TRUE)
+rcode[1] <- "`t.test(music$before2020, music$after2020)`"
+rcode[2] <- "`t.test(before2020 ~ after2020, data = music)`"
+rcode[3] <- "`t.test(before2020, after2020,  var.equal = TRUE)`"
+rcode[4] <- "`t.test(before2020, after2020, paired = TRUE)`"
+
+# 
+# Option 1 (t.test(music$before2020, music$after2020)): Incorrect. The paired argument is missing, so it will treat the data as two independent samples instead of paired samples.
+# 
+# Option 2 (t.test(before2020 ~ after2020, data = music)): Incorrect. This formula approach is used for independent samples and would not work for paired data.
+# 
+# Option 3 (t.test(before2020, after2020, var.equal = TRUE)): Incorrect. This is for a two-sample t-test assuming equal variances, which does not apply in this case because we are dealing with paired data.
+# 
+# Option 4 (t.test(before2020, after2020, paired = TRUE)): Correct. This is the appropriate code for a paired t-test, which is the right test for comparing two related groups (before and after 2020).
+```
+
+
+Question
+================
+A Taylor Swift fan thinks that Taylor Swift made the same songs longer after she re-recorded her songs in 2020. The dataset contains two columns, `before2020` and `after2020`, which represent the durations (in seconds) of the same songs before and after being re-recorded in 2020, respectively.
+
+```{r showdf}
+head(music)
+```
+
+You want to test if the duration of Taylor Swift's music has increased after 2020. Which of the following is the correct R code to perform a paired t-test to test this hypothesis?
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(rcode, markup = "markdown")
+```
+
+
+
+
+
+
+
+Solution
+================
+```{r solutionlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+The correct approach would be to use a paired t-test, since the data consists of two related samples: one before 2020 and one after 2020. This is because each song has a corresponding pair (one song before 2020 and the same song after 2020), and we are comparing the durations within each pair.
+
+
+
+
+
+Meta-information
+================
+exname: matched-pairs ttest
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE
