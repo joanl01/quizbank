@@ -1,0 +1,106 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse, moments)
+
+data("diamonds")
+
+numeric <- diamonds |> select(where(is.numeric))
+
+variable <- numeric |> sample(1) |> names()
+
+variable_2 <-  numeric |> select(!all_of(variable)) |> sample(1) |> names()
+
+question <- c("mean", "median", "standard deviation", "variance", "kurtosis", "skewness") |> sample(1)
+
+# Calculate the result based on the selected variable and question
+result <- switch(question,
+                 "mean" = mean(diamonds[[variable]], na.rm = TRUE),
+                 "median" = median(diamonds[[variable]], na.rm = TRUE),
+                 "standard deviation" = sd(diamonds[[variable]], na.rm = TRUE),
+                 "variance" = var(diamonds[[variable]], na.rm = TRUE),
+                 "kurtosis" = kurtosis(diamonds[[variable]], na.rm = TRUE),
+                 "skewness" = skewness(diamonds[[variable]], na.rm = TRUE)) |> round(4)
+
+
+
+# Sample 3 incorrect answers from a pool of random statistics (excluding the correct answer)
+incorrect_pool <- c(mean(diamonds[[variable]], na.rm = TRUE),
+                    median(diamonds[[variable]], na.rm = TRUE),
+                    sd(diamonds[[variable]], na.rm = TRUE),
+                    var(diamonds[[variable]], na.rm = TRUE),
+                    kurtosis(diamonds[[variable]], na.rm = TRUE),
+                    skewness(diamonds[[variable]], na.rm = TRUE), 
+                    mean(diamonds[[variable_2]], na.rm = TRUE),
+                    median(diamonds[[variable_2]], na.rm = TRUE),
+                    sd(diamonds[[variable_2]], na.rm = TRUE),
+                    var(diamonds[[variable_2]], na.rm = TRUE),
+                    kurtosis(diamonds[[variable_2]], na.rm = TRUE),
+                    skewness(diamonds[[variable_2]], na.rm = TRUE)) |> round(4)
+
+# Remove the correct answer from the incorrect pool
+incorrect_answers <- setdiff(incorrect_pool, result)
+
+# Randomly sample 3 incorrect answers
+incorrect_answers <- sample(incorrect_answers, 3)
+
+# Set up chocies
+list_of_ans <- c(incorrect_answers, result) |> sample()
+sol <- ifelse(list_of_ans == result, TRUE, FALSE)
+
+# Generate the explanation with the corresponding R code
+explanation <- switch(question,
+                      "mean" = paste("To calculate the mean of the", variable, 
+                                     "variable, use `mean(diamonds$", variable, ")`."),
+                      "median" = paste("To calculate the median of the", variable, 
+                                       "variable, use `median(diamonds$", variable, ")`."),
+                      "standard deviation" = paste("To calculate the standard deviation of the", variable, 
+                                                   "variable, use `sd(diamonds$", variable, ")`."),
+                      "variance" = paste("To calculate the variance of the", variable, 
+                                         "variable, use `var(diamonds$", variable, ")`."),
+                      "kurtosis" = paste("To calculate the kurtosis of the", variable, 
+                                         "variable, use `kurtosis(diamonds$", variable, ")`."),
+                      "skewness" = paste("To calculate the skewness of the", variable, 
+                                         "variable, use `skewness(diamonds$", variable, ")`."))
+
+```
+
+Question 
+============================
+
+Obtain the diamonds dataset in R using 
+```{r data}
+data("diamonds")
+```
+
+the dataset should look like
+```{r data2}
+diamonds
+```
+
+
+Which is the `r question` of the `r variable`? (Rounded to 4 decimal places)
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(list_of_ans, markup = "markdown")
+```
+
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+`r explanation`
+
+
+
+Meta-information
+================
+exname: calculate stuff diamonds
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE
