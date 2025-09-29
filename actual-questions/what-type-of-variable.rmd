@@ -1,0 +1,65 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+
+choices <- c("Categorical ordinal", "Categorical nominal", "Quantitative discrete", "Quantitative continuous")
+question <- character(30)
+solution <- character(30)
+question[1] <- "The age of students enrolled at the University of Adelaide."
+solution[1] <- choices[4]
+
+question[2] <- "The suburb of residence of people attending the Royal Adelaide Show."
+solution[2] <- choices[2]
+
+
+question[3] <- "The number of koalas counted in Cleland Wildlife Park."
+solution[3] <- choices[3]
+
+
+question[4] <- "The amount of milk (in litres) sold at a Foodland supermarket per day."
+solution[4] <- choices[4]
+
+question[5] <- "The satisfaction rating in a student survey (Very Unsatisfied, Unsatisfied, Neutral, Satisfied, Very Satisfied)."
+solution[5] <- choices[1]
+
+
+question[6] <- "The brand of breakfast cereal chosen by Woolworths customers."
+solution[6] <- choices[2]
+
+
+question[7] <- "The number of tram stops between Glenelg and the Adelaide city centre."
+solution[7] <- choices[3]
+
+
+question[8] <- "The length (in centimetres) of barramundi caught by fishers in the Murray River."
+solution[8] <- choices[4]
+
+
+question[9] <- "The star rating (1–5 stars) given by movie-goers at the Palace Nova cinema."
+solution[9] <- choices[1]
+
+
+
+question[10] <- "The blood type (A, B, AB, O) of donors at the Australian Red Cross Lifeblood centre."
+solution[10] <- choices[2]
+
+
+question[11] <- "The number of siblings a university student has."
+solution[11] <- choices[3]
+
+
+question[12] <- "The weight (in kilograms) of luggage checked in at Adelaide Airport."
+solution[12] <- choices[4]
+
+question[13] <- "The ranking of tennis players in the Australian Open (1st, 2nd, 3rd, etc.)."
+solution[13] <- choices[1]
+
+
+question[14] <- "The colour of beach towels seen at Semaphore Beach."
+solution[14] <- choices[2]
+
+
+
+# choices <- c("Categorical ordinal", "Categorical nominal", "Quantitative discrete", "Quantitative continuous")
+
+```
+
