@@ -1,0 +1,80 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse, moments)
+
+data("diamonds")
+
+numeric <- diamonds |> select(where(is.numeric))
+
+variable <- numeric |> sample(1) |> names()
+
+question <- c("mean", "median", "standard deviation", "variance", "kurtosis", "skewness") |> sample(1)
+
+
+# Calculate the result based on the selected variable and question
+result <- switch(question,
+                 "mean" = paste("It provides the average value of variable", variable),
+                 "median" = paste("It gives the middle value when variable", variable, "is ordered."),
+                 "standard deviation" = paste("It tells you the spread or variability of variable", variable, "'s data"),
+                 "variance" = paste("It provides the square of variable", variable,"'s standard deviation"),
+                 "kurtosis" = paste("It measures the flatness or peakedness of variable", variable, "'s distribution."),
+                 "skewness" = paste("It shows the asymmetry of the distribution of the", variable, "variable."))
+ 
+
+choices <- character(6)
+choices[1] <- paste("It provides the average value of variable", variable)
+choices[2] <- paste("It gives the middle value when variable", variable, "is ordered.")
+choices[3] <- paste("It tells you the spread or variability of variable", variable, "'s data")
+choices[4] <- paste("It provides the square of variable", variable,"'s standard deviation")
+choices[5] <- paste("It measures the flatness or peakedness of variable", variable, "'s distribution.")
+choices[6] <- paste("It shows the asymmetry of the distribution of the", variable, "variable.")
+
+
+incorrect_answers <- setdiff(choices,result)
+
+
+# Randomly sample 3 incorrect answers
+incorrect_answers <- sample(incorrect_answers, 3)
+
+# Set up chocies
+list_of_ans <- c(incorrect_answers, result) |> sample()
+sol <- ifelse(list_of_ans == result, TRUE, FALSE)
+
+
+```
+
+Question 
+============================
+
+Obtain the diamonds dataset in R using 
+```{r data}
+data("diamonds")
+```
+
+the dataset should look like
+```{r data2}
+diamonds
+```
+
+What does the `r question` tell you about variable `r variable`
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(list_of_ans, markup = "markdown")
+```
+
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"),markup = "markdown")
+```
+
+
+Meta-information
+================
+exname: what does statistic mean
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE
