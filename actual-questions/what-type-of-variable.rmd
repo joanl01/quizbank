@@ -2,8 +2,8 @@
 pacman::p_load(exams, tidyverse)
 
 choices <- c("Categorical ordinal", "Categorical nominal", "Quantitative discrete", "Quantitative continuous")
-question <- character(30)
-solution <- character(30)
+question <- character(16)
+solution <- character(16)
 question[1] <- "The age of students enrolled at the University of Adelaide."
 solution[1] <- choices[4]
 
@@ -57,9 +57,18 @@ solution[13] <- choices[1]
 question[14] <- "The colour of beach towels seen at Semaphore Beach."
 solution[14] <- choices[2]
 
+question[15] <- "The number of AFL premierships won by Port Adelaide."
+solution[15] <- choices[3]
 
 
-# choices <- c("Categorical ordinal", "Categorical nominal", "Quantitative discrete", "Quantitative continuous")
+question[16] <- "The satisfaction level with train punctuality (Poor, Fair, Good, Very Good, Excellent)."
+solution[16] <- choices[1]
+
+
+random <- sample(1:16,1)
+
+sol <- ifelse(choices == solution[random], TRUE, FALSE)
+
 
 ```
 

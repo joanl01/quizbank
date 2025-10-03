@@ -1,0 +1,87 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse, patchwork)
+data("penguins")
+
+penguins <- penguins |> na.omit()
+
+
+plot2 <- penguins |> ggplot(aes(x = flipper_len, y = bill_len)) + geom_point() + 
+  theme_minimal() + labs(x = "Flipper length",
+                    y = "Bill length", 
+                    title = "Plot 2")
+
+plot1 <- penguins |> ggplot(aes(x = species, y = flipper_len)) + geom_boxplot() +
+  theme_minimal() + labs(x = "Species",
+                         y = "Flipper length", 
+                         title = "Plot 1")
+
+plot4 <- penguins |> ggplot(aes(x = sex, y = bill_len)) + geom_boxplot() + 
+  theme_minimal() + labs(x = "Sex",
+                         y = "Bill length", 
+                         title = "Plot 4")
+
+plot3 <- penguins |> ggplot(aes(x = bill_len)) + geom_histogram(col = "white", bins = 30) + 
+  theme_minimal() + labs(x = "Bill length",
+                         title = "Plot 3")
+
+
+final <- (plot1 + plot2)/(plot3 + plot4)
+list_of_ans <- c("Plot 1", "Plot 2", "Plot 3", "Plot 4")
+sol <- ifelse(list_of_ans == "Plot 2", TRUE, FALSE)
+```
+
+Question
+==============
+For weeks, a few scientists have been traveling across the Palmer Archipelago, collecting data on three different species of penguins: the Adélie, the Chinstrap, and the Gentoo.
+
+Each day, they venture out into the cold, observing and recording measurements from hundreds of penguins—everything from their bill length to their body mass. They also note where each penguin was spotted: on one of the several islands in the archipelago.
+
+The dataset they collected is shown below:
+```{r show data, echo=FALSE}
+head(penguins)
+```
+The dataset includes key measurements such as:
+
+-    Species (Adélie, Chinstrap, Gentoo)
+
+-    Island (where the penguin was spotted)
+
+-    Bill length and bill depth (how big the penguin’s beak is)
+
+-    Flipper length (how long their flippers are)
+
+-    Body mass (how much the penguin weighs)
+
+-    Sex (whether the penguin is male or female)
+
+
+These scientists think that if a penguin has a long flipper length, it will also have a long bill length. Which of the following plot is the best to see if this is true? 
+
+```{r showplot, echo=FALSE,results='asis', warning=FALSE}
+final
+```
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(list_of_ans,  markup = "markdown")
+```
+
+
+
+
+
+Solution
+===========================
+To understand the relationship between 2 numeric (continuous) variables, a scatter plot is the best to visualise this relationship.
+
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: what is the best plot penguins 
