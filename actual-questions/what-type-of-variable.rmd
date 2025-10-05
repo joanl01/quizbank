@@ -4,8 +4,7 @@ pacman::p_load(exams, tidyverse)
 choices <- c("Categorical ordinal", "Categorical nominal", "Quantitative discrete", "Quantitative continuous")
 question <- character(16)
 solution <- character(16)
-question[1] <- "The age of students enrolled at the University of Adelaide."
-solution[1] <- choices[4]
+explain <- character(16)
 
 question[2] <- "The suburb of residence of people attending the Royal Adelaide Show."
 solution[2] <- choices[2]
@@ -72,3 +71,37 @@ sol <- ifelse(choices == solution[random], TRUE, FALSE)
 
 ```
 
+
+
+Question 
+==================
+For the following data collected by a very hardworking scientist doing research, state whether the variable is categorical nominal, categorical ordinal, quantitative discrete, or quantitative continuous.
+
+`r question[random]`
+
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(list_of_ans,  markup = "markdown")
+```
+
+
+Solution
+===========================
+
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: what is the best plot penguins 
