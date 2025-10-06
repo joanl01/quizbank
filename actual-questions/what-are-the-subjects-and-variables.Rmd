@@ -1,0 +1,86 @@
+```{r data generation, echo=FALSE, results='hide'}
+random_index <- sample(1:4, 1)
+questions <- character(4)
+choices <- list(4)
+sol <- list(4)
+explain <- character(4)
+
+questions[1] <- "A research team investigates the effect of different study environments on test performance. 80 students are randomly assigned to study in one of four locations: library, coffee shop, park, or home. Each student takes the same test after studying."
+choices[[1]] <- c("Subjects: 80 students; 
+                  Variables: Study environment, test scores", 
+                  "Subjects: Test scores;
+                  Variables: 80 students, study environment",
+                  "Subjects: Study locations; 
+                  Variables: Student performance, test scores",
+                  "Subjects: Library, coffee shop, park, home; 
+                  Variables: Number of students")
+sol[[1]] <- c(1,0,0,0)
+explain[1] <- "The subjects are the 80 students because they are the individuals being studied. The variables are the study environment (library, coffee shop, park, home) and the test scores, because these are what are measured or recorded."
+
+
+questions[2] <- "A survey asks 120 university students to report how many hours they spend on social media per day and their self-reported stress level (low, medium, high)."
+
+choices[[2]] <- c(
+  "Subjects: Stress levels; Variables: Hours on social media",
+  "Subjects: 120 students; Variables: Hours on social media, stress level",
+  "Subjects: University; Variables: Stress level",
+  "Subjects: Hours on social media; Variables: Students")
+sol[[2]] <- c(0,1,0,0)
+explain[2] <- "The subjects are the 120 students, as the study measures characteristics of these individuals. The variables are the hours spent on social media and the self-reported stress level, since these are the measurements taken from each student."
+
+
+questions[3] <- "A wildlife researcher tags and monitors 25 kangaroos, recording the distance they travel each day and the type of habitat they prefer (grassland, forest, scrub)."
+
+choices[[3]] <- c(
+                  "Subjects: Habitats; Variables: Distance, kangaroo count", 
+                  "Subjects: Distance traveled; Variables: Kangaroos",
+                  "Subjects: Kangaroos; Variables: Distance traveled, habitat type",
+                  "Subjects: Grassland, forest, scrub; Variables: Kangaroo movement")
+
+sol[[3]] <- c(0,0,1,0)
+explain[3] <- "The subjects are the 25 kangaroos, as these are the entities being observed. The variables are the distance traveled and habitat type, because these are the characteristics being recorded for each kangaroo."
+
+
+
+questions[4] <- "An experiment tests the effect of four different fertilisers on plant growth. 48 tomato plants are randomly assigned to receive Fertiliser A, B, C, or D, and their height is measured after 6 weeks."
+
+choices[[4]] <- c("Subjects: Fertilisers; Variables: Plant height",
+                  "Subjects: Plant height; Variables: Fertiliser type",
+                  "Subjects: 6 weeks; Variables: Plant growth",
+                  "Subjects: Tomato plants; Variables: Fertiliser type, plant height")
+
+sol[[4]] <- c(0,0,0,1)
+
+explain[4] <- "The subjects are the tomato plants, as they are the entities being studied. The variables are the fertiliser type (A, B, C, D) and the plant height, which are the factors and outcomes measured in the experiment."
+
+
+
+```
+
+
+Question
+=================
+`r questions[[random_index]]`
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices[[random_index]], markup = "markdown")
+```
+
+
+Solution
+=============
+
+`r explain[random_index]`
+
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(ifelse(sol[[random_index]] == 1, TRUE, FALSE), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol[[random_index]], single = TRUE)`
+exname: what is the best plot penguins 

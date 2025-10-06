@@ -2,69 +2,73 @@
 pacman::p_load(exams, tidyverse)
 
 choices <- c("Categorical ordinal", "Categorical nominal", "Quantitative discrete", "Quantitative continuous")
-question <- character(16)
-solution <- character(16)
-explain <- character(16)
+question <- character(15)
+solution <- character(15)
+explain <- character(15)
+
+
+question[1] <- "The satisfaction level with train punctuality (Poor, Fair, Good, Very Good, Excellent)."
+solution[1] <- choices[1]
+explain[1] <- "The satisfaction levels are ranked categories, so the variable is categorical ordinal."
 
 question[2] <- "The suburb of residence of people attending the Royal Adelaide Show."
 solution[2] <- choices[2]
-
+explain[2] <- "Suburbs are categories without a meaningful order, so the variable is categorical nominal."
 
 question[3] <- "The number of koalas counted in Cleland Wildlife Park."
 solution[3] <- choices[3]
-
+explain[3] <- "The number of koalas is numeric but you cannot have fractions of a koala, so it is quantitative discrete."
 
 question[4] <- "The amount of milk (in litres) sold at a Foodland supermarket per day."
 solution[4] <- choices[4]
+explain[4] <- "Milk volume can take any value, including decimals, so it is quantitative continuous."
 
 question[5] <- "The satisfaction rating in a student survey (Very Unsatisfied, Unsatisfied, Neutral, Satisfied, Very Satisfied)."
 solution[5] <- choices[1]
-
+explain[5] <- "Survey ratings are ranked categories, so the variable is categorical ordinal."
 
 question[6] <- "The brand of breakfast cereal chosen by Woolworths customers."
 solution[6] <- choices[2]
-
+explain[6] <- "Cereal brands are distinct categories with no inherent order, so the variable is categorical nominal."
 
 question[7] <- "The number of tram stops between Glenelg and the Adelaide city centre."
 solution[7] <- choices[3]
-
+explain[7] <- "The number of tram stops is countable and numeric without fractions, so it is quantitative discrete."
 
 question[8] <- "The length (in centimetres) of barramundi caught by fishers in the Murray River."
 solution[8] <- choices[4]
-
+explain[8] <- "Fish length can take any numeric value, including decimals, so it is quantitative continuous."
 
 question[9] <- "The star rating (1–5 stars) given by movie-goers at the Palace Nova cinema."
 solution[9] <- choices[1]
-
-
+explain[9] <- "Star ratings are ranked categories, so the variable is categorical ordinal."
 
 question[10] <- "The blood type (A, B, AB, O) of donors at the Australian Red Cross Lifeblood centre."
 solution[10] <- choices[2]
-
+explain[10] <- "Blood types are categories without order, so the variable is categorical nominal."
 
 question[11] <- "The number of siblings a university student has."
 solution[11] <- choices[3]
-
+explain[11] <- "Number of siblings is numeric but cannot be fractional, so it is quantitative discrete."
 
 question[12] <- "The weight (in kilograms) of luggage checked in at Adelaide Airport."
 solution[12] <- choices[4]
+explain[12] <- "Luggage weight can take any value, including decimals, so it is quantitative continuous."
 
 question[13] <- "The ranking of tennis players in the Australian Open (1st, 2nd, 3rd, etc.)."
 solution[13] <- choices[1]
-
+explain[13] <- "Player rankings are ordered categories, so the variable is categorical ordinal."
 
 question[14] <- "The colour of beach towels seen at Semaphore Beach."
 solution[14] <- choices[2]
+explain[14] <- "Towel colours are categories with no meaningful order, so the variable is categorical nominal."
 
 question[15] <- "The number of AFL premierships won by Port Adelaide."
 solution[15] <- choices[3]
+explain[15] <- "Number of premierships is numeric and countable, with no fractions, so it is quantitative discrete."
 
 
-question[16] <- "The satisfaction level with train punctuality (Poor, Fair, Good, Very Good, Excellent)."
-solution[16] <- choices[1]
-
-
-random <- sample(1:16,1)
+random <- sample(1:15,1)
 
 sol <- ifelse(choices == solution[random], TRUE, FALSE)
 
@@ -82,18 +86,17 @@ For the following data collected by a very hardworking scientist doing research,
 
 
 ```{r questionlist, echo = FALSE, results = "asis"}
-answerlist(list_of_ans,  markup = "markdown")
+answerlist(choices,  markup = "markdown")
 ```
 
 
 Solution
 ===========================
 
-
+`r explain[random]`
 ```{r solutionlist, echo = FALSE, results = "asis"}
 answerlist(ifelse(sol, "True", "False"), markup = "markdown")
 ```
-
 
 
 
