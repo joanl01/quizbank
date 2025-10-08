@@ -83,4 +83,4 @@ Meta-information
 ================
 extype: schoice
 exsolution: `r mchoice2string(sol[[random_index]], single = TRUE)`
-exname: what is the best plot penguins 
+exname: what are the subjects and variables
