@@ -1,26 +1,27 @@
 ```{r data generation, echo=FALSE, results='hide'}
 pacman::p_load(exams, tidyverse, patchwork)
-data("penguins")
+
+data("penguins", package = "modeldata")
 
 penguins <- penguins |> na.omit()
 
 
-plot2 <- penguins |> ggplot(aes(x = flipper_len, y = bill_len)) + geom_point() + 
+plot2 <- penguins |> ggplot(aes(x = flipper_length_mm, y = bill_length_mm)) + geom_point() + 
   theme_minimal() + labs(x = "Flipper length",
                     y = "Bill length", 
                     title = "Plot 2")
 
-plot1 <- penguins |> ggplot(aes(x = species, y = flipper_len)) + geom_boxplot() +
+plot1 <- penguins |> ggplot(aes(x = species, y = flipper_length_mm)) + geom_boxplot() +
   theme_minimal() + labs(x = "Species",
                          y = "Flipper length", 
                          title = "Plot 1")
 
-plot4 <- penguins |> ggplot(aes(x = sex, y = bill_len)) + geom_boxplot() + 
+plot4 <- penguins |> ggplot(aes(x = sex, y = bill_length_mm)) + geom_boxplot() + 
   theme_minimal() + labs(x = "Sex",
                          y = "Bill length", 
                          title = "Plot 4")
 
-plot3 <- penguins |> ggplot(aes(x = bill_len)) + geom_histogram(col = "white", bins = 30) + 
+plot3 <- penguins |> ggplot(aes(x = bill_length_mm)) + geom_histogram(col = "white", bins = 30) + 
   theme_minimal() + labs(x = "Bill length",
                          title = "Plot 3")
 

@@ -52,7 +52,7 @@ data("diamonds")
 
 the dataset should look like
 ```{r data2}
-diamonds
+head(diamonds)
 ```
 
 What does the `r question` tell you about variable `r variable`

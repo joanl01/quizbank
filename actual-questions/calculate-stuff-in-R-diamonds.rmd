@@ -73,7 +73,7 @@ data("diamonds")
 
 the dataset should look like
 ```{r data2}
-diamonds
+head(diamonds)
 ```
 
 
