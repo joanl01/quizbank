@@ -1,0 +1,77 @@
+```{r data generation, results='hide', echo=FALSE}
+pacman::p_load(exams, tidyverse)
+mean <- sample(1:100, 1)
+sd <- abs(round(rnorm(n = 1, mean = 1, sd = 10),0))
+q <- mean - round(rnorm(1, mean = 5, sd = 10),0)
+
+rand <- sample(1:4, 1)
+questions <- character(4)
+sol <- numeric(4)
+
+questions[1] <- paste0("A university final exam has a normal distribution of scores with a mean of ", mean, " and a standard deviation of ", sd, " .What is the probability that a randomly selected student scored less than ",q, " on the exam? Round your solutions to 3 decimal places. ")
+
+sol[1] <- pnorm(q, mean = mean, sd = sd)
+
+questions[2] <- paste0("A call center has a normal distribution of customer wait times with a mean of ", mean, " minutes, and a standard deviation of ", sd, " minutes. What is the probability that a customer waits longer than ", q, " minutes to speak with an agent? Round your solutions to 3 decimal places.")
+
+sol[2] <- 1 - pnorm(q, mean=mean, sd= sd)
+
+questions[3] <- paste0("The heights of male players in a school league are normally distributed with a mean of ", mean, " inches and a standard deviation of ", sd, " inches. What is the probability that a randomly selected player is taller than ", q," inches? Round your solutions to 3 decimal places.")
+
+sol[3] <- 1-pnorm(q, mean = mean, sd = sd)
+
+
+questions[4] <- paste0("The height of trees in a forest is normally distributed with a mean of ", mean, " feet and a standard deviation of ", sd, " feet. What is the probability that a randomly selected tree is shorter than ", q, " feet? Round your solutions to 3 decimal places.")
+sol[4] <- pnorm(q, mean=mean, sd= sd)
+
+
+sol <- round(sol, digits = 3)
+
+choices <- sample(c(sol[rand], 1-sol[rand], pnorm(q-1, mean = mean, sd= sd), pnorm(q, mean= sd, sd = mean))) |> round(3)
+correct <- ifelse(choices == sol[rand], TRUE, FALSE)
+
+
+
+explain <- character(4)
+explain[1] <- paste0("We are looking for the probability of a score less than ", q, ", which corresponds to the left side of the normal curve. Therefore use `pnorm(", q, ",mean, sd)` to find this probability.")
+
+explain[2] <- paste0("This question asks for the probability of a value greater than ", q, " (the right tail). Therefore use `1-pnorm(", q, ", mean, sd)` because `pnorm()` gives the cumulative area below ", q)
+
+explain[3] <- paste0("This question asks for the probability of a value greater than ", q, " (the right tail). Therefore use `1-pnorm(", q, ", mean, sd)` because `pnorm()` gives the cumulative area below ", q)
+
+explain[4] <- paste0("We are looking for the probability of a score less than ", q, ", which corresponds to the left side of the normal curve. Therefore use `pnorm(", q, ",mean, sd)` to find this probability.")
+```
+
+Question
+===================
+`r questions[rand]`
+
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(correct, "TRUE", "FALSE"),markup = "markdown")
+```
+
+<br>
+
+
+`r explain[rand]`
+
+Meta-information
+================
+exname: use pnorm
+extype: schoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exshuffle: TRUE
+
+
+
