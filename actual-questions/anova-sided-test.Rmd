@@ -1,0 +1,106 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+## DATA GENERATION
+n <- 10 + sample(1:5, 3)
+dat <- data.frame(Energy = rnorm(sum(n),
+    mean = rep(sample(seq(from = sample(50:70, 1), by = 1, length.out = sample(10:15, 1)), 3)/10, n),
+    sd = rep(sample(60:80, 3)/100, n)),
+  Diet = factor(rep(1:3, n),
+    labels = c("Vegetarian", "Omnivore", "Vegan")))
+dat$Energy[dat$Energy > 10] <- 10
+dat$Energy[dat$Energy <  0] <-  0
+
+## QUESTION/ANSWER GENERATION
+questions <- character(5)
+solutions <- logical(5)
+explanations <- character(5)
+
+fm0 <- lm(Energy ~ 1, data = dat)
+fm1 <- lm(Energy ~ Diet, data = dat)
+myanova <- anova(fm0, fm1)
+
+## Build a nicely formatted ANOVA comparison table
+myanova_print <- as.data.frame(myanova)
+
+# Round and format columns
+myanova_print$Res.Df   <- round(myanova$Res.Df, 0)
+myanova_print$RSS      <- format(round(myanova$RSS, 3), nsmall = 3)
+myanova_print$Df       <- ifelse(is.na(myanova$Df), "", myanova$Df)
+myanova_print$`Sum of Sq` <- ifelse(is.na(myanova$"Sum of Sq"), "", 
+                                    format(round(myanova$"Sum of Sq", 3), nsmall = 3))
+myanova_print$F        <- ifelse(is.na(myanova$F), "", 
+                                 format(round(myanova$F, 3), nsmall = 3))
+myanova_print$`Pr(>F)` <- ifelse(is.na(myanova$"Pr(>F)"), "", 
+                                 format.pval(myanova$"Pr(>F)", digits = 4))
+
+# Reorder and print nicely
+myanova_print <- myanova_print[, c("Res.Df", "RSS", "Df", "Sum of Sq", "F", "Pr(>F)")]
+
+# print(myanova_print, row.names = FALSE, quote = FALSE, right = TRUE)
+
+
+q2 <- "A one-sided alternative was tested for the mean energy levels."
+sol <- FALSE
+explain2 <- "ANOVA tests the null hypothesis that all mean values are equal against the alternative that at least one differs."
+
+
+choices <- logical(2)
+choices[2] <- TRUE
+
+
+correct <- ifelse(choices == sol, 1,0)
+
+```
+
+
+Question
+===============
+
+A study with `r sum(n)` participants was conducted to evaluate the impact of different diet types on self-reported daily energy levels.
+Participants rated their energy on an eleven-point scale from 0 (very low) to 10 (very high).
+The evaluations are summarised by diet type in the following figure:
+
+```{r boxplots, echo = FALSE, results = "hide", fig.height = 3.5, fig.width = 5.8, fig.path = "", fig.cap = ""}
+par(mar = c(4, 4, 1, 1))
+plot(Energy ~ Diet, data = dat)
+```
+
+To analyse whether the reported energy levels differ by diet, an ANOVA was performed:
+
+```{r anova output, echo = FALSE, comment = NA}
+options(show.signif.stars = FALSE)
+print(myanova_print, quote = FALSE, right = TRUE)
+
+```
+
+Is the following statement correct? 
+
+`r q2`
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=============
+`r explain2`
+
+```{r solutions, echo=FALSE, results='asis'}
+answerlist(ifelse(correct, "True", "False"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: anova sided test 
+
+
+
+
+
+
+

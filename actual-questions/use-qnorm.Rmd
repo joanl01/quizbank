@@ -9,21 +9,21 @@ rand <- sample(1:4, 1)
 questions <- character(4)
 sol <- numeric(4)
 
-questions[1] <- paste0("A university final exam has a normal distribution of scores with a mean of ", mean, " and a standard deviation of ", sd, " .What score corresponds to the top ",q, "% of the students? Round your solutions to 3 decimal places. ")
+questions[1] <- paste0("A university final exam has a normal distribution of scores with a mean of ", mean, " and a standard deviation of ", sd, " .What score does the student who is ranked ",q, "th out of 100 get? Round your solutions to 3 decimal places. ")
 
-sol[1] <- qnorm(1-prob, mean = mean, sd = sd)
+sol[1] <- qnorm(prob, mean = mean, sd = sd)
 
 questions[2] <- paste0("A call center has a normal distribution of customer wait times with a mean of ", mean, " minutes, and a standard deviation of ", sd, " minutes. If the company wants to ensure that ",q, "% of customers wait less than a certain time, what is that time threshold? Round your solutions to 3 decimal places.")
 
 sol[2] <- qnorm(prob, mean = mean, sd = sd)
 
-questions[3] <- paste0("The heights of male players in a school league are normally distributed with a mean of ", mean, " inches and a standard deviation of ", sd, " inches. A team is scouting players and only wants to recruit the top ", q, "% tallest players. At least what height should a player have to be selected? Round your solutions to 3 decimal places.")
+questions[3] <- paste0("The heights of male players in a school league are normally distributed with a mean of ", mean, " inches and a standard deviation of ", sd, " inches. A team is scouting players and only wants to recruit the tallest ", q, "% of players. At least what height should a player have to be selected? Round your solutions to 3 decimal places.")
 
-sol[3] <- qnorm(1-prob, mean = mean, sd= sd)
+sol[3] <- qnorm(prob, mean = mean, sd= sd)
 
 
-questions[4] <- paste0("The height of trees in a forest is normally distributed with a mean of ", mean, " feet and a standard deviation of ", sd, " feet. If a tree is in the top ",q,"% tallest of the forest, what is its height? Round your solutions to 3 decimal places.")
-sol[4] <- qnorm(1-prob, mean = mean, sd= sd)
+questions[4] <- paste0("The height of trees in a forest is normally distributed with a mean of ", mean, " feet and a standard deviation of ", sd, " feet. If a tree is in the tallest ",q,"% of the forest, what is its height? Round your solutions to 3 decimal places.")
+sol[4] <- qnorm(prob, mean = mean, sd= sd)
 
 
 sol <- round(sol, digits = 3)
@@ -38,13 +38,13 @@ correct <- ifelse(choices == sol[rand], TRUE, FALSE)
 
 
 explain <- character(4)
-explain[1] <- paste0("To find the score corresponding to the top ", q, "% of students, we use `qnorm()` to determine the cutoff value for the top (100 - ",q, ")%, which is the percentile corresponding to (1-" , q, "/100). The function `qnorm(1 - ", q,  "/100, mean, sd)` returns the score at the percentile we want." )
+explain[1] <- paste0("To find the score corresponding to the top ", q, "% of students, we use `qnorm()` to determine the cutoff value for the top (",q, ")%, which is the percentile corresponding to (" , q, "/100). The function `qnorm(", q,  "/100, mean, sd)` returns the score at the percentile we want." )
 
 explain[2] <- paste0("To find the time threshold such that the ", q, "% of customers wait less than that time, we use `qnorm(", q, "/100, mean, sd)`. The `qnorm()` function takes the probability of ", q, "/100 and returns the value of which ", q, "% of the values fall." )
 
-explain[3] <- paste0("To find the minimum height of the top ", q, "% of players, we use `qnorm(1-", q,"/100, mean, sd)`. Since the team wants the top ", q, "% of players, we need to find the height at the 100-", q, "% percentile")
+explain[3] <- paste0("To find the minimum height of the top ", q, "% of players, we use `qnorm(", q,"/100, mean, sd)`. Since the team wants the top ", q, "% of players, we need to find the height at the ", q, "% percentile")
 
-explain[4] <- paste0("To find the height of the top ", q, "% tallest percentile, we use `qnorm(1-", q,"/100, mean, sd)`. Since the trees has to be the top ", q, "%, we need to find the height at the 100-", q, "% percentile")
+explain[4] <- paste0("To find the height of the top ", q, "% tallest percentile, we use `qnorm(", q,"/100, mean, sd)`. Since the trees has to be the top ", q, "%, we need to find the height at the ", q, "% percentile")
 ```
 
 
