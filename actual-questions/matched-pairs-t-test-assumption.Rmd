@@ -1,0 +1,41 @@
+```{r}
+choices <- character(4)
+choices[1] <- "The differences between paired observations are approximately normally distributed"
+choices[2] <- "The pairs are meaningfully matched"
+choices[3] <- "Each group must have the same variance"
+choices[4] <- "The pairs are randomly sampled"
+
+
+sol <- c(FALSE,FALSE,TRUE,FALSE)
+```
+
+
+Question
+=============
+Which of the following is not an assumption of a matched pairs t-test?
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+=================
+The matched-pairs test analyses differences, so equal variances between groups is irrelevant. What matters is normality of differences, proper pairing, and random sampling.
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+exname: matched-pairs-t-test-assumptions
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

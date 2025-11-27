@@ -1,0 +1,54 @@
+```{r data generation, echo=FALSE, results='hide'}
+n <- 20
+data <- rnorm(n, mean = 3, sd = 1)
+upper <- round(mean(data) + 1.96*1/n, 2)
+lower <- round(mean(data) - 1.96*1/n, 2)
+
+
+
+choices <- character(4)
+choices[1] <-  paste("95% of newborns in this hospital weigh between", lower, "kg and", upper,"kg.")
+choices[2] <- paste("There is a 95% chance that the true mean newborn weight is between",lower, "and", upper, "kg.")
+choices[3] <- "If we repeated this sampling process many times, about 95% of the intervals we compute would contain the true mean."
+choices[4] <- paste("The sample mean definitely lies between", lower, "and", upper, "kg.")
+
+sol <- c(FALSE,FALSE,TRUE,FALSE)
+
+```
+
+
+
+
+Question
+===============
+A 95% confidence interval for the mean weight of newborns in a hospital is (`r lower`kg, `r upper`kg). Which is the correct interpretation?
+
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+==================
+A 95% CI means that the method used will capture the true mean in about 95% of repeated samples—not that 95% of individuals fall within the interval or that there is a literal 95% probability about this specific interval.
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+
+
+Meta-information
+================
+exname: interpret-CI
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

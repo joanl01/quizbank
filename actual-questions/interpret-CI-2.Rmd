@@ -1,0 +1,42 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+explain <- character(4)
+
+choices[1] <- "The treatment definitely has no effect."
+choices[2] <-  "There is evidence that Treatment increases blood pressure."
+choices[3] <- "The treatment effect could be negative, zero, or positive based on this interval."
+choices[4] <- "90% of patients had blood pressure changes between −2 and 5 mmHg"
+
+sol <- c(FALSE,FALSE,TRUE,FALSE)
+```
+
+Question
+==================
+A researcher reports a 90% CI for the difference in mean blood pressure between Treatment and Control as (−2 mmHg, 5 mmHg). What conclusion is reasonable?
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+==============
+Because the interval includes 0, the data are consistent with a negative, zero, or positive effect. It does not show “no effect,” nor does it imply anything about 90% of individual blood pressure measurements.
+
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+exname: interpret-CI-2
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

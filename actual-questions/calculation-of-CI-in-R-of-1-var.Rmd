@@ -1,0 +1,44 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+choices <- character(4)
+explain <- character(4)
+choices[1] <- "`mean(x) ± 1.96 * sd(x)`"
+choices[2] <- "`mean(x) + c(-1, 1) * 1.96 * (sd(x)/sqrt(length(x)))`"
+choices[3] <- "`t.test(x)$conf.int`"
+choices[4] <- "`quantile(x, probs = c(0.025, 0.975))`"
+
+explain[1] <- "The standard error should be calculated, instead of the standard deviation."
+explain[3] <- "This calculates a t-distribution based interval, not a normal-theory"
+explain[4] <- "This calculates the quantile of the data, not the confidence interval"
+
+sol <- c(FALSE,TRUE,FALSE,FALSE)
+
+```
+
+Question
+============
+You have a numeric vector `x` in R containing sample data. Which R command correctly computes a 95% confidence interval for the population mean using a normal-theory formula?
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), explain, markup = "markdown")
+```
+
+A normal-theory confidence interval for a mean uses:
+$$\bar{x} \pm z_{\alpha/2}\frac{s}{n}$$
+
+
+
+Meta-information
+================
+exname: calc-CI-1-var
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`

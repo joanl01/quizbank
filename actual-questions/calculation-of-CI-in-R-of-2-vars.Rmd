@@ -1,0 +1,52 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+choices <- character(4)
+explain <- character(4)
+choices[1] <- "`mean(x) - mean(y) + c(-1,1) * 1.96 * sqrt(sd(x)^2 + sd(y)^2)`"
+choices[2] <- "`mean(x) - mean(y) + c(-1,1) * 1.96 * sqrt(sd(x)^2/length(x) + sd(y)^2/length(y))`"
+choices[3] <- "`t.test(x, y)$conf.int`"
+choices[4] <- "`mean(x - y) + c(-1,1) * 1.96 * sd(x - y)`"
+
+
+explain[1] <- "This is missing the division of sample sizes"
+explain[3] <- "This calculates a t-distribution based interval, instead of a normal-theory"
+explain[4] <- "This interval is for paired samples, where `x` and `y` are dependent. "
+
+sol <- c(FALSE,TRUE,FALSE,FALSE)
+```
+
+
+
+Question
+==============
+Suppose you have two independent samples `x` and `y`. Which R command below computes a 95% normal-theory confidence interval for the difference of means ($\mu_1-\mu_2$)
+
+
+
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), explain, markup = "markdown")
+```
+
+
+The standard error for the difference of two independent means is:
+$$\sqrt{\frac{s_x^2}{n_x} + \frac{s_y^2}{n_y}}$$
+
+
+
+
+Meta-information
+================
+exname: calc-CI-2-vars
+extype: schoice
+exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`

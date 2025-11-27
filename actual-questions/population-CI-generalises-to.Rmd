@@ -1,0 +1,45 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "Only the 200 sampled households."
+choices[2] <- "All households in the city."
+choices[3] <- "All households in the country."
+choices[4] <- "Any population of households with similar demographics."
+
+
+sol <- c(FALSE,TRUE,FALSE,FALSE)
+
+```
+
+
+
+Question
+=====================
+A researcher samples 200 households using simple random sampling from a city of 50,000 households. To which population can the resulting confidence interval for mean household income be generalised?
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+Solution
+================
+With simple random sampling from the city population, the inference generalises to that same population. It cannot automatically generalise to larger or unrelated populations.
+
+The correct answer is:
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: population-CI-generalises-to
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

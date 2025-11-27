@@ -1,0 +1,43 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "The CI can be generalised to all university students."
+choices[2] <- "The CI can be generalised to all college students nationwide."
+choices[3] <- "The CI can only be applied to the 30 sampled students."
+choices[4] <- "The CI applies only if the data are normally distributed."
+
+
+sol <- c(TRUE,FALSE,FALSE,FALSE)
+
+```
+
+
+Question
+==================
+Researchers randomly select 30 students from a university roster to estimate mean study hours. Which statement is true?
+
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+Solution
+====================
+Random sampling from a well-defined population (students at the university) allows valid inference to that population. There is no justification for generalising to all college students elsewhere.
+
+The correct answer is:
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+Meta-information
+================
+exname: population-CI-generalises-to-2
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE
+

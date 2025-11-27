@@ -1,0 +1,40 @@
+```{r}
+choices <- character(4)
+choices[1] <- "The before-treatment scores must be normally distributed"
+choices[2] <- "The after-treatment scores must be normally distributed"
+choices[3] <- "The change scores (after – before) must be normally distributed"
+choices[4] <- "Both distributions must be symmetric"
+
+
+sol <- c(FALSE,FALSE,TRUE,FALSE)
+```
+
+Question
+=====================
+A researcher measures blood pressure before and after a treatment on the same subjects. For the matched-pairs t-test to be valid, which condition must hold?
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+===================
+Normality must apply only to the differences, not each raw distribution separately.
+
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+exname: matched-pairs-t-test-assumptions-2
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE

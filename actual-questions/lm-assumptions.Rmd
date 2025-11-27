@@ -38,5 +38,5 @@ Meta-information
 ================
 exname: lm-assumptions
 extype: schoice
-exsolution: exsolution: `r mchoice2string(sol, single = TRUE)`
+exsolution: `r mchoice2string(sol, single = TRUE)`
 exshuffle: TRUE
