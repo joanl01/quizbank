@@ -1,4 +1,4 @@
-```{r}
+```{r data generation, echo=FALSE, results='hide'}
 choices <- character(4)
 choices[1] <- "The differences between paired observations are approximately normally distributed"
 choices[2] <- "The pairs are meaningfully matched"
