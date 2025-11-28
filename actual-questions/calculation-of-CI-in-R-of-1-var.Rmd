@@ -2,16 +2,17 @@
 pacman::p_load(exams, tidyverse)
 choices <- character(4)
 explain <- character(4)
-choices[1] <- "`mean(x) ± 1.96 * sd(x)`"
-choices[2] <- "`mean(x) + c(-1, 1) * 1.96 * (sd(x)/sqrt(length(x)))`"
-choices[3] <- "`t.test(x)$conf.int`"
-choices[4] <- "`quantile(x, probs = c(0.025, 0.975))`"
 
-explain[1] <- "The standard error should be calculated, instead of the standard deviation."
-explain[3] <- "This calculates a t-distribution based interval, not a normal-theory"
-explain[4] <- "This calculates the quantile of the data, not the confidence interval"
+choices[1] <- "(`mean(x) - 1.96*sd(x)/sqrt(length(x)`, `mean(x) + 1.96*sd(x)/sqrt(length(x)`)"
+choices[2] <-  "(`mean(x) + 1.96*sd(x)/sqrt(length(x)`, `mean(x) - 1.96*sd(x)/sqrt(length(x)`)"
+choices[3] <-  "(`mean(x) - 1.96*var(x)/sqrt(length(x)`, `mean(x) + 1.96*var(x)/sqrt(length(x)`)"
+choices[4] <-  "(`mean(x) - 1.64*sd(x)/sqrt(length(x)`, `mean(x) + 1.64*sd(x)/sqrt(length(x)`)"
 
-sol <- c(FALSE,TRUE,FALSE,FALSE)
+explain[2] <- "The upper and lower bounds are reversed. The correct confidence interval formula is: mean± margin of error \n  This should have the mean(x) - margin first and mean(x) + margin second."
+explain[3] <- "This option uses the variance (`var(x)`) instead of the standard deviation (`sd(x)`). Confidence intervals for the mean require the standard deviation (or standard error) of the sample, not the variance. "
+explain[4] <- "1.64 is the critical value for a 90% confidence interval. For a 95% confidence interval, the appropriate critical value is 1.96. "
+
+sol <- c(TRUE,FALSE,FALSE, FALSE)
 
 ```
 
@@ -27,7 +28,7 @@ answerlist(choices, markup = "markdown")
 Solution
 =================
 
-A normal-theory confidence interval for a mean uses:
+A confidence interval for a mean uses:
 $$\bar{x} \pm z_{\alpha/2}\frac{s}{n}$$
 
 The correct answer is
