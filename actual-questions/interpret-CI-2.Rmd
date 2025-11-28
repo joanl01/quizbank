@@ -1,34 +1,51 @@
 ```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+
+n = 50
+bp <- rnorm(n, mean = 90, sd = 20)
+lower <- round(mean(bp) - 1.96*sd(bp)/n,3)
+upper <- round(mean(bp) + 1.96*sd(bp)/n,3)
+
+
+
 choices <- character(4)
+choices[1] <- paste("All the blood pressure observed falls between", lower, "and", upper, "mmHg.")
+choices[2] <- paste("95% of future blood pressure measures would be between", lower, "and", upper, "mmHg.")
+choices[3] <- paste("We are 95% confident that all of the observed blood pressure falls betwen", lower, "and", upper, "mmHg.")
+choices[4] <- paste("In 95% of repeated samples, the calculated condfidence interval,(",lower, ",", upper,") would contain the true population mean.")
+
+
+sol <- c(FALSE, FALSE, FALSE, TRUE)
+
 explain <- character(4)
+explain[1] <- "the confidence interval does not imply that all observed values fall within it. It only applies to the population parameter, not the individual data points."
 
-choices[1] <- "The treatment definitely has no effect."
-choices[2] <-  "There is evidence that Treatment increases blood pressure."
-choices[3] <- "The treatment effect could be negative, zero, or positive based on this interval."
-choices[4] <- "90% of patients had blood pressure changes between −2 and 5 mmHg"
+explain[2] <- "the confidence interval refers to where the true population mean is likely to fall, not the distribution of future individual measurements."
 
-sol <- c(FALSE,FALSE,TRUE,FALSE)
+explain[3] <- "the confidence interval applies to the population mean, not individual observations. It doesn't guarantee that all observed values lie within the interval."
+
 ```
 
 Question
-==================
-A researcher reports a 90% CI for the difference in mean blood pressure between Treatment and Control as (−2 mmHg, 5 mmHg). What conclusion is reasonable?
+===================
+Researchers want to calculate the mean blood pressure of all the staff at Adelaide University. 50 staff members were sampled, and the confidence interval (CI) was calculated to be (`r `lower` mmHg, `r `upper` mmHg). 
 
+Which conclusion is correct?
 
 ```{r questionlist, echo=FALSE, results = "asis"}
 answerlist(choices, markup = "markdown")
 ```
 
 
+
+
+
 Solution
-==============
-Because the interval includes 0, the data are consistent with a negative, zero, or positive effect. It does not show “no effect,” nor does it imply anything about 90% of individual blood pressure measurements.
-
-
+================
 The correct answer is
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
-answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+answerlist(ifelse(sol, "TRUE", "FALSE"),explain, markup = "markdown")
 ```
 
 

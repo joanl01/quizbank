@@ -1,0 +1,70 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+# Set random seed for reproducibility
+set.seed(123)
+
+# Number of paired observations
+n <- 30
+
+# Generate random data for the Control and Treatment groups
+# Assume the Control group has a mean of 120 with a standard deviation of 10
+# Assume the Treatment group has a mean of 122 with a standard deviation of 10
+control <- rnorm(n, mean = 120, sd = 10)
+treatment <- rnorm(n, mean = 122, sd = 10)
+
+# Calculate the differences between Treatment and Control for each pair
+differences <- treatment - control
+
+# Perform the paired t-test
+t_test_result <- t.test(differences)
+
+# Extract the confidence interval from the t-test result
+lower <- t_test_result$conf.int[1]
+upper <- t_test_result$conf.int[2]
+
+
+choices <- character(4)
+explain <- character(4)
+
+choices[1] <- "The treatment definitely has no effect."
+choices[2] <-  "There is evidence that Treatment increases blood pressure."
+choices[3] <- "The treatment effect could be negative, zero, or positive based on this interval."
+choices[4] <- paste("95% of patients had blood pressure changes between", round(lower,2) , "and", round(upper,2), "mmHg")
+
+sol <- c(FALSE,FALSE,TRUE,FALSE)
+```
+
+Question
+==================
+A researcher performs a matched pairs t-test to compare blood pressure changes between a Treatment group and a Control group. The results of the test is shown below
+
+
+```{r printresult, echo = FALSE, results='markup'}
+print(t_test_result)
+```
+
+Based on the 95% Confidence Interval, what conclusion is the most reasonable?
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+==============
+Because the confidence interval includes zero, this suggests that the data are consistent with the possibility that the treatment has no effect, or could have either a negative or positive effect. It does not provide strong evidence for a significant difference. The statement about 95% of individual blood pressure changes is not relevant to the interpretation of a confidence interval for the mean difference.
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+exname: matched-pairs-t-test-CI-interpret
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exshuffle: TRUE
