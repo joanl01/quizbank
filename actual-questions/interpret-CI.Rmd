@@ -10,7 +10,7 @@ choices <- character(4)
 choices[1] <-  paste("95% of newborns in this hospital weigh between", lower, "kg and", upper,"kg.")
 choices[2] <- paste("There is a 95% chance that the true mean newborn weight is between",lower, "and", upper, "kg.")
 choices[3] <- "If we repeated this sampling process many times, about 95% of the intervals we compute would contain the true mean."
-choices[4] <- paste("The sample mean definitely lies between", lower, "and", upper, "kg.")
+choices[4] <- paste("A newborn baby's weight definitely lies between", lower, "and", upper, "kg.")
 
 sol <- c(FALSE,FALSE,TRUE,FALSE)
 

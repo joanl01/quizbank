@@ -19,7 +19,7 @@ sol <- c(FALSE,TRUE,FALSE,FALSE)
 
 Question
 ==============
-Suppose you have two independent samples `x` and `y`. Which R command below computes a 95% normal-theory confidence interval for the difference of means ($\mu_1-\mu_2$)
+Suppose you have two independent samples `x` and `y`. Which R command below computes a 95% normal-theory confidence interval for the difference of means? 
 
 
 
