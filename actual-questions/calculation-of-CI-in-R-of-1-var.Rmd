@@ -17,7 +17,7 @@ sol <- c(FALSE,TRUE,FALSE,FALSE)
 
 Question
 ============
-You have a numeric vector `x` in R containing sample data. Which R command correctly computes a 95% confidence interval for the population mean using a normal-theory formula?
+You have a numeric vector `x` in R containing sample data. Which R command correctly computes a 95% confidence interval for the population mean?
 
 ```{r questionlist, echo=FALSE, results = "asis"}
 answerlist(choices, markup = "markdown")
@@ -26,15 +26,15 @@ answerlist(choices, markup = "markdown")
 
 Solution
 =================
+
+A normal-theory confidence interval for a mean uses:
+$$\bar{x} \pm z_{\alpha/2}\frac{s}{n}$$
+
 The correct answer is
 
 ```{r solutionlist, echo = FALSE, results = "asis"}
 answerlist(ifelse(sol, "TRUE", "FALSE"), explain, markup = "markdown")
 ```
-
-A normal-theory confidence interval for a mean uses:
-$$\bar{x} \pm z_{\alpha/2}\frac{s}{n}$$
-
 
 
 Meta-information
