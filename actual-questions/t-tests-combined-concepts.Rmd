@@ -1,0 +1,42 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+choices[1] <- "One-sample t-test"
+choices[2] <- "Two-sample t-test"
+choices[3] <- "Matched-pairs t-test"
+choices[4] <- "None of the above"
+
+
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+```
+
+Question
+===============
+Which of the following t-tests requires independence within groups but NOT between groups?
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+================
+In paired test, observations within a pair are not independent, but the pairs themselves must be independent of one another. The other tests require full independence of observation within and across groups (where applicable).
+
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+
+
+Meta-information
+================
+exname: t-test-combined-concepts
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+

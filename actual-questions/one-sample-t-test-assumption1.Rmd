@@ -1,0 +1,43 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "The population mean must be known"
+choices[2] <- "The sample must come from a normally distributed population (or large enough $n$)"
+choices[3] <- "The population variance must be known"
+choices[4] <- "The sample must be divided into two groups"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+
+```
+
+
+Question 
+================
+The one sample t-test requires:
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+
+Solution 
+==================
+The one-sample t-test assumes the underlying population is approximately normal or $n$ is large (via the Central Limit Theorem). Population parameters do not need to be known. 
+
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+Meta-information
+================
+exname: one-sample-t-test-assumption
+extype: schoice
+exshuffle: TRUE
+exsolution: `r mchoice2string(sol, single = TRUE)`

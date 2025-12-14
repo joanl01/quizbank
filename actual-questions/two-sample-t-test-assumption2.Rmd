@@ -1,0 +1,39 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+choices[1] <- "Two independent samples drawn from populations with roughly normal distributions."
+choices[2] <- "Two samples drawn from heavily skewed distributions with $n=8$ per group"
+choices[3] <- "Two samples with equal variance"
+choices[4] <- "Two samples with different sample sizes"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+
+```
+
+
+Question
+=================
+Which of these scenarios violates an assumption of a two-sample t-test?
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+Solution
+================
+For small samples, strong skewness violates the assumption of normality. 
+
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: two-sample-t-test-assumption2
+extype: schoice
+exshuffle: TRUE
+exsolution: `r mchoice2string(sol, single = TRUE)`
