@@ -1,0 +1,73 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+## DATA GENERATION
+n <- 10 + sample(1:5, 3)
+dat <- data.frame(Energy = rnorm(sum(n),
+    mean = rep(sample(seq(from = sample(50:70, 1), by = 1, length.out = sample(10:15, 1)), 3)/10, n),
+    sd = rep(sample(60:80, 3)/100, n)),
+  Diet = factor(rep(1:3, n),
+    labels = c("Vegetarian", "Omnivore", "Vegan")))
+dat$Energy[dat$Energy > 10] <- 10
+dat$Energy[dat$Energy <  0] <-  0
+
+choices <- character(8)
+
+choices[1] <- "$H_0: \\mu_1 = \\mu_2 = \\mu_3$"
+choices[2] <- "$H_a:$ at least one group mean is different from the rest."
+choices[3] <- "$H_0: \\sigma_1 = \\sigma_2 = \\sigma_3$"
+choices[4] <- "$H_a:$ at least one group standard deviation is different from the rest."
+choices[5] <- "$H_0: \\sigma^2_1 = \\sigma^2_2 = \\sigma^2_3$"
+choices[6] <- "$H_a:$ at least one group variance is different from the rest."
+choices[7] <- "$H_0: \\mu_1 \\neq \\mu_2 \\neq \\mu_3$ "
+choices[8] <- "$H_a: \\mu_1 \\neq \\mu_2 \\neq \\mu_3$ "
+
+sol <- c(TRUE, TRUE, FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)
+```
+
+Question 
+=====================
+
+A study with `r sum(n)` participants was conducted to evaluate the impact of different diet types on self-reported daily energy levels.
+Participants rated their energy on an eleven-point scale from 0 (very low) to 10 (very high).
+The evaluations are summarised by diet type in the following figure:
+
+```{r boxplots, echo = FALSE, results = "hide", fig.height = 3.5, fig.width = 5.8, fig.path = "", fig.cap = ""}
+par(mar = c(4, 4, 1, 1))
+plot(Energy ~ Diet, data = dat)
+```
+
+To analyse whether the reported energy levels differ by diet, the researcher wants to use a one-way ANOVA model. Which is the correct null and alternative hypothesis ?
+
+$\mu_1, \mu_2, \mu_3$ represents the means for group Vegetarian, Omnivore, and Vegan respectively. 
+
+$\sigma_1, \sigma_2, \sigma_3$ represents the standard deviation for group Vegetarian, Omnivore, and Vegan respectively. 
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+Solution
+===================
+A one-way ANOVA tests for equal group means but does not identify where the difference (if present) lie, therefore the correct null and alternative hypotheses are:
+
+$$H_0: \mu_1 = \mu_2 = \mu_3$$
+$$H_a: \text{at least one group mean is different}$$
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single =FALSE)`
+exname: anova-one-way-null-and-alt-hyp
+exshuffle: TRUE
+
+
+
