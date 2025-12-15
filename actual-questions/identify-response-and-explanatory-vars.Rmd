@@ -1,0 +1,45 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "Explanatory variable: Amount of time spent doing homework. \n Response variable: Student grades. "
+
+choices[2] <- "Explanatory variable: Student grades \n Response variable Amount of time spend doing homework. "
+
+choices[3] <- "Explanatory variable: Amount of time spent doing homework \n Response variable: Students"
+
+choices[4] <- "Explanatory variable: Lecturer \n Response variable: Student grades"
+
+sol <- c(TRUE, FALSE, FALSE, FALSE)
+
+```
+
+Question
+===================
+
+A lecturer thinks the amount of time students spend doing their homework may be affecting the grades they receive. To investigate, she asks students to record the number of hours they spend working on each assignment. Identify the explanatory variable and the response variable in this study.
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==================
+The lecturer is investigating whether the amount of time students spend doing their homework affects their grades. In this context, the explanatory variable is the amount of time spent doing homework, as it is the factor being manipulated or observed to see if it has an effect. The response variable is the student grades, as they are the outcome or result that may change depending on the amount of time spent on homework.
+
+
+The correct answer is :
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: identify response and explanatory vars
+exshuffle: TRUE

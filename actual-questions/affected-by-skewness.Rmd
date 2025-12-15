@@ -1,0 +1,51 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(5)
+
+choices[1] <- "The sample mean is insensitive to outliers and skewness."
+
+choices[2] <- "The sample mean and standard deviation are insensitive to outliers and skewness."
+
+choices[3] <- "The sample mean and standard deviation are both sensitive to outliers and skewness."
+
+choices[4] <- "The sample mean is insensitive to outliers and skewness, but the sample standard deviation is not."
+
+choices[5] <- "The sample mean and sample median are both sensitive to outliers and skewness."
+
+sol <- c(FALSE, FALSE, FALSE, FALSE, TRUE)
+
+
+```
+
+Question 
+===============
+Which of the following statements is true?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+The sample mean is sensitive to outliers because extreme values can pull the mean toward them, which results in the sample mean not representing the "central"/"typical" value in the data. 
+
+
+The sample standard deviation is also sensitive to outliers, as it involves the square of the differences from the mean. Outliers increase these differences, which will result in a larger standard deviation. 
+
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: affected by skewness
+exshuffle: TRUE
