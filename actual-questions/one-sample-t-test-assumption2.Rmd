@@ -1,0 +1,47 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "When the sample size is small ($n<15$)"
+choices[2] <- "When the sample has strong skew"
+choices[3] <- "When the sample size is large"
+choices[4] <- "When the population is known to be bimodal"
+
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+
+
+```
+
+
+
+Question 
+================
+When is the normality assumption for the one-sample t-test least critical? 
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+================
+With large samples, the sample mean is approximately normal due to the Central Limit Theorem.
+
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+
+
+Meta-information
+================
+exname: one-sample-t-test-assumption2
+extype: schoice
+exshuffle: TRUE
+exsolution: `r mchoice2string(sol, single = TRUE)`

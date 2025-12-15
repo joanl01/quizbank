@@ -1,0 +1,44 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "Samples are independent within groups"
+choices[2] <- "Samples are independent across group"
+choices[3] <- "Samples are normally distributed within groups"
+choices[4] <- "Samples are normally distributed across groups"
+
+sol <- c(FALSE, FALSE, FALSE,TRUE)
+
+
+```
+
+
+Question
+=============
+Which assumption is not necessary for a two-sample t-test?
+
+```{r questionlist, echo=FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+================
+The assumptions for a two-sample t-test are 
+-  Independence within and across groups, and 
+-  Data are normally distributed within each group. 
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+Meta-information
+================
+exname: two-sample-t-test-assumption
+extype: schoice
+exshuffle: TRUE
+exsolution: `r mchoice2string(sol, single = TRUE)`

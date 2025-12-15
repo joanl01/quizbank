@@ -1,0 +1,42 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+choices[1] <- "The two sample sazes have different means"
+choices[2] <- "The sample sizes of the two groups are identical"
+choices[3] <- "Each observation in Group A corresponds naturally to one in Group B"
+choices[4] <- "The data are normally distributed within each group"
+
+
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+```
+
+Question
+===============
+A student is unsure whether to use a matched-pairs t-test or a two-sample-t-test. Which clue indicates the matched-pairs t-test is appropriate?
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+================
+Matched pairs t-tests are used when observations are linked/paired.
+
+The correct answer is
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "TRUE", "FALSE"), markup = "markdown")
+```
+
+
+
+
+
+
+Meta-information
+================
+exname: t-test-combined-concepts2
+exshuffle: TRUE
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+
