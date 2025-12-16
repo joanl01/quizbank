@@ -1,0 +1,96 @@
+```{r data generation, results='hide', echo=FALSE}
+pacman::p_load(tidyverse, exams)
+## DATA GENERATION
+n <- 10 + sample(1:5, 3)
+dat <- data.frame(Energy = rnorm(sum(n),
+    mean = rep(sample(seq(from = sample(50:70, 1), by = 1, length.out = sample(10:15, 1)), 3)/10, n),
+    sd = rep(sample(60:80, 3)/100, n)),
+  Diet = factor(rep(1:3, n),
+    labels = c("Vegetarian", "Omnivore", "Vegan")))
+dat$Energy[dat$Energy > 10] <- 10
+dat$Energy[dat$Energy <  0] <-  0
+myanova_print <- summary(aov(data = dat, Energy ~ Diet))
+results <- myanova_print[[1]] |> as.data.frame() |> round(4)
+
+
+## QUESTION/ANSWER GENERATION
+choices <- character(6)
+solution <- logical(6)
+explain <- character(6)
+choices[1] <- "The p-value is greater than 0.05"
+solution[1] <- results$`Pr(>F)`[1]>0.05
+explain[1] <- ifelse(solution[1],"", paste0("The p-value is ",results$`Pr(>F)`[1],", which is ", ifelse(results$`Pr(>F)`[1] > 0.05, "greater than ", "less than "), "0.05"))
+choices[2] <- "The p-value is less than 0.05"
+solution[2] <- results$`Pr(>F)`[1]<0.05
+explain[2] <- ifelse(solution[2],"", paste0("The p-value is ",results$`Pr(>F)`[1],", which is ", ifelse(results$`Pr(>F)`[1] > 0.05, "greater than ", "less than "), "0.05"))
+
+choices[3] <- "There is no evidence of a difference between diet means"
+solution[3] <- results$`Pr(>F)`[1]>0.05
+explain[3] <- ifelse(solution[3], "","This is true when the p-value of the one-sided ANOVA is greater than 0.05, as we retain the null hypothesis that all the group means are equal.")
+
+choices[4] <- "There is at least one group whose mean is significantly different"
+solution[4] <- results$`Pr(>F)`[1]<0.05
+explain[4] <- ifelse(solution[4], "", "This is only true when the p-value of the one-sided ANOVA is less than 0.05, as we reject the null hypothesis that all the group means are equal. Therefore there is at least one group mean that is significantly different to the others.")
+
+
+choices[5] <- "All diet means are significantly different"
+solution[5] <- FALSE
+explain[5] <- "The one-way ANOVA only tests if all group means are equal. It does not identify which group or how many groups are different. We cannot conclude this solely from a one-way ANOVA"
+
+choices[6] <- "The ANOVA assumptions are violated"
+solution[6] <- FALSE
+explain[6] <- "The ANOVA assumptions cannot be checked from the ANOVA output. Until the diagnostic plots are generated and observed, this cannot be concluded. "
+
+```
+
+
+
+
+Question
+===============
+
+A study with `r sum(n)` participants was conducted to evaluate the impact of different diet types on self-reported daily energy levels.
+Participants rated their energy on an eleven-point scale from 0 (very low) to 10 (very high).
+The evaluations are summarised by diet type in the following figure:
+
+```{r boxplots, echo = FALSE, results = "hide", fig.height = 3.5, fig.width = 5.8, fig.path = "", fig.cap = ""}
+par(mar = c(4, 4, 1, 1))
+plot(Energy ~ Diet, data = dat)
+```
+
+To analyse whether the reported energy levels differ by diet, an ANOVA was performed (rounded to 4 decimal places):
+
+```{r anova output, echo = FALSE, comment = NA}
+options(show.signif.stars = FALSE)
+print(results, quote = FALSE, right = TRUE)
+
+```
+
+At the 5% significance level, what conclusion should be drawn ? 
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=============
+the fraction of explained variance is computed as
+
+$$1 - \mathit{RSS}_1/\mathit{RSS}_0 = 1 - `r rss[2]`/`r rss[1]` =
+`r round(r2, digits = 3)`$$
+
+`r explain3`
+
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(solution, explain, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: anova fraction of var explained
+
+
+

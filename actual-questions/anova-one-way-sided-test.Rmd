@@ -14,31 +14,7 @@ dat$Energy[dat$Energy <  0] <-  0
 questions <- character(5)
 solutions <- logical(5)
 explanations <- character(5)
-
-fm0 <- lm(Energy ~ 1, data = dat)
-fm1 <- lm(Energy ~ Diet, data = dat)
-myanova <- anova(fm0, fm1)
-
-## Build a nicely formatted ANOVA comparison table
-myanova_print <- as.data.frame(myanova)
-
-# Round and format columns
-myanova_print$Res.Df   <- round(myanova$Res.Df, 0)
-myanova_print$RSS      <- format(round(myanova$RSS, 3), nsmall = 3)
-myanova_print$Df       <- ifelse(is.na(myanova$Df), "", myanova$Df)
-myanova_print$`Sum of Sq` <- ifelse(is.na(myanova$"Sum of Sq"), "", 
-                                    format(round(myanova$"Sum of Sq", 3), nsmall = 3))
-myanova_print$F        <- ifelse(is.na(myanova$F), "", 
-                                 format(round(myanova$F, 3), nsmall = 3))
-myanova_print$`Pr(>F)` <- ifelse(is.na(myanova$"Pr(>F)"), "", 
-                                 format.pval(myanova$"Pr(>F)", digits = 4))
-
-# Reorder and print nicely
-myanova_print <- myanova_print[, c("Res.Df", "RSS", "Df", "Sum of Sq", "F", "Pr(>F)")]
-
-# print(myanova_print, row.names = FALSE, quote = FALSE, right = TRUE)
-
-
+myanova_print <- aov(data = dat, Energy ~ Diet) |> summary()
 q2 <- "A one-sided alternative was tested for the mean energy levels."
 sol <- FALSE
 explain2 <- "ANOVA tests the null hypothesis that all mean values are equal against the alternative that at least one differs."
