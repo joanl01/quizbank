@@ -1,0 +1,44 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+choices <- character(4)
+choices[1] <- "Independence of observations"
+choices[2] <- "Normality of residuals within groups"
+choices[3] <- "Equal variances across groups" 
+choices[4] <- "Equality of sample sizes across groups" 
+
+
+sol <- c(FALSE, FALSE, FALSE, TRUE)
+
+
+```
+
+Question
+==============
+Which of the following is NOT an assumption of a one-way or two-way ANOVA?
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==================
+ANOVA does not require equal sample sizes. The core assumptions of ANOVA are indpendence, normality and equal variances. 
+
+
+The correct answer is :
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: anova-assumptions
+exshuffle: TRUE

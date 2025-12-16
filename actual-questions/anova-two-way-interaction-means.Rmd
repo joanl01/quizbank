@@ -1,0 +1,42 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "Both main effects must be significant"
+choices[2] <- "The effect of one factor depends on the level of the other factor"
+choices[3] <- "The factors are statistically independent"
+choices[4] <- "There is no main effect of either factor"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+
+```
+
+Question
+=================
+What does a significant interaction between two factors in a two-way ANOVA imply?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+Solution
+===================
+An interaction means the effect of one factor changes depending on the level of the other factor, making main effects alone potentially misleading.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(ifelse(sol, "True", "False"), markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: anova-two-way-interaction-means
+exshufflr: TRUE
+
+
+
+
