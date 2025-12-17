@@ -1,0 +1,91 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+
+# Number of participants in the study (students)
+num_students <- 10 + sample(1:15,1)
+  
+# Drink Types and study environments
+drink_types <- c("Coffee", "Energy Drink")
+study_environments <- c("Library", "Café", "Bedroom")
+
+# Create an empty data frame to store the results
+experiment_data <- data.frame(Student = integer(),
+                              DrinkType = character(),
+                              StudyEnvironment = character(),
+                              Alertness = numeric())
+
+# Loop over each student
+for (i in 1:num_students) {
+  # Randomly assign the number of trials per student (between 5 and 15)
+  num_samples <- sample(5:15, 1)
+  
+  # Randomly assign combinations of coffee and study environment
+  student_data <- data.frame(
+    Student = rep(i, num_samples),
+    DrinkType = sample(drink_types, num_samples, replace = TRUE),
+    StudyEnvironment = sample(study_environments, num_samples, replace = TRUE),
+    Alertness = rnorm(num_samples, mean = 50, sd = 10)  # Random alertness scores
+  )
+  
+  # Adding the data for the current student to the overall dataset
+  experiment_data <- rbind(experiment_data, student_data)
+}
+
+# QUESTION AND ANSWER GENERATION
+choices <- character(4)
+
+choices[1] <- "`aov(Alertness ~ DrinkType + StudyEnvironment, data = experiment_data)`"
+choices[2] <- "`aov(Alertness ~ DrinkType * StudyEnvironment, data = experiment_data)`"
+choices[3] <- "`aov(Alertness * DrinkType ~ StudyEnvironment, data = experiment_data)`"
+choices[4] <- "`aov(Alertness ~ DrinkType & StudyEnvironment, data = experiment_data)`"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+```
+
+
+
+Question 
+===================
+There is a debate about the effects of different drinks and study environments on student alertness. You are determined to end this debate once and for all, to find out which combinations of drinks and study environment makes students the most alert and productive. 
+
+
+You are conductig a study on student alertness, where students consumed either `Coffee` or `Energy Drink` while studying in one of these 3 environments: `Library`, `Café` or `Bedroom`. The goal of the study is to measure how alert students are in each scenario.
+
+The evaluations are shown in the figure below:
+```{r interaction plot, echo = FALSE, results = "hide", fig.height = 3.5, fig.width = 5.8, fig.path = "", fig.cap = ""}
+par(mar = c(4, 4, 1, 1))
+
+# Bar Plot: Mean alertness by Drink Type and Study Environment
+ggplot(experiment_data, aes(x = StudyEnvironment, y = Alertness, fill = DrinkType)) +
+  stat_summary(fun = "mean", geom = "bar", position = "dodge") +
+  labs(x = "Study Environment", y = "Mean Alertness", title = "Mean Alertness by Drink Type and Study Environment") +
+  theme_minimal()
+```
+You are performing a two-way ANOVA to determine if there is a significant effect of drink type and study environment on alertness, as well as any potential interaction. Which of the following R model includes both the main effects and their interaction ?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+Solution
+================
+The `*` operator expands to main effects plus interaction (`DrinkType + StudyEnvironment + DrinkType:StudyEnvironment`)
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single =FALSE)`
+exname: anova-two-way-which-code-interaction
+exshuffle: TRUE
+
