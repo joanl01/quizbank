@@ -1,0 +1,47 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(8)
+sol <- logical(length(choices))
+choices[1] <- "Rows: Variables" 
+choices[2] <- "Columns: Subjects"
+choices[3] <- "Rows: Subjects"
+sol[3] <- TRUE
+choices[4] <- "Columns: Variables"
+sol[4] <- TRUE
+choices[5] <- "Rows: Measurements"
+choices[6] <- "Columns: Experiments"
+choices[7] <- "Rows: Categories"
+choices[8] <- "Columns: Outcomes"
+
+
+```
+
+A dataset has 365 rows and 3 columns. Each row represents one day, and each column represents a different weather measurement (temperature, rainfall, windspeed). 
+
+
+What do the rows and the columns represent?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+In rectangular data, rows correspond to subjects and columns to variables.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol)`
+exname: rectangular-data-interpretation
+exshuffle: TRUE

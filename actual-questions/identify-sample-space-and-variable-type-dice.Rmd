@@ -1,0 +1,46 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+
+choices <- character(4)
+choices[1] <- "{1,2,3,4,5,6}, categorical"
+choices[2] <- "{1,2,3,4,5,6}, numerical"
+choices[3] <- "{even, odd}, categorical"
+choices[4] <- "All real numbers between 1 and 6, continuous"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+
+
+```
+
+Question 
+================
+A fair six-sided dice is rolled once, and the outcome is recorded. 
+What is the sample size and what type of variable is recorded?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+Solution
+====================
+The outcome takes numeric disrete values from a sample space 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: identify-sample-space-and-variable-type
+exshuffle: TRUE
+
+
+
+
+
+

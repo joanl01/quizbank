@@ -1,0 +1,61 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+sample_size <- sample(size = 1,c(1:100))
+
+subjects_choices <- character(4)
+variables_choices <- character(4)
+
+subjects_choices[1] <- "Subjects: screen time"
+subjects_choices[2] <- "Subjects: participants"
+subjects_choices[3] <- "Subjects: number of hours of sleep"
+subjects_choices[4] <- "Subjects: gender"
+sol_choices <- c(FALSE, TRUE, FALSE, FALSE)
+
+variables_choices[1] <- "Variables: participants"
+variables_choices[2] <- "Variables: screen time"
+variables_choices[3] <- "Variables: number of hours of sleep" 
+variables_choices[4] <- "Variables: gender"
+sol_variables <- c(FALSE, TRUE, TRUE, TRUE)
+
+choices <- c(subjects_choices, variables_choices)
+sol <- c(sol_choices, sol_variables)
+
+
+```
+
+
+Question 
+================
+A researcher collects data from $n = $`r sample_size` participants. For each participant, the folllowing variables are recorded: 
+- daily screen time (hours)
+- number of hours of sleep (0-12)
+- gender (Male, Female, Non-binary, Prefer not to say)
+
+What are the subjects and variables in this dataset? 
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+
+Solution
+================
+The subjects are the observational units (participants)
+
+The variables are the measurements recorded for each participants.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol)`
+exname: identify-subjects-and-variables
+
+

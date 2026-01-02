@@ -1,0 +1,45 @@
+```{r data generation, echo=FALSE, results='hide'}
+sources <- c("gym members", "smartwatch users", "university email list", "social media poll")
+source <- sample(sources, 1)
+
+choices <- character(4)
+choices[1] <- "Recall bias"
+choices[2] <- "Measurement bias"
+choices[3] <- "Selection bias"
+choices[4] <- "Confounding bias"
+
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+
+
+```
+
+
+Question
+=================
+A study on physical activity recruits participants by sending a survery to `r source`
+Which bias is likely to affect this study? 
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+The sample is not representative of the general poulation
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: sampling-bias-which-type
+exshuffle: TRUE

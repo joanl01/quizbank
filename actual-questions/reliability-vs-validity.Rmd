@@ -1,0 +1,41 @@
+```{r data generation, echo = FALSE, results='hide'}
+error <- sample(c(1:7),1)
+
+choices <- character(4)
+choices[1] <- "The thermometer is valid but not reliable"
+choices[2] <- "The thermometer is reliable but not valid"
+choices[3] <- "The thermometer is neither reliable nor valid"
+choices[4] <- "The thermometer is both reliable and valid"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+```
+
+
+Question
+============
+A thermometer gives nearly identical readins each time it is used, but all readings are consistently `r error`$^o$C higher than the true temperature. 
+Which of these statements is correct?
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+Consistency implies reliability, but systematic error reduces validity. 
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: reliability-vs-validity
+
+
+

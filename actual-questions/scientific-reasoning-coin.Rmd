@@ -1,0 +1,43 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_trials <- sample(c(20:100), size = 1)
+num_success <- round(sample(seq(from = 0.5, to = 0.9, by = 0.05), size = 1) * num_trials,0)
+
+choices <- character(4)
+choices[1] <- "The coin is definitely biased."
+choices[2] <- "The coin is fair because randomness explains everything."
+choices[3] <- "The results suggests possible bias, but chance variation is plausible."
+choices[4] <- "The experiment is invalid because randomness was involved."
+
+
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+```
+
+Question
+================
+A coin is flipped `r num_trials` time, and `r num_success` heads are observed. 
+Which conclusion best reflects the appropriate scientific reasoning?
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+==================
+Scientific conclusion should acknowledge random variation and avoid abslute claims based on a single experiment. 
+
+The correct answer is
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+
+```
+
+
+
+Meta-information
+================
+exname: scientific-reasoning-coin
+exshuffle: TRUE
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+

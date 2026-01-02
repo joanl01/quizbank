@@ -1,0 +1,43 @@
+```{r data generation, echo=FALSE, results='hide'}
+
+choices <- character(4)
+choices[1] <- "Coffee causes increased alertness in everyone"
+choices[2] <- "The results suggest an association but may not generalise"
+choices[3] <- "The results prove causation" 
+choices[4] <- "The study has no limitations"
+
+sol <- c(FALSE,TRUE,FALSE,FALSE)
+
+```
+
+Question
+=======================
+A study of 25 volunterrs finds that people who drink coffee report higher alertness than those who do not. 
+
+Which statement is the most appropriate interpretation? 
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+Small samples and observational designs require careful interpretation and disclaimers.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: interpretation-coffee
+exshuffle: TRUE

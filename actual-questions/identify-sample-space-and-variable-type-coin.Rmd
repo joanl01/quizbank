@@ -1,0 +1,44 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+
+choices <- character(4)
+choices[1] <- "{H, T}, categorical"
+choices[2] <- "{0,1}, numeric"
+choices[3] <- "{0,1,...,30}, numeric"
+choices[4] <- "{0-30}, continuous" 
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+
+
+```
+
+Question 
+================
+A coin is flipped $n = 30$ times. The variable recorded is the number of heads obseerved. 
+Which correctly describes the sample space and the variable type?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices, markup = "markdown")
+```
+
+Solution
+====================
+The variables is a count of number of heads, so it is numeric discrete with values from 0 to $n$. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: identify-sample-space-and-variable-type-coin
+exshuffle: TRUE
+
+
+
+
+
+
