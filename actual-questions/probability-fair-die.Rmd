@@ -1,0 +1,37 @@
+```{r}
+choices <- character(4)
+choices[1] <- "1/6"
+choices[2] <- "1/3"
+choices[3] <- "1"
+choices[4] <- "0"
+sol <- c(TRUE, FALSE, FALSE, FALSE)
+```
+Question
+======================
+A fair six sided die is rolled. Let X be the event that a six is rolled. What is P(A)?
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+=======================
+The sample space of the die consists of 6 elements $\{1,2,3,4,5,6\}$. The die is fair, which means the probability of each number being rolled is the same across all 6 numbers. Therefore each number has a probability of $1/6$.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: probability-fair-die
+exshuffle: TRUE
+
+

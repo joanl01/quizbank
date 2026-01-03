@@ -1,0 +1,50 @@
+```{r data generation, echo=FALSE, results='hide'}
+
+data <- data.frame(right_skewed_data = rgamma(100, shape = 1.5, scale = 5000) ) # shape < 3 gives right skew
+
+right_skew_plot <- ggplot(data, aes(x = right_skewed_data)) + geom_histogram(fill = "lightblue", colour = "black") + theme_bw() + labs(x = "Daily Step Count")
+
+choices <- character(4)
+choices[1] <- "The data are symmetrically distributed"
+choices[2] <- "Most observations are large"
+choices[3] <- "The distribution is right-skewed"
+choices[4] <- "The mean is smaller than the median"
+sol <- c(FALSE, FALSE, TRUE, FALSE)
+
+
+```
+
+Question
+========================
+The plot below shows a histogram of daily step count of the joggers in Adelaide.
+```{r showplot, echo=FALSE, results='asis'}
+right_skew_plot
+```
+
+What does this plot suggests?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+=======================
+A long right tail indicates positive (right) skewness.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: interpret-right-skew-from-plot
+exshuffle: TRUE
+

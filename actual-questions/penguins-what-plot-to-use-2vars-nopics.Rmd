@@ -1,0 +1,156 @@
+```{r data generation, echo=FALSE, results='hide'}
+# Load necessary libraries
+pacman::p_load(exams, tidyverse, patchwork)
+
+# Data preparation
+data("penguins", package = "modeldata")
+
+# Remove rows with missing values
+penguins <- penguins |> na.omit()
+
+# Randomly select 1 to 3 variables
+num_vars <- sample(1:3, 1)
+
+# Initialize the data frame to hold variable names and their types
+vars_and_class <- data.frame(vars = names(penguins), 
+                             type = character(length = length(names(penguins)))
+)
+
+# Loop through the variables and store their class types
+for (i in 1:nrow(vars_and_class)) {
+  vars_and_class$type[i] <- class(penguins[[i]])
+}
+
+# Create big_data as the Cartesian product of variable names
+big_data <- expand.grid(vars_and_class$vars, vars_and_class$vars)
+
+# Rename columns for clarity
+colnames(big_data) <- c("Var1", "Var2")
+
+# Add 'type1' and 'type2' columns based on the type of Var1 and Var2
+big_data$type1 <- sapply(big_data$Var1, function(x) vars_and_class$type[vars_and_class$vars == x])
+big_data$type2 <- sapply(big_data$Var2, function(x) vars_and_class$type[vars_and_class$vars == x])
+
+big_data <- big_data |> filter(Var1 != Var2)
+
+
+# Add a new column `plot_type` to `big_data` to suggest the most suitable plot type
+big_data$plot_type <- mapply(function(var1, var2) {
+  type1 <- vars_and_class$type[vars_and_class$vars == var1]
+  type2 <- vars_and_class$type[vars_and_class$vars == var2]
+  
+  # If both variables are numeric, use a scatter plot
+  if (type1 %in% c("numeric", "integer") && type2 %in% c("numeric", "integer")) {
+    return("Scatter Plot")
+  }
+  
+  # If one variable is numeric and the other is categorical, use a box plot
+  if ((type1 %in% c("numeric", "integer") && type2 %in% c("character", "factor")) || 
+      (type2 %in% c("numeric", "integer") && type1 %in% c("character", "factor"))) {
+    return("Box Plot")
+  }
+  
+  # If both variables are categorical, use a bar plot
+  if (type1 %in% c("character", "factor") && type2 %in% c("character", "factor")) {
+    return("Bar Plot")
+  }
+  
+  # Default case
+  return("Unknown Plot")
+}, big_data$Var1, big_data$Var2)
+
+
+# Add a new column `explain` to `big_data` to explain why the chosen plot is suitable
+big_data$explain <- mapply(function(var1, var2) {
+  type1 <- vars_and_class$type[vars_and_class$vars == var1]
+  type2 <- vars_and_class$type[vars_and_class$vars == var2]
+  
+  # If both variables are numeric, use a scatter plot
+  if (type1 %in% c("numeric", "integer") && type2 %in% c("numeric", "integer")) {
+    return("A scatter plot is ideal for visualising the relationship between two numeric variables, as it shows how one variable changes with the other.")
+  }
+  
+  # If one variable is numeric and the other is categorical, use a box plot
+  if ((type1  %in% c("numeric", "integer") && type2 %in% c("character", "factor")) || 
+      (type2  %in% c("numeric", "integer") && type1 %in% c("character", "factor"))) {
+    return("A box plot is useful to compare the distribution of a numeric variable across different categories of a categorical variable (groups), because it shows the central tendency, spread, and potential outliers within the data")
+  }
+  
+  # If both variables are categorical, use a bar plot
+  if (type1 %in% c("character", "factor") && type2 %in% c("character", "factor")) {
+    return("A bar plot is effective for comparing the frequencies of different combinations of categories in two categorical variables.")
+  }
+  
+  # Default case
+  return("The plot type is not recognized for this combination of variables.")
+}, big_data$Var1, big_data$Var2)
+
+# View the resulting big_data with the explain column
+
+
+
+randomiser <- sample(1:nrow(big_data),1)
+question_var1 <- big_data$Var1[randomiser]
+question_var2 <- big_data$Var2[randomiser]
+ans <- big_data$plot_type[randomiser]
+explain <- big_data$explain[randomiser]
+
+
+choices <- c("Bar Plot", "Box Plot", "Scatter Plot", "Histogram")
+sol <- choices == ans
+
+
+
+
+```
+
+
+Question
+==============
+For weeks, a few scientists have been traveling across the Palmer Archipelago, collecting data on three different species of penguins: the Adélie, the Chinstrap, and the Gentoo.
+
+Each day, they venture out into the cold, observing and recording measurements from hundreds of penguins—everything from their bill length to their body mass. They also note where each penguin was spotted: on one of the several islands in the archipelago.
+
+The dataset they collected is shown below:
+```{r show data, echo=FALSE}
+head(penguins)
+```
+The dataset includes key measurements such as:
+
+-    Species (Adélie, Chinstrap, Gentoo)
+
+-    Island (where the penguin was spotted)
+
+-    Bill length and bill depth (how big the penguin’s beak is)
+
+-    Flipper length (how long their flippers are)
+
+-    Body mass (how much the penguin weighs)
+
+-    Sex (whether the penguin is male or female)
+
+The scientist wants to know the relationship between `r question_var1` and `r question_var2`, which of the following plots is the most suitable to visualise this relationship?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+===========================
+`r explain`
+
+The correct answer is: 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: what-plot-to-use-no-pictures
+exshuffle: TRUE
+

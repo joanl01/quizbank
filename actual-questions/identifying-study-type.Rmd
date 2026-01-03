@@ -1,0 +1,62 @@
+```{r data generation, echo=FALSE, results='hide'}
+random <- sample(1:4, 1)
+choices <- c("Survey", "Observational Study", "Experiment", "Case Study")
+sol <- logical(length(choices))
+sol[random] <- TRUE
+
+question <- character(4)
+
+question[1] <- "What type of study is it if the researcher asks students about their study habits and whether they think listening to music helps them perform better academically, without actually observing or controlling their behavior?"
+
+
+question[2] <- "What type of study is it if the researcher observes students who already listen to music while studying and records their test scores, without interfering with their study habits?"
+
+question[3] <- "What type of study is it if the researcher assigns students to either study with music or without music, and then compares their test scores to see how music affects academic performance?"
+
+question[4] <- "What type of study is it if the researcher focuses on one student's academic performance with and without music and studies their results in detail over several months?"
+
+ask <- question[random]
+
+explain <- character(4)
+
+explain[1] <- "A survey involves asking people about their opinions, behaviors, or experiences without manipulating or observing their actions directly."
+
+explain[2] <- "In an observational study, researchers watch and record participants' behavior in a natural setting without influencing it or controlling the conditions."
+
+explain[3] <- "An experiment involves manipulating one factor (like whether students study with music or not) to observe its effect on another factor (like test scores), with the researcher controlling the conditions."
+
+explain[4] <- "A case study focuses on a detailed examination of one individual or a small group, often over a long period, to explore specific behaviors or phenomena."
+
+```
+Question 
+==============
+`r ask`
+
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+`r explain[random]`
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: identifying-study-type
+exshuffle: TRUE

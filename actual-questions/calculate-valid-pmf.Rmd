@@ -1,0 +1,48 @@
+```{r data generation, results='hide', echo=FALSE}
+pacman::p_load(tidyverse, gt, exams)
+rand_probs <- seq(from = 0, to= 1, by = 0.01)
+
+ks <- sample(rand_probs,3)
+k1 <- ks[1]
+k2 <- ks[2]
+k3 <- ks[3]
+
+while(sum(ks) >1){
+  ks <- sample(rand_probs,3)
+}
+data <- data.frame(k = 1:4, 
+                   prob = c(ks, NA))
+
+pmf <- data |> 
+  gt() |> 
+  cols_label(prob = "P(X = k)")|>
+  sub_missing(
+    columns = 1:2,
+    missing_text = ""
+  )
+
+sol <- 1-sum(data$prob[1:3])
+
+```
+Question
+===================
+If the following probability distribution is valid, what is P(X=4)?
+Please give your answers to 2 decimal places. 
+```{r showtable, echo=FALSE}
+pmf
+```
+
+
+
+
+Solution
+========
+For a probability distribution to be valid, all of the probabilities must sum to 1. Therefore, calculate $$1- P(k=1)- P(k=2) - P(k=3)$$ to find P(X = 4), which rounded to 2 decimal places is `r sol`
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 2)`
+extol: 0.01
+exname: calculate-valid-pmf
+

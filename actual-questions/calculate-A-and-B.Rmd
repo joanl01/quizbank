@@ -1,0 +1,24 @@
+```{r data generation, echo=FALSE, results='hide'}
+probA <- sample(seq(from= 0, to = 1, by = 0.01),1)
+probB <- sample(seq(from= 0, to = 1, by = 0.01),1)
+
+sol <- round(probA*probB,2)
+
+```
+
+Question
+===============
+An event A has a probability `r probA` of occurring; and an event B has a probability of `r probB`of occurring. Assuming that the two events are independent, calculate P(A and B) to 2 decimal places. 
+
+
+Solution
+=======================
+When two events are independent, P(A and B) $= P(A) \times P(B)$, which rounded to 2 decimal places is `r sol`
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 2)`
+extol: 0.01
+exname: calculate-A-and-B
+

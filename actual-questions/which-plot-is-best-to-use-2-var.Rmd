@@ -1,0 +1,49 @@
+```{r data generation, results='hide', echo=FALSE}
+data <- data.frame(student_id = 1:120, 
+                   hours_studied = abs(rnorm(120, mean=5, sd = 3)),
+                   exam_score = rgamma(120, shape =20 , scale=2))
+
+choices <- character(4)
+choices[1] <- "`data %>% ggplot(aes(x = hours_studied, y = exam_score)) + geom_point()`"
+choices[2] <- "`data %>% ggplot(aes(x = hours_studied, y = exam_score)) + geom_boxplot()  `"
+choices[3] <- "`data %>% ggplot(aes(x = exam_score)) + geom_boxplot()`"
+choices[4] <- "`data %>% ggplot(aes(x = hours_studied)) + geom_histogram()`"
+
+sol <- c(TRUE, FALSE,FALSE,FALSE)
+
+```
+
+Question
+====================
+A scientist thinks that if a student studies for longer hours, they will have better scores in their exams. The scientist ran an experiment and recorded the data shown below for 120 students:
+```{r showdata}
+head(data)
+```
+
+Which R command is the most appropriate to visualise this relationship?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+A scatterplot (`geom_point()`) is used to visualise relationships between two numeric variables. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: which-plot-is-best-to-use-2-var
+exshuffle: TRUE

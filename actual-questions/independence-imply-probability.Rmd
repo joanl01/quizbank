@@ -1,0 +1,43 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+choices[1] <- "P(A and B) = P(A) x P(B)"
+choices[2] <- "P(A or B) = P(A) + P(B)"
+choices[3] <-  "P(A) > P(B)"
+choices[4] <- "P(B) > P(A)"
+sol <- c(TRUE, FALSE,FALSE,FALSE)
+
+explain <- character(4)
+explain[2] <- "This will only happen if A and B are mutally exclusive, in other words, they cannot happen at the same time. For independent events, the overlap still needs to be accounted"
+explain[3] <- "Independence does not imply/change relationships between probabilities of A and B"
+explain[4] <- "Independence does not imply/change relationships between probabilities of A and B"
+
+```
+
+Question
+==============
+If two events, A and B are independent, which of the following statements are true ?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+=======================
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol,explain, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: independence-imply-probability
+exshuffle: TRUE
+
+

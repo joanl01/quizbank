@@ -1,0 +1,21 @@
+```{r data generation, echo=FALSE, results='hide'}
+prob <- sample(seq(from= 0, to = 1, by = 0.01),1)
+sol <- 1-prob
+```
+
+Question
+====================
+An event A has a probability `r prob` of occuring. Calculate the probability of A not occuring to 2 decimal places.
+
+
+Solution
+=======================
+From the question, we know $P(A) = $ `r prob`, therefore the probability of A not occuring, which is $P(A^c) = 1-P(A)$, rounded to 2 decimal places is therefore `r sol`
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 2)`
+extol: 0.01
+exname: calculate-not-A
+

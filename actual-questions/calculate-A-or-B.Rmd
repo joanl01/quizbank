@@ -1,0 +1,34 @@
+```{r data generation, echo = FALSE, results='hide'}
+probA <- sample(seq(from= 0, to = 1, by = 0.01),1)
+probB <- sample(seq(from= 0, to = 1, by = 0.01),1)
+AnB <- sample(seq(from= 0, to = 1, by = 0.01),1)
+
+while((probA+probB-AnB) < 0){
+probA <- sample(seq(from= 0, to = 1, by = 0.01),1)
+probB <- sample(seq(from= 0, to = 1, by = 0.01),1)
+AnB <- sample(seq(from= 0, to = 1, by = 0.01),1)
+}
+
+sol <- probA+probB-AnB 
+
+
+```
+Question
+======================
+The event A has a probability `r probA` of occuring, and the event B has a probability `r prob B` of occuring. Also it is known that P(A and B) = `r AnB`. Calculate P(A or B) to 2 decimal places. 
+
+
+Solution
+=======================
+From the question, we know P(A) = `r probA`, P(B) = `r probB`, and P(A $\cap$ B) = `r AnB`. Therefore substituting the values into the formula:
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+which gives `r sol` when rounded to 2 decimal places.
+
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 2)`
+extol: 0.01
+exname: calculate-A-and-B
+

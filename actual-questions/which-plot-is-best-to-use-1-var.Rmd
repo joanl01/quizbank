@@ -1,0 +1,49 @@
+```{r data generation, results='hide', echo=FALSE}
+base_data <- rnorm(120, mean=0.6, sd = 0.1)
+noise <- rgamma(120, shape =0.1 , scale=0.01)
+data <- data.frame(id = 1:120 ,reaction_time = base_data-noise)
+
+choices <- character(4)
+choices[1] <- "`data %>% ggplot(aes(x = reaction_time)) + geom_histogram()`"
+choices[2] <- "`data %>% ggplot(aes(x = reaction_time)) + geom_bar()`"
+choices[3] <- "`data %>% ggplot(aes(x = id, y = reaction_time)) + geom_point()`"
+choices[4] <- "`data %>% ggplot(aes(x = reaction_time, y = id)) + geom_boxplot()`"
+
+sol <- c(TRUE, FALSE,FALSE,FALSE)
+
+```
+
+Question
+====================
+you have a numeric variable, `reaction_time`, measured for 120 participants:
+```{r showdata}
+head(data)
+```
+
+Which R command is the most appropriate to visualise its distribution?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+A histogram is appropriate for visualising the distribution of a single numeric variable. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: which-plot-is-best-to-use-1-var
+exshuffle: TRUE

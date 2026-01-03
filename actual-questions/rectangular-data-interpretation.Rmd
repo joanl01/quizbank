@@ -14,7 +14,8 @@ choices[8] <- "Columns: Outcomes"
 
 
 ```
-
+Question
+===============
 A dataset has 365 rows and 3 columns. Each row represents one day, and each column represents a different weather measurement (temperature, rainfall, windspeed). 
 
 

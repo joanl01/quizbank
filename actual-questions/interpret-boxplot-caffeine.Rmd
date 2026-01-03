@@ -1,0 +1,59 @@
+```{r data generation, results='hide', echo=FALSE}
+data <- data.frame(attention_span = rnorm(120, mean = 60, sd = 10), 
+                   treatment = rep(c("caffeine", "placebo"), each = 60))
+data$attention_span[data$treatment == "caffeine"] <- data$attention_span[data$treatment == "caffeine"] + rgamma(60, shape= 10, rate = 1)
+
+data$attention_span[data$treatment == "placebo"] <- data$attention_span[data$treatment == "placebo"] - rgamma(60, shape= 5, rate = 1)
+
+plot1 <- data |> ggplot(aes(x = treatment, y = attention_span, fill = treatment)) + geom_boxplot() + theme_bw() + theme(legend.position = "none") + labs(x = "Treatment", 
+          y = "Attention Span")
+
+choices <- character(4)
+
+choices[1] <- "Caffeine causes faster reaction time"
+choices[2] <- "The caffeine group tends to have faster reaction time"
+choices[3] <- "The placebo is ineffective"
+choices[4] <- "Reaction time is normally distributed"
+
+sol <- c(FALSE, TRUE, FALSE, FALSE)
+```
+
+Question
+====================
+A student wants to compare attention span for a caffeinated group and a placebo group. They conducted the experiment for a total of 120 students. A side-by-side boxplot is then used to compare the recorded results. 
+```{r showplot, echo=FALSE}
+plot1
+```
+Which interpretation is most appropriate? 
+
+```{r showplot, echo=FALSE, results='asis'}
+left_skew_plot
+```
+
+What does this plot suggests?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+=======================
+Boxplots show tendencies, but does not indicate causation. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: interpret-boxplot-caffeine
+exshuffle: TRUE
+

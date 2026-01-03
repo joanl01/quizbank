@@ -1,0 +1,47 @@
+```{r data generation, echo=FALSE, results='hide'}
+rand_mean <- sample(200:300, 1)
+rand_var <- sample(15:30, 1)
+rand_question <- sample(250:450,1)
+
+
+choices <- character(4)
+
+choices[1] <- paste0("`rnorm(", rand_question, ", mean = ", rand_mean, ", sd = ", rand_var , ")`")
+choices[2] <- paste0("`qnorm(", rand_question, ", mean = ", rand_mean, ", sd = ", rand_var , ")`")
+choices[3] <- paste0("`dnorm(", rand_question, ", mean = ", rand_mean, ", sd = ", rand_var , ")`")
+choices[4] <- paste0("`pnorm(", rand_question, ", mean = ", rand_mean, ", sd = ", rand_var , ")`")
+
+sol <- c(FALSE,FALSE,FALSE,TRUE)
+```
+
+Question
+==============
+The time for a plant its first flower to bloom is normally distributed with mean `r rand_mean` days and a standard deviation of `r rand_var` days. 
+Which R command computes the probability that a randomly selected plant takes less than `r rand_question` days for its first flower to bloom?
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+=======================
+`pnorm()` computes the cumulative distribution, $P(X \leq x)$
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: which-norm-to-use-pnorm
+exshuffle: TRUE
+
+

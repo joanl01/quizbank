@@ -1,0 +1,49 @@
+```{r data generation, results='hide', echo=FALSE}
+pacman::p_load(tidyverse, gt, exams)
+rand_probs <- seq(from = 0, to= 1, by = 0.01)
+
+ks <- sample(rand_probs,4)
+
+while(sum(ks) != 1){
+  ks <- sample(rand_probs,4)
+}
+data <- data.frame(k = 1:4, 
+                   prob = c(ks))
+
+pmf <- data |> 
+  gt() |> 
+  cols_label(prob = "P(X = k)")
+
+xp <- c()
+for (i in 1:4){
+  xp[i] <- data$k[i] * data$prob[i]
+}
+sol <- round(sum(xp),2)
+
+```
+Question
+===================
+Calculate the mean of the following probability distribution. Give your answer to 2 decimal places
+
+```{r showtable, echo=FALSE}
+pmf
+```
+
+
+Solution
+=============
+To find the mean of the probability distribution, multiply each possible value by its probability, then add all the products:
+$$E[X] = \sum^{\text{all }k} k_i P(X=k)$$
+which can be written as
+```{r calculation, echo=FALSE}
+print(paste0(data$k[1], " * ", data$prob[1], " + ", data$k[2], " * ", data$prob[2], " + ", data$k[3], " * ", data$prob[3], " + ", data$k[4], " * ", data$prob[4]))
+```
+Therefore rounded to 2 decimal places is `r sol`
+
+Meta-information
+================
+extype: num
+exsolution: `r fmt(sol, 2)`
+extol: 0.01
+exname: calculate-valid-pmf
+

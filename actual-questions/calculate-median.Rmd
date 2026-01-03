@@ -50,4 +50,4 @@ Meta-information
 extype: num
 exsolution: `r fmt(sol, 1)`
 extol: 0.01
-exname: calculate sample mean
+exname: calculate-median

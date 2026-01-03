@@ -1,0 +1,61 @@
+```{r data generation, echo=FALSE, results='hide'}
+random <- sample(1:4, 1)
+choices <- c("Experiment", "Observational Study", "Survey", "Randomised Trial")
+sol <- logical(length(choices))
+sol[random] <- TRUE
+
+question <- character(4)
+
+question[1] <- "A researcher gives participants a set amount of sleep each night and then measures their stress levels the following day."
+
+
+question[2] <- "A researcher tracks how the number of hours people sleep correlates with their stress levels without influencing their sleep habits."
+
+question[3] <- "A researcher creates an online questionnaire asking people about their sleep duration and stress levels."
+
+question[4] <- "A researcher randomly assigns participants to either a 6-hour or 8-hour sleep group and measures their stress after one week."
+
+ask <- question[random]
+
+explain <- character(4)
+
+explain[1] <- "This is an experiment because the researcher is actively manipulating the independent variable (sleep duration) and measuring its effect on stress."
+
+explain[2] <- "In an observational study, the researcher observes the relationship between variables without manipulating or controlling them."
+
+explain[3] <- "This is a survey because the data is being collected through self-reported responses, often via questionnaires or surveys."
+
+explain[4] <- "A randomised trial involves randomly assigning participants to different groups and comparing the results to determine the effect of a specific variable (like sleep)."
+
+```
+Question 
+==============
+`r ask`
+What type of study is this ?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+`r explain[random]`
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol)`
+exname: identifying-study-type-2
+exshuffle: TRUE
