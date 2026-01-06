@@ -1,0 +1,40 @@
+```{r data generation, echo=FALSE, results='hide'}
+
+choices <- character(4)
+choices[1] <- "Large sample size"
+choices[2] <- "Small population variance"
+choices[3] <- "Categorical data"
+choicces[4] <-  "Perfect symmetry of the data's histogram"
+
+sol <- c(T, F, F, F)
+```
+Question
+===============
+
+Which condition help justify using the Central Limit Theorem (CLT)?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+==========
+The CLT applies when the sample size is sufficiently large, regardless of population shape.
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: CLT-condition-to-apply
+exshuffle: TRUE

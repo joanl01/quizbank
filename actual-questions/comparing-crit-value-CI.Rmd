@@ -1,0 +1,55 @@
+```{r data generation, echo=FALSE, results='hide'}
+
+choices <- character(4)
+choices[1] <- "Interval A will be wider than Interval B"
+choices[2] <- "Interval B will be wider than Interval A"
+choices[3] <- "Both intervals have the same width"
+choices[4] <- "The width depends only on the sample mean"
+
+
+sol <- c(F, T, F, F)
+```
+
+# Question
+
+Two confidence interval for the same population mean are constructed from the same data:
+
+1.  Interval A: 90% confidence interval
+2.  Interval B: 95% confidence interval
+
+Which of the following statements is correct? 
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+Higher confidence require a larger critical value, which leads to a wider interval. This can be checked using 
+```{r showsteps, echo = TRUE, results='hide'}
+crit_value_0.9 <- qnorm(1-(1-0.9)/2, mean = 0, sd = 1)
+crit_value_0.95 <- qnorm(1-(1-0.95)/2, mean = 0, sd = 1)
+```
+
+```{r}
+cat("The critical value for 90% confidence interval is", crit_value_0.9, "\n")
+cat("The critical value for 95% confidence interval is", crit_value_0.95, "\n")
+```
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: comparing-crit-value-CI
+exshuffle: TRUE
+
+
+

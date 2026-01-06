@@ -1,0 +1,72 @@
+```{r data generation, echo=FALSE, results='hide'}
+rand_num <- sample(35:100, 1)
+rand_mean <- sample(60:85, 1)
+rand_sd <- sample(1:10, 1)
+sample_mean <- rand_mean
+sample_sd <- rand_sd
+num <- rand_num
+se <- rand_sd/sqrt(rand_num)
+t <- 2.064
+lb <- round(rand_mean - t * se,2)
+ub <- round(rand_mean + t*se,2)
+
+choices <- character(4)
+choices[1] <- paste0("(", lb, ", ", ub, ")")
+choices[2] <- paste0("(", round(rand_mean - t * rand_sd/rand_num,2), ", ", round(rand_mean + t * rand_sd/rand_num,2), ")")
+
+choices[3] <- paste0("(", rand_mean, " $\\pm$ " , round(se,2), ")")
+choices[4] <- paste0("(", round(rand_mean - t * rand_sd^2/rand_num,2), ", ", round(rand_mean + t * rand_sd^2/rand_num,2), ")")
+
+sol <- c(T, F, F, F)
+
+```
+
+
+
+Question
+===================
+A random sample of $n = $`r rand_num` high school students has a sample mean math test score of $\bar{x} = $ `r rand_mean`, with a sample standard deviation of $\sigma = $ `r rand_sd`. 
+
+Assume the population distribution is approximately normal, and you may use the 95% critical value to be $t^* = 2.064$. 
+
+Calculate the 95% confidence interval for the true mean math score. Round your answer to 2 decimal places. 
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+==========
+The 95% Confidence Interval can be calculated using the formula:
+$$\bar{x} \pm 2.064 \times \frac{\sigma}{\sqrt{n}}$$
+In R, this can be done by substituting $\bar{x}=$ `r sample_mean`, and $\sigma=$ `r sample_sd`
+```{r, echo=TRUE,}
+lower_bound <- sample_mean -2.064* sample_sd/sqrt(num)
+upper_bound <- sample_mean +2.064* sample_sd/sqrt(num)
+```
+
+```{r, echo = FALSE, results='asis'}
+lower_bound  <- round(sample_mean -2.064* sample_sd/sqrt(num),2)
+upper_bound <- round(sample_mean +2.064* sample_sd/sqrt(num),2)
+
+paste0("(", lower_bound, ", " ,upper_bound, ")")
+```
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: calculate-95-CI-t-test
+exshuffle: TRUE

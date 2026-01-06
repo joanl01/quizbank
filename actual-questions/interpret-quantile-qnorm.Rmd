@@ -1,0 +1,49 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+rand_mean<- sample(150:200, 1)
+rand_sd<- sample(1:10, 1)
+ques <- sample(seq(0.1, 1, by = 0.1),1)
+questext <- paste0("`qnorm(", ques, ", mean = ", rand_mean, ", sd = ", rand_sd,")`")
+choices <- character(4)
+
+choices[1] <- paste0("Probability of observing ", rand_mean)
+choices[2] <- paste0("The ", ques*100, "th percentile")
+choices[3] <- "A random sample"
+choices[4] <- "The standard deviation"
+```
+
+
+Question
+================
+The heights of students, $X$, are normally distributed with mean `r rand_mean`, and standard deviation `r rand_sd`. 
+
+What does this R code return ?
+`r questext`
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+`qnorm()` returns the value corresponding to the given cumulative probability. 
+ 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: interpret-quantile-qnorm
+exshuffle: TRUE

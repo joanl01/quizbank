@@ -1,0 +1,37 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+choices[1] <- "The population standard deviation is known and the sample size is large"
+choices[2] <- "The population standard deviation is unknown and estimated from the sample"
+choices[3] <- "The population is non-normal"
+choices[4] <- "The sample mean is unknown"
+sol <- c(F, T, F, F)
+```
+
+
+Question
+================
+Which of the following situations require using the t-distribution to find the critical value for a confidence interval? 
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+A t-interval is used when the population standard deviation $\sigma$ is unknown and replaced by the sample standard deviation $s$.
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: CI-when-to-use-t-dist
+exshuffle: TRUE
+
+

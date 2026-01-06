@@ -1,0 +1,40 @@
+```{r data generation, echo=FALSE, results='hide'}
+
+choices <- character(4)
+choices[1] <- "It remains right-skewed"
+choices[2] <- "It is approximately normal"
+choices[3] <- "It matches the population exactly"
+choices[4] <-  "It is uniform"
+
+sol <- c( F, T, F, F)
+```
+Question
+===============
+
+The population distribution is strongly right-skewed. Samples of size 50 are taken.
+What is true about the sampling distribution of the mean?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+==========
+With large samples, the distribution of the sample mean becomes approximately normal. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: CLT-sample-mean-dist
+exshuffle: TRUE

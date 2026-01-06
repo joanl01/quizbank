@@ -1,0 +1,50 @@
+```{r data generation, echo=FALSE, results='hide'}
+mean <- sample(120:135,1)
+sd <- sample(10:20,1)
+
+lb <- round(mean-2.064*sd/sqrt(sample(100:120,1)),2)
+ub <- round(mean+2.064*sd/sqrt(sample(100:120,1)),2)
+
+choices <- character(4)
+choices[1] <- paste0("There is a 95% probability that the true mean loudness of cockatoo shrieks lies between ", lb, "dB and ", ub ,"dB")
+choices[2] <- paste0("95% of cockatoos make shrieks that are between ", lb, "dB and ", ub ,"dB loud")
+choices[3] <- paste0("We are 95% confident that the true mean loudness of cockatoo shrieks lies between ", lb, "dB and ", ub ,"dB")
+
+choices[4] <- paste0("The true mean loudness of cockatoo shrieks is ", round(0.5*(lb + ub),2), "dB")
+
+sol <- c(F, F, T, F)
+
+```
+
+
+
+Question 
+==================
+Suppose the 95% confidence interval for the mean loudness of shrieks cockatoos make is (`r lb`, `r ub`) decibels (dB). 
+Which of the following is the correct interpretation? 
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+The confidence level is interpreted by:
+We are `CI level` confident that the true `parameter` of `population` lies between `lower` and `upper` `units`. Confidence interval refers to the method, not the probability of a fixed parameter. 
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: interpret-95-CI
+exshuffle: TRUE
+
+

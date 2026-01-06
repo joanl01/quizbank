@@ -1,0 +1,37 @@
+```{r data generation, echo=FALSE, results='hide'}
+rand_n <- sample(35:60, 1)
+choices <- c(rand_n-1, rand_n, rand_n+1, "depends on the confidence level")
+sol <- choices == (rand_n-1)
+
+```
+
+
+Question
+======================
+A random sample of `r rand_n`observations is used to construct a confidence interval for a population mean, using the t-distribution.
+
+What are the degrees of freedom used to find the critical value?
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+The degrees of freedom used to find the critical value is $n-1$, where $n$ is the nmber of observations. 
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: CI-calc-df
+exshuffle: TRUE
+
+

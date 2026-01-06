@@ -1,0 +1,45 @@
+```{r data generation, echo=FALSE, results='hide'}
+rand_sd <- sample(5:20, 1)
+num_sample <- sample(35:100, 1)
+
+ans <- round(rand_sd/sqrt(num_sample),3)
+choices <- c()
+choices[1] <- rand_sd/sqrt(num_sample)
+choices[2] <-  rand_sd/num_sample
+choices[3] <- rand_sd^2/num_sample
+choices[4] <- (rand_sd/num_sample)^2
+
+choices <- round(choices,3)
+sol <- choices== ans
+```
+Question
+===============
+
+We want to estimate a population mean with a Normal distribution with a known population standard deviation of `r rand_sd`. Given that `r num_samples` samples are taken, what is the standard error?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+==========
+In the case of a population mean for a Normal distribution with a known population standard deviation, we have the standard deviation calculated by:
+$$\frac{\sigma}{\sqrt{n}}$$
+where $\sigma$ is the standard deviation, and $n$ is the number of samples taken.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: CI-calculate-std-error
+exshuffle: TRUE

@@ -1,0 +1,42 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+
+choices[1] <- "95% of the data lies inside the interval"
+choices[2] <- "The interval contains the sample mean 95% of the time"
+choices[3] <- "95% of the intervals constructed using this method will contain the true mean"
+choices[4] <- "There is a 95% chance the interval is correct"
+sol <- c(F, F, T, F)
+```
+
+Question
+=================
+What does the "95%" in a 95% Confidence Interval mean?
+
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+
+Solution
+==================
+A confidence interval is based on a procedure, not on probability statements about a single, already-computed interval.
+
+If you repeatedly took random samples from the same population, and constructed a confidence interval from each sample using the same method, then about 95% of those intervals would contain the true population mean.
+
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: interpret-the-95-of-CI
+exshuffle: TRUE
+
+

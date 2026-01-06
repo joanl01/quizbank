@@ -42,7 +42,7 @@ answerlist(sol, markup = "markdown")
 
 Meta-information
 ================
-extype: schoice
+extype: mchoice
 exsolution: `r mchoice2string(sol)`
 exname: rectangular-data-interpretation
 exshuffle: TRUE

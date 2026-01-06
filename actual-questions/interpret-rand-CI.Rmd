@@ -1,0 +1,49 @@
+```{r data generation, echo=FALSE, results='hide'}
+conf_int <- sample(90:99, 1)
+conf_int_2 <- 100-(100-conf_int)*2
+rand_mean <- rnorm(1, mean = 50, sd = 5)
+lb <- round(rand_mean - 1.959964 * 50/sqrt(50),2)
+ub <- round(rand_mean + 1.959964 * 50/sqrt(20),2)
+
+
+choices <- character(4)
+choices[1] <- paste0("We are ", conf_int, "% confident that the true mean wingspan of seagulls lies between ", lb," and ", ub, " centimetres.")
+
+choices[2] <- paste0("We are ", conf_int_2, "% confident that the true mean wingspan of seagulls lies between ", lb," and ", ub, " centimetres.")
+
+choices[3] <- paste0("We are ", conf_int, "% confident that the sample mean wingspan of seagulls lies between ", lb," and ", ub, " centimetres.")
+
+choices[4] <- paste0("The probability that the true mean wingspan of seagulls lies between ", lb, " and ", ub, " millimetres is ", conf_int/100, ".")
+
+sol <- c(T, F, F,F)
+
+```
+
+Question
+===============
+Suppose the `r conf_int`% confidence interval for the population mean wingspan of seagulls (measured in centimetres) is (`r lb`, `r ub`). What is the correct interpretation of this confidence interval?
+```{r questionlist, echo=FALSE, results='asis'}
+answerlist(choices, markup = "markdown")
+```
+
+
+Solution
+=================
+The confidence level is interpreted by:
+We are `CI level` confident that the true `parameter` of `population` lies between `lower` and `upper` `units`.
+
+The correct answer is 
+```{r answerlist, echo=FALSE, results='asis'}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(correct, single = TRUE)`
+exname: interpret-rand-CI
+exshuffle: TRUE
+
+

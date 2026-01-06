@@ -1,0 +1,47 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+rand_mean<- sample(150:200, 1)
+rand_sd<- sample(1:10, 1)
+ques <- sample(160:210,1)
+choices <- character(4)
+choices[1] <- paste0("`pnorm(", ques, ", mean = ", rand_mean, ", sd = ", rand_sd, ")`")
+choices[2] <- paste0("`1 - pnorm(", ques, ", mean = ", rand_mean, ", sd = ", rand_sd, ")`")
+choices[3] <- paste0("`qnorm(", 0.95, ", mean = ", rand_mean, ", sd = ", rand_sd, ")`")
+choices[4] <- paste0("`dnorm(", ques, ", mean = ", rand_mean, ", sd = ", rand_sd, ")`")
+
+
+sol <- c(FALSE, T, F, F)
+```
+
+
+Question
+================
+The heights of students, $X$, are normally distributed with mean `r rand_mean`, and standard deviation `r rand_sd`. Which R command calculates $P(X >$ `r ques` $)$
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+==============
+`pnorm()` calcultes the left tail probability $P(X\leq x)$, therefore to calculate $P(X > x ) = 1- P(X\leq x) = 1-$ `pnorm()`
+ 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: calculate-right-tail-prob
+exshuffle: TRUE

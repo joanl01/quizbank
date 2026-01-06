@@ -1,0 +1,72 @@
+```{r data generation, echo=FALSE, results='hide'}
+num <- sample(40:70, 1)
+sample_mean <- sample(seq(20, 40, by = 0.1),1)
+sample_sd <- sample(seq(1, 10, by = 0.01),1)
+
+X <- round(sample_mean -1.96* sample_sd/sqrt(num),2)
+Y <- round(sample_mean +1.96* sample_sd/sqrt(num),2)
+
+
+choices <- character(8)
+choices[1] <- paste0("X = ", X)
+choices[2] <- paste0("Y = ", Y)
+choices[3] <- paste0("Y = ", X)
+choices[4] <- paste0("X = ", Y)
+choices[5] <- paste0("X = ", round(sample_mean -1.96* sample_sd^2/sqrt(num),2))
+choices[6] <- paste0("X = ", round(sample_mean -1.96* sample_sd/num,2))
+choices[7] <- paste0("Y = ", round(sample_mean +1.96* sample_sd^2/sqrt(num),2))
+choices[8] <- paste0("Y = ", round(sample_mean +1.96* sample_sd/num,2))
+
+sol <- c(T,T, F,F,F,F,F,F)
+
+```
+
+
+
+Question
+==================
+`r num` wombats are randomly selected and their weight is measured in kilograms. The sample mean is $\bar{x}=$ `r sample_mean`, and the population standard deviation is known to be $\sigma=$ `r sample_sd`. You may assume $Z^* = 1.96$. Please give your answer to 2 decimal places. 
+
+Assuming the weight of wombats is normally distributed, please find the value of $X$ and $Y$ in the following sentence:
+
+"The 95% confidence interval for the true mean weight of wombats (in kilograms) is $(X,Y)$"
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+==========
+X and Y can be calculated using the formula:
+$$\bar{x} \pm 1.96 \times \frac{\sigma}{\sqrt{n}}$$
+In R, this can be done by substituting $\bar{x}=$ `r sample_mean`, and $\sigma=$ `r sample_sd`
+```{r, echo=TRUE,}
+X <- sample_mean -1.96* sample_sd/sqrt(num)
+Y <- sample_mean +1.96* sample_sd/sqrt(num)
+```
+
+```{r, echo = FALSE, results='asis'}
+X <- round(sample_mean -1.96* sample_sd/sqrt(num),2)
+Y <- round(sample_mean +1.96* sample_sd/sqrt(num),2)
+
+paste0("X = ", X)
+paste0("Y = ", Y)
+```
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol)`
+exname: calculate-95-CI-Z-test
+exshuffle: TRUE

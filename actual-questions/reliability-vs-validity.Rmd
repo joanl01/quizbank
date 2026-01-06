@@ -36,6 +36,6 @@ Meta-information
 extype: mchoice
 exsolution: `r mchoice2string(correct, single = TRUE)`
 exname: reliability-vs-validity
-
+exshuffle: TRUE
 
 

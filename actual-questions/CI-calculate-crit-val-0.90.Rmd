@@ -1,0 +1,53 @@
+```{r data generation, echo=FALSE, results='hide'}
+conf <- 0.90
+alpha <- 1-conf
+ans <- round(qnorm(1-alpha/2, mean =0, sd =1),2)
+
+choices <- c()
+
+choices[1] <- qnorm(1-alpha/2, mean =0, sd =1)
+choices[2] <- qnorm(1-0.05/2, mean =0, sd =1)
+choices[3] <- qnorm(alpha/2, mean =0, sd =1)
+choices[4] <- qnorm(0.05/2, mean = 0, sd =1)
+
+choices <- round(choices,2)
+sol <- choices==ans
+
+```
+
+
+Question
+==============
+For a standard normal distribution, what is the critical value for a 90% confidence interval, $Z^*$? Round solution to 2 decimal places. 
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+Solution
+==========
+The critical value for a 90% Confidence interval can be found using:
+```{r, echo=TRUE}
+confidence_level <- 0.90
+alpha <- 1-confidence_level
+round(qnorm(1-alpha/2, mean =0, sd =1),2)
+
+```
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r mchoice2string(sol, single=TRUE)`
+exname: CI-calculate-crit-val-0.90
+exshuffle: TRUE
