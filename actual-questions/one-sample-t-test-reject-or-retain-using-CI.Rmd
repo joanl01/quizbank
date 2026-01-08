@@ -1,0 +1,57 @@
+```{r data generation}
+num <- sample(30:60, 1)
+avg <- sample(2:10, 1)
+sd <- sample(1:5, 1)
+lb <- round((avg)-2.064*sd/sqrt(num),3)
+ub <- round((avg)+2.064*sd/sqrt(num),3)
+
+choices <- character(4)
+choices[1] <- paste0("Retain the null hypothesis because ", avg, " is contained within the 95% confidence interval")
+choices[2] <- paste0("Reject the null hypothesis, because ", avg, " is not in the 95% confidece interval")
+choices[3] <- paste0("Cannot make a conclusion without the p-value")
+choices[4] <- paste0("Retain the null hypothesis because the interval is wide")
+
+sol <- c(avg>lb & avg<ub, avg<lb|avg>ub, F, F)
+
+```
+
+
+Question
+===================
+A city park claims that on average, squirrels steal `r avg` donuts per day from picnickers.
+
+A group of researchers decides to test this claim. For `r num` days, they secretly observe donut thefts and record how many donuts disappear each day stolen by squirrels.
+
+The 95% confidence interval these researchers calculated is:
+$$(`r lb`, `r ub`)$$
+
+What is the corret conclusion at the 5% significance level?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+The null and alternative hypotheses for this test are:
+$$H_0: \mu = `r avg`$$
+$$H_a: \mu \neq `r avg`$$
+The hypothesised value is contained within the confidence interval, therefore the null hypothesis is retained at the 5% significance level.
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol)`
+exname: one-sample-t-test-reject-or-retain-using-CI
+exshuffle: TRUE
+
+
+

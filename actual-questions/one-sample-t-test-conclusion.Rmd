@@ -1,0 +1,86 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_samples <- sample(35:100, 1)
+choices <- character(4)
+ques <- sample(1:5, 1)
+ques_s <- ques*60
+
+sigma <- 20
+data <- data.frame(
+  duration = rnorm(
+    n = num_samples,
+    mean = ques_s + 15,  # teachers run long
+    sd = sigma)
+  )
+data$duration <- round(data$duration,1)
+
+my_ttest <- t.test(data$duration, mu = ques_s)
+p_val <- my_ttest$p.value
+
+
+choices <- character(4)
+
+choices[1] <- "Fail to reject the null hypothesis"
+choices[2] <- "Reject the null hypothesis"
+choices[3] <- "Accept the null hypothesis"
+choices[4] <- "The result is inconclusive"
+
+
+sol <- c(p_val > 0.05, p_val<0.05, F, F)
+explain <- character(4)
+explain[1] <- ifelse(p_val>0.05, " ", "The p-value is greater than 0.05, therefore we fail to reject the null hypothesis at the 5% significance level. In other words, we retain the null hypothesis at the 5% significance level.")
+explain[2] <- ifelse(p_val<0.05, " ", "The p-value is greater than 0.05, therefore we reject the null hypothesis at the 5% significance level.")
+explain[3] <- "The null hypothesis cannot be accepted, as statistical tests only provide evidence against it, not definitive proof for it. "
+
+explain[4] <- "Once a significance level is chosen, a hypothesis test always leads to a decision: reject or fail to reject the null hypothesis. Therefore, 'the result is inconclusive' is not a valid conclusion."
+
+
+
+
+```
+
+
+
+Question
+=================
+At the end of class, teachers sometimes announce that they “just have a few things to go through” and reassure students by saying, “This will only be `r ques` minutes.” 
+
+To test whether this claim is accurate, a student recorded the duration (in seconds) of `r num_samples` randomly selected end-of-class announcements in which teachers explicitly stated, “This will only be `r ques` minutes.”
+
+The data recorded is shown below:
+```{r showdata, echo = TRUE}
+head(data)
+```
+
+
+The one-sample t-test is then ran, the output is then shown below:
+```{r showoutput, echo=FALSE, results='asis'}
+print(my_ttest)
+```
+
+At the 5% significance level, which is the correct conclusion?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+The t-statistic measures how many standard errors the sample mean is away from the hypothesised mean.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, explain, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol)`
+exname: one-sample-t-test-conclusion
+exshuffle: TRUE
+

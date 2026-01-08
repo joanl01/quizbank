@@ -1,0 +1,61 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_samples <- sample(35:100, 1)
+choices <- character(4)
+ques <- sample(1:5, 1)
+ques_s <- ques*60
+
+sigma <- 20
+data <- data.frame(
+  duration = rnorm(
+    n = num_samples,
+    mean = ques_s + 15,  # teachers run long
+    sd = sigma)
+  )
+data$duration <- round(data$duration,1)
+
+choices[1] <- paste0("`t.test(data$duration, mu = ", ques_s,")`")
+choices[2] <- paste0("`t.test(duration = ", ques_s, ") `")
+choices[3] <- paste0("`t.test(duration ~ ", ques_s,")`")
+choices[4] <- paste0("`t.test(mean(data$duration), mu =  ", ques_s,")`")
+sol <- c(T,F,F,F)
+```
+
+
+
+Question
+=================
+At the end of class, teachers sometimes announce that they “just have a few things to go through” and reassure students by saying, “This will only be `r ques` minutes.” 
+
+To test whether this claim is accurate, a student recorded the duration (in seconds) of `r num_samples` randomly selected end-of-class announcements in which teachers explicitly stated, “This will only be `r ques` minutes.”
+The data recorded is shown below:
+```{r showdata, echo = TRUE}
+head(data)
+```
+
+
+Which R code correctly performs the one-sample t-test?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: one-sample-t-test-correct-code
+exshuffle: TRUE
+

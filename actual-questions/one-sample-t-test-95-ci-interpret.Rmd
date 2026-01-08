@@ -1,0 +1,108 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_samples <- sample(35:100, 1)
+choices <- character(4)
+ques <- sample(1:5, 1)
+ques_s <- ques*60
+
+sigma <- 20
+data <- data.frame(
+  duration = rnorm(
+    n = num_samples,
+    mean = ques_s + 15,  # teachers run long
+    sd = sigma)
+  )
+data$duration <- round(data$duration,1)
+
+my_ttest <- t.test(data$duration, mu = ques_s)
+ci_lb <- round(my_ttest$conf.int[1],2)
+ci_ub <- round(my_ttest$conf.int[2],2)
+
+
+choices <- character(4)
+choices[1] <- paste0(
+  "95% of teachers use between ", ci_lb, " and ", ci_ub,
+  " seconds when they say they will only be ", ques, " minutes."
+)
+
+choices[2] <- paste0(
+  "There is a 95% probability that the true mean duration is between ",
+  ci_lb, " and ", ci_ub,
+  " seconds when teachers say they will only be ", ques, " minutes."
+)
+
+choices[3] <- paste0(
+  "We are 95% confident that the true mean duration is between ",
+  ci_lb, " and ", ci_ub,
+  " seconds when teachers say they will only be ", ques, " minutes."
+)
+
+choices[4] <- paste0(
+  "The sample mean lies between ", ci_lb, " and ", ci_ub,
+  " seconds with probability 0.95."
+)
+
+sol <- c(F, F, T, F)
+
+explain <- character(4)
+
+explain[1] <- 
+  "Confidence interval describes uncertainty about the population mean, not the proportion of individual teachers."
+
+explain[2] <- 
+  "The true mean is a fixed (but unknown) value. The 95% refers to the long-run success rate of the method, not the probability that the true mean lies in this specific interval."
+
+
+explain[4] <- 
+  "The sample mean is a fixed value once the data are collected. The probability statement applies to the confidence interval procedure, not to the observed sample mean."
+
+
+
+```
+
+
+
+Question
+=================
+At the end of class, teachers sometimes announce that they “just have a few things to go through” and reassure students by saying, “This will only be `r ques` minutes.” 
+
+To test whether this claim is accurate, a student recorded the duration (in seconds) of `r num_samples` randomly selected end-of-class announcements in which teachers explicitly stated, “This will only be `r ques` minutes.”
+
+The data recorded is shown below:
+```{r showdata, echo = TRUE}
+head(data)
+```
+
+
+The one-sample t-test is then ran, the output is then shown below:
+```{r showoutput, echo=FALSE, results='asis'}
+print(my_ttest)
+```
+
+Which interpretation is correct about the 95% confidence interval?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+The confidence level is interpreted by:
+We are `CI level` confident that the true `parameter` of `population` lies between `lower` and `upper` `units`. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, explain, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol)`
+exname: one-sample-t-test-95-ci-interpret
+exshuffle: TRUE
+

@@ -1,0 +1,77 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+num <- sample(30:50, 1)
+data <- data.frame(before = rnorm(num, mean = 3, sd = 2),
+                   after = rnorm(num, mean = 4, sd = 4))
+data <- round(data,0)
+for(i in 1:num){
+  if(data$before[i] > 10){
+    data$before[i] <- 10
+  } else if(data$before[i] < 0){
+    data$before[i] <- 0
+  }
+}
+
+for(j in 1:num){
+  if(data$after[j] > 10){
+    data$after[j] <- 10
+  } else if(data$after[j] < 0){
+    data$after[j] <- 0
+  }
+}
+
+choices <- character(4)
+choices[1] <- "The happiness scores themselves must be normally distributed"
+choices[2] <- "The differences in happiness must be approximately normally distributed"
+choices[3] <- "The two measurements (before and after) must be independent of each other"
+choices[4] <- "The sample size must be greater than 30"
+
+sol <- c(F, T, F, F)
+
+explain <- character(4)
+explain[1] <- "For a matched pairs t-test, we need the differences to be normally distributed, rather than the happiness scores themselves"
+explain[3] <- "The measurements cannot be independent of each other, as it is still testing the effects on the same subject. However independence within groups (before and after) still applies. "
+explain[4] <- "This is not absolute, an assumption of the matched pairs t-test is normality of the differences, which does not require the sample size to be >30."
+
+```
+
+
+
+Question
+=======================
+A researcher wants to determine whether giving dogs a treat increases their happiness.
+Each dog’s happiness index (on a scale from 0–10) is measured before and after receiving a treat.
+There are `r num` dogs included in the study, the happiness index for each dog is measured twice, once before a treat and once after a treat. 
+
+The recorded data looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+The researcher decides to use a matched pairs t-test to comapre if the happiness index of dogs increases after getting a treat.
+Which assumption is required for this matched pairs t-test?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, explain, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: matched-pairs-t-test-assumptions
+exshuffle: TRUE
+

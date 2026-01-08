@@ -1,0 +1,41 @@
+```{r data generation, echo=FALSE, results='hide'}
+choices <- character(4)
+choices[1] <- "The null hypothesis is false"
+choices[2] <- "The alternative hypothesis is true"
+choices[3] <- "There is sufficient evidence against the null hypothesis"
+choices[4] <- "The result is practically important"
+
+sol <- c(F, F, T, F)
+
+```
+
+
+Question
+==================
+What does it mean to reject the null hypothesis $H_0$?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+Rejecting the null hypothesis means the data provide sufficient statistical evidence against it and not that it is proven false.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: reject-H0-what-does-it-mean
+exshuffle: TRUE
+
+

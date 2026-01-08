@@ -1,0 +1,74 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_samples <- sample(35:100, 1)
+choices <- character(4)
+ques <- sample(1:5, 1)
+ques_s <- ques*60
+
+sigma <- 20
+data <- data.frame(
+  duration = rnorm(
+    n = num_samples,
+    mean = ques_s + 15,  # teachers run long
+    sd = sigma)
+  )
+data$duration <- round(data$duration,1)
+
+my_ttest <- t.test(data$duration, mu = ques_s)
+test_stat <- my_ttest$statistic
+
+
+choices <- character(4)
+choices[1] <- "The difference between the sample and the population mean."
+choices[2] <- "The standard deviation of the sample"
+choices[3] <- "The standardised difference between the sample mean and the hypothesised mean"
+choices[4] <- "The probability that the null hypothesis is true"
+
+sol <- c(F, F, T, F)
+
+```
+
+
+
+Question
+=================
+At the end of class, teachers sometimes announce that they “just have a few things to go through” and reassure students by saying, “This will only be `r ques` minutes.” 
+
+To test whether this claim is accurate, a student recorded the duration (in seconds) of `r num_samples` randomly selected end-of-class announcements in which teachers explicitly stated, “This will only be `r ques` minutes.”
+
+The data recorded is shown below:
+```{r showdata, echo = TRUE}
+head(data)
+```
+
+
+The one-sample t-test is then ran, the output is then shown below:
+```{r showoutput, echo=FALSE, results='asis'}
+print(my_ttest)
+```
+What does the value t = `r test_stat` represent?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+The t-statistic measures how many standard errors the sample mean is away from the hypothesised mean.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: one-sample-t-test-what-does-test-stat-mean
+exshuffle: TRUE
+

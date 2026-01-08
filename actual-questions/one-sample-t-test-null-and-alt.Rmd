@@ -1,0 +1,73 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_samples <- sample(35:100, 1)
+choices <- character(8)
+ques <- sample(1:5, 1)
+ques_s <- ques*60
+
+sigma <- 20
+data <- data.frame(
+  duration = rnorm(
+    n = num_samples,
+    mean = ques_s + 15,  # teachers run long
+    sd = sigma)
+  )
+data$duration <- round(data$duration,1)
+
+
+
+
+choices[1] <- paste0("$H_0: \\mu =",  ques_s,"$")
+choices[2] <- paste0("$H_a: \\mu \\neq", ques_s, "$")
+choices[3] <- paste0("$H_a: \\mu =", ques_s, "$")
+choices[4] <- paste0("$H_0: \\mu \\neq",ques_s,"$")
+choices[5] <- paste0("$H_0: \\mu \\geq" , ques_s,"$")
+choices[6] <- paste0("$H_a: \\mu <",  ques_s,"$")
+choices[7] <- paste0("$H_0: \\mu \\leq", ques_s, "$")
+choices[8] <- paste0("$H_a: \\mu > ", ques_s, "$")
+
+sol <- c(T,T, F, F, F, F, F, F)
+```
+
+
+
+Question
+=================
+At the end of class, teachers sometimes announce that they “just have a few things to go through” and reassure students by saying, “This will only be `r ques` minutes.” 
+
+To test whether this claim is accurate, a student recorded the duration (in seconds) of `r num_samples` randomly selected end-of-class announcements in which teachers explicitly stated, “This will only be `r ques` minutes.”
+
+The data recorded is shown below:
+```{r showdata, echo = TRUE}
+head(data)
+```
+
+
+Which are the appropriate null and alternative hypotheses to test if “This will only be `r ques` minutes.” is actually `r ques_s` seconds (`r ques` minutes)?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+================
+The appropriate null and alternative hypotheses are:
+$$H_0: \mu = `r ques_s`$$
+$$H_a: \mu \neq `r ques_s`$$
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol)`
+exname: one-sample-t-test-null-and-alt
+exshuffle: TRUE
+

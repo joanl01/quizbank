@@ -1,0 +1,82 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(exams, tidyverse)
+num <- sample(30:50, 1)
+data <- data.frame(before = rnorm(num, mean = 3, sd = 2),
+                   after = rnorm(num, mean = 4, sd = 4))
+data <- round(data,0)
+for(i in 1:num){
+  if(data$before[i] > 10){
+    data$before[i] <- 10
+  } else if(data$before[i] < 0){
+    data$before[i] <- 0
+  }
+}
+
+for(j in 1:num){
+  if(data$after[j] > 10){
+    data$after[j] <- 10
+  } else if(data$after[j] < 0){
+    data$after[j] <- 0
+  }
+}
+data$diff <- data$after - data$before
+
+mytest <- t.test(data$diff)
+
+choices <- character(4)
+choices[1] <- "Retain $H_0$ because the p-value is less then 0.05"
+choices[2] <- "Reject $H_0$ because the p-value is less than 0.05"
+choices[3] <- "Retain $H_0$ because the p-value is greater than 0.05"
+choices[4] <- "Reject $H_0$ because the p-value is greater than 0.05"
+
+sol <- c(F, mytest$p.value < 0.05, mytest$p.value > 0.05, F)
+
+```
+
+
+
+Question
+=======================
+A researcher wants to determine whether giving dogs a treat increases their happiness.
+Each dog’s happiness index (on a scale from 0–10) is measured before and after receiving a treat.
+There are `r num` dogs included in the study, the happiness index for each dog is measured twice, once before a treat and once after a treat. 
+
+The researcher decides to use a matched pairs t-test to comapre if the happiness index of dogs increases after getting a treat.
+
+Let `diff` be the difference in happiness index before and after getting a treat, which is calculated by:
+`diff <- data$after - data$before`
+The recorded data now looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+A matched pairs t-test is then performed, and the output is shown below:
+```{r showoutput, echo=FALSE}
+print(mytest)
+```
+
+
+What is the correct conclusion at the 5% significance level?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: matched-pairs-t-test-retain-or-reject
+exshuffle: TRUE
+
