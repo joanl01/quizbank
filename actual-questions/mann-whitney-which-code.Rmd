@@ -1,0 +1,83 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_dogs <- sample(20:30, 1)
+
+# Dog owners: mostly unbothered
+dog_judgment <- sample(
+  x = 1:6,
+  size = num_dogs,
+  replace = TRUE,
+  prob = c(0.10, 0.25, 0.30, 0.20, 0.10, 0.05)
+)
+
+# Cat owners: deeply judged
+cat_judgment <- sample(
+  x = 3:10,
+  size = num_dogs,
+  replace = TRUE,
+  prob = c(0.05, 0.05, 0.10, 0.15, 0.20, 0.20, 0.15, 0.10)
+)
+
+data <- data.frame(
+  dog_judgment = dog_judgment,
+  cat_judgment = cat_judgment
+)
+
+
+choices <- character(4)
+choices[1] <- "`wilcox.test(data$dog_judgement, data$cat_judgement)`"
+
+choices[2] <- "`t.test(data$dog_judgement, data$cat_judgement)`"
+
+choices[3] <- "`chisq.test(data$dog_judgement, data$cat_judgement)`"
+
+choices[4] <- "`t.test(dog_judgement ~ cat_judgement, data = data)`"
+
+
+sol <- c(T, F, F, F)
+```
+
+Question
+===================
+A behavioural science lab wants to study perceived judgement from pets. They recruit pet owners and ask them to rate, on a 1-10 scale, how judged the owners feel when their pet watches them eat dropped food from the floor. This dataset collected has 2 variables:
+
+1.  Scale of judgement:
+1 = "pure unconditional love"
+10 = "you have severely disrespected my ancestors" 
+
+2.  Type of pets: dogs and cats
+
+The final dataset looks like:
+```{r show data, echo=FALSE}
+head(data)
+```
+
+
+The researcher decides to use a Mann-Whitney U test for this study.
+
+Which is the correct code to apply a Mann-Whitney U test ?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+The Mann-Whitney U test is ran using the `wilcox.test()` function. 
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: mann-whitney-which-code
+exshuffle: TRUE
+
+

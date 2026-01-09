@@ -1,0 +1,77 @@
+```{r data generation, echo=FALSE, results='hide', warning=FALSE}
+pacman::p_load(tidyverse, exams)
+num <- sample(30:100, 1)
+
+# Generate study mode
+study_mode <- sample(
+  c("On-campus", "Online"),
+  size = num,
+  replace = TRUE,
+  prob = c(0.4, 0.6)
+)
+
+# Generate pet ownership CONDITIONAL on study mode
+pet_ownership <- ifelse(
+  study_mode == "Online",
+  sample(c("Yes", "No"), sum(study_mode == "Online"),
+         replace = TRUE, prob = c(0.7, 0.3)),
+  sample(c("Yes", "No"), sum(study_mode == "On-campus"),
+         replace = TRUE, prob = c(0.5, 0.5))
+)
+
+# Combine into data frame
+student_data <- data.frame(
+  StudyMode = study_mode,
+  PetOwner = pet_ownership
+)
+
+# Contingency table
+pet_table <- xtabs(~ StudyMode + PetOwner, data = student_data)
+
+# Chi-square test
+chi_test <- chisq.test(pet_table)
+
+choices <- character(4)
+choices[1] <- "The means of the two groups are equal"
+choices[2] <- "The variables are normally distributed"
+choices[3] <- "The two categorical variables are independent"
+choices[4] <- "The medians of the groups are equal"
+
+sol <- c(F, F,  T, F)
+
+```
+
+
+Question
+===================
+A researcher records whether university students own a pet (Yes/No), and their study mode (Online/On-campus). The following contingency table is constrcuted from the data:
+```{r showtable, echo=FALSE}
+pet_table
+```
+What is the appropriate null hypothesis for this study?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+The null hypothesis for a chi-square test is to see if the variables are independent (no association)
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, explain, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: chi-square-null-hyp
+exshuffle: TRUE
+

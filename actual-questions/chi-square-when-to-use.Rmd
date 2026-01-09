@@ -1,0 +1,41 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+choices <- character(4)
+choices[1] <- "One-sample t-test"
+choices[2] <- "Two-sample t-test"
+choices[3] <- "Chi-square test"
+choices[4] <- "Mann-Whitney test"
+
+sol <- c(F, F, T, F)
+
+```
+
+
+Question
+===================
+A researcher records whether university students own a pet (Yes/No), and their study mode (Online/On-campus). Which test is most appropriate to assess whether pet ownership is associated with study mode?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+Both variables are categorical, and the goal is to test for association, the chi-square test is appropriate in this case. 
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: chi-square-when-to-use
+exshuffle: TRUE
+

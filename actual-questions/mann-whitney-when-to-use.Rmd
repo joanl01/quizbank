@@ -1,0 +1,127 @@
+```{r data generation, echo=FALSE, results='hide'}
+pacman::p_load(exams, tidyverse, patchwork)
+# Office workers: lower median, right-skewed
+office_steps_skewed <- c(
+  rexp(30, rate = 0.5),  # typical days
+  30, 35                          # extreme outliers
+)
+
+# Remote workers: slightly higher median, right-skewed
+remote_steps_skewed <- c(
+  rexp(30, rate = 0.3),
+  40, 45
+)
+
+skewed_data <- data.frame(office_steps = office_steps_skewed, 
+                          remote_steps = remote_steps_skewed)
+
+
+# Data frame for unskewed data: approximately normal
+unskewed_data <- data.frame(office_steps = rnorm(
+  n = 32,
+  mean = 8,
+  sd = 1.5
+), 
+remote_steps = rnorm(
+  n = 32,
+  mean = 9,
+  sd = 1.5
+))
+
+# Histogram of office workers (skewed)
+skewed_office <- skewed_data |> ggplot(aes(x = office_steps)) + 
+  geom_histogram(fill = "lightcoral", col = "black") + 
+  theme_bw() + 
+  labs(
+    x = "Steps taken by office workers (1000)",
+    title = "Histogram of steps taken by office workers"
+  )
+# Histogram of remote workers (skewed)
+skewed_remote <- skewed_data |> ggplot(aes(x = remote_steps)) + 
+  geom_histogram(fill = "lavender", col = "black") + 
+  theme_bw() + 
+  labs(
+    x = "Steps taken by remote workers (1000)",
+    title = "Histogram of steps taken by remote workers"
+  )
+# Join skewed plots together side-by-side
+skewed_plots <- skewed_office + skewed_remote
+
+rand <- sample(1:2,1)
+
+list <- list()
+list[[1]] <- skewed_plots
+
+
+# Histogram of office workers (unskewed)
+unskewed_office <- unskewed_data |> ggplot(aes(x = office_steps)) + 
+  geom_histogram(fill = "lightcoral", col = "black") + 
+  theme_bw() + 
+  labs(
+    x = "Steps taken by office workers (1000)",
+    title = "Histogram of steps taken by office workers"
+  )
+# Histogram of remote workers (unskewed)
+unskewed_remote <- unskewed_data |> ggplot(aes(x = remote_steps)) + 
+  geom_histogram(fill = "lavender", col = "black") + 
+  theme_bw() + 
+  labs(
+    x = "Steps taken by remote workers (1000)",
+    title = "Histogram of steps taken by remote workers"
+  )
+# Join skewed plots together side-by-side
+unskewed_plots <- unskewed_office + unskewed_remote
+
+list[[2]] <- unskewed_plots
+# list : 1-skewed, 2-notskewed
+
+
+choices <- character(4)
+choices[1] <- "Matched pairs t-test"
+choices[2] <- "Two-sample t-test"
+choices[3] <- "Mann-Whitney U test"
+choices[4] <- "Chi-square test"
+
+sol <- c(F, rand == 2, rand == 1, F)
+explain <- character(2)
+# 1- skewed
+explain[1] <- "From the histograms, the data are strongly skewed and contains outliers across both groups, therefore a Mann-Whitney test is more appropriate."
+
+explain[2] <- "From the histograms, the histograms are roughly symmetrical and does not contains outliers across both groups, therefore a two-sample t-test is more appropriate."
+
+```
+
+
+Question
+==============
+A researcher compares daily step counts between office workers and remote workers recorded in thousands of steps (1000). The histograms of the data are shown below: 
+```{r showplots, echo=FALSE}
+list[[rand]]
+```
+
+Which test is the most appropriate for this data?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+`r explain[rand]`
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: mann-whitney-when-to-use
+exshuffle: TRUE
+

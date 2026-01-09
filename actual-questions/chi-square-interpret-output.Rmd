@@ -1,0 +1,85 @@
+```{r data generation, echo=FALSE, results='hide', warning=FALSE}
+pacman::p_load(tidyverse, exams)
+num <- sample(30:100, 1)
+
+# Generate study mode
+study_mode <- sample(
+  c("On-campus", "Online"),
+  size = num,
+  replace = TRUE,
+  prob = c(0.4, 0.6)
+)
+
+# Generate pet ownership CONDITIONAL on study mode
+pet_ownership <- ifelse(
+  study_mode == "Online",
+  sample(c("Yes", "No"), sum(study_mode == "Online"),
+         replace = TRUE, prob = c(0.7, 0.3)),
+  sample(c("Yes", "No"), sum(study_mode == "On-campus"),
+         replace = TRUE, prob = c(0.5, 0.5))
+)
+
+# Combine into data frame
+student_data <- data.frame(
+  StudyMode = study_mode,
+  PetOwner = pet_ownership
+)
+
+# Contingency table
+pet_table <- xtabs(~ StudyMode + PetOwner, data = student_data)
+
+# Chi-square test
+chi_test <- chisq.test(pet_table)
+p_val <- chi_test$p.value
+choices <- character(4)
+choices[1] <- "There is insufficient evidence to conclude that the two variables are associated"
+choices[2] <-"The variables are independent" 
+choices[3] <- "There is an association between the variables" 
+choices[4] <- "The test cannot be interpreted without expected counts"
+
+sol <- c(p_val > 0.05, F, p_val < 0.05, F)
+
+explain <- character(4)
+explain[1] <- ifelse(p_val > 0.05, "" , "This is only true if $p > 0.05$")
+explain[2] <- "We cannot prove independence, only fail to find evidence against it"
+explain[3] <- ifelse(p_val < 0.05, "" , "This is only true if $p \\leq 0.05$")
+explain[4] <- "This is only relevant if the expected cell counts are too small"
+
+```
+
+
+Question
+===================
+A researcher records whether university students own a pet (Yes/No), and their study mode (Online/On-campus). The following contingency table is constrcuted from the data:
+```{r showtable, echo=FALSE}
+pet_table
+```
+The chi-square test was then conducted, the output is shown below:
+```{r showtest, echo=FALSE}
+chi_test
+```
+What is the most appropriate conclusion at the 5% significance level?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, explain, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: chi-square-interpret-output
+exshuffle: TRUE
+

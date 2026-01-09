@@ -1,0 +1,84 @@
+```{r data generation, echo=FALSE, results='hide'}
+num_dogs <- sample(20:30, 1)
+
+# Dog owners: mostly unbothered
+dog_judgment <- sample(
+  x = 1:6,
+  size = num_dogs,
+  replace = TRUE,
+  prob = c(0.10, 0.25, 0.30, 0.20, 0.10, 0.05)
+)
+
+# Cat owners: deeply judged
+cat_judgment <- sample(
+  x = 3:10,
+  size = num_dogs,
+  replace = TRUE,
+  prob = c(0.05, 0.05, 0.10, 0.15, 0.20, 0.20, 0.15, 0.10)
+)
+
+data <- data.frame(
+  dog_judgment = dog_judgment,
+  cat_judgment = cat_judgment
+)
+
+mytest <- wilcox.test(data$dog_judgment, data$cat_judgment, exact = FALSE)
+choices <- character(4)
+choices[1] <- "There is a statistically significant difference in the distribution of judgement between cats and dogs"
+choices[2] <- "There is no statistically significant difference in the distribution of judgement between cats and dogs"
+choices[3] <- "There is a statistically significant difference in the means of the judgement score between cats and dogs"
+choices[4] <- "There is no statistically significant difference in the means of the judgement score between cats and dogs"
+sol <- c(mytest$p.value < 0.05, mytest$p.value>0.05, F, F)
+
+
+explain <- ifelse(mytest$p.value < 0.05, "The p-value of the Mann Whitney U test is less than 0.05, therefore the null hypothesis is rejected. That means that there is a statistically significant difference in distribution of the two groups.", "The p-value of the Mann Whitney U test is greater than 0.05, therefore the null hypothesis is retained. That means that a there is insufficient evidence to prove that there is a statistically significant difference in distribution of the two groups.")
+
+```
+
+Question
+===================
+A behavioural science lab wants to study perceived judgement from pets. They recruit pet owners and ask them to rate, on a 1-10 scale, how judged the owners feel when their pet watches them eat dropped food from the floor. This dataset collected has 2 variables:
+
+1.  Scale of judgement:
+1 = "pure unconditional love"
+10 = "you have severely disrespected my ancestors" 
+
+2.  Type of pets: dogs and cats
+
+The final dataset looks like:
+```{r show data, echo=FALSE}
+head(data)
+```
+
+A Mann Whitney U test was used in this study, the output is shown below:
+```{r show ouput, echo = FALSE}
+mytest
+```
+Which is the correct interpretation at the 5% significance level?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+
+Solution
+======================
+`r explain`
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+
+
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: mann-whitney-interpret-results
+exshuffle: TRUE
+
+
