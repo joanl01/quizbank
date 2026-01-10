@@ -1,0 +1,72 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+n <- sample(30:100, 1)
+# Daily study time (hours)
+study_time <- runif(n, min = 0, max = 8)
+
+# True relationship parameters
+beta_0 <- 2.0   # baseline GPA
+beta_1 <- 0.4   # GPA increase per study hour
+
+# Generate GPA with noise
+gpa <- beta_0 + beta_1 * study_time + rnorm(n, mean = 1, sd = 1)
+
+# Keep GPA within 0–7
+gpa <- pmin(pmax(gpa, 0), 7)
+
+# Final dataset
+data <- data.frame(
+  study_time = study_time,
+  gpa = gpa
+)
+data <- round(data,3)
+
+model <- lm(gpa ~ study_time, data = data)
+int <- round(model$coefficients[1],5)
+slope <- round(model$coefficients[2],5)
+
+choices <- character(4)
+
+choices[1] <- "$H_0: \\beta_1 = 1$, \n $H_a: \\beta_1 \\neq 1$"
+choices[2] <- "$H_0: \\beta_1 = 0$, \n $H_a: \\beta_1 \\neq 0$"
+choices[3] <- "$H_0: \\mu_1 = 0$, \n $H_a: \\mu_1 \\neq 0$"
+choices[4] <- "$H_0: \\beta_0 = 0$, \n $H_a: \\beta_0 \\neq 0$"
+sol <- c(F, T, F, F)
+
+```
+
+Question
+===============
+A researcher wants to know if daily study time (hours) actually has an effect on students final GPA score (from 0 to 7). They conducted a study with `r n` students, and recorded the students' daily study time and final GPA score. The dataset they collected looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+The linear regression model is then fitted, the results are shown below:
+```{r}
+summary(model)
+```
+What are the appropriate hypotheses for testing whether study time is associated with GPA score?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+In a linear regression model, the regression equation is displayed as:
+$$y = \beta_0 + \beta_1x$$
+where $y$ is the response variable and $x$ is the indpendent variable. To test if study time ($y$) is associated with the GPA score ($x$), we want to know if $\beta_1$ is 0. If $\beta_1$ is 0, then changes in study time do not change/affect GPA score (i.e no association). 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: lm-null-and-alt-hyp-slope
+exshuffle: TRUE
+
+
+

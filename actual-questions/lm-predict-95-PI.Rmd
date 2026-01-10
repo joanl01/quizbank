@@ -1,0 +1,74 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+n <- sample(30:100, 1)
+# Daily study time (hours)
+study_time <- runif(n, min = 0, max = 8)
+
+# True relationship parameters
+beta_0 <- 2.0   # baseline GPA
+beta_1 <- 0.4   # GPA increase per study hour
+
+# Generate GPA with noise
+gpa <- beta_0 + beta_1 * study_time + rnorm(n, mean = 1, sd = 1)
+
+# Keep GPA within 0–7
+gpa <- pmin(pmax(gpa, 0), 7)
+
+# Final dataset
+data <- data.frame(
+  study_time = study_time,
+  gpa = gpa
+)
+data <- round(data,3)
+# Fit linear regression model
+model <- lm(gpa ~ study_time, data = data)
+lala <- summary(model)
+
+rand_hour <- sample(2:8, 1)
+
+
+
+choices <- character(4)
+choices[1] <- paste0("`confint(model, study_time = ", rand_hour, ")`")
+choices[2] <- paste0("`new_data <- data.frame(study_time = ", rand_hour,  ")` \n `predict(model, newdata = new_data)`")
+choices[3] <- paste0("`new_data <- data.frame(study_time = ", rand_hour,  ")` \n `predict(model, newdata = new_data, interval = 'prediction')`")
+choices[4] <- paste0("`new_data <- data.frame(study_time = ", rand_hour,  ")` \n `predict(model, newdata = new_data, interval = 'confidence')`")
+
+sol <- c(F, F, T, F)
+
+
+```
+
+Question
+===============
+A researcher wants to know if daily study time (hours) actually has an effect on students final GPA score (from 0 to 7). They conducted a study with `r n` students, and recorded the students' daily study time and final GPA score. The dataset they collected looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+The linear regression model is then fitted, the results are shown below:
+```{r}
+summary(model)
+```
+Now the researcher wants to know what is the 95% prediction interval for hard-working students that has studied for `r rand_hour` hours. Which R code correctly obtains the 95% prediction interval?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+To get the prediction interval, the `predict()` function must be used, where `newdata` must be a data frame, and `interval = "prediction"`. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: lm-predict-95-PI
+exshuffle: TRUE
+
+
+

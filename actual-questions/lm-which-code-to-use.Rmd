@@ -1,0 +1,63 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+n <- sample(30:100, 1)
+# Daily study time (hours)
+study_time <- runif(n, min = 0, max = 8)
+
+# True relationship parameters
+beta_0 <- 2.0   # baseline GPA
+beta_1 <- 0.4   # GPA increase per study hour
+
+# Generate GPA with noise
+gpa <- beta_0 + beta_1 * study_time + rnorm(n, mean = 1, sd = 1)
+
+# Keep GPA within 0–7
+gpa <- pmin(pmax(gpa, 0), 7)
+
+# Final dataset
+data <- data.frame(
+  study_time = study_time,
+  gpa = gpa
+)
+data <- round(data,3)
+choices <- character(4)
+
+choices[1] <- "`lm(gpa ~ study_time, data = data)`"
+choices[2] <- "`lm(study_time ~ gpa, data = data)`"
+choices[3] <- "`t.test(gpa ~ study_time, data = data)`"
+choices[4] <- "`lm(data$gpa - data$study_time)`"
+
+sol <- c(T, F, F, F)
+
+```
+
+Question
+===============
+A researcher wants to know if daily study time (hours) actually has an effect on students final GPA score (from 0 to 7). They conducted a study with `r n` students, and recorded the students' daily study time and final GPA score. The dataset they collected looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+
+Which R command correctly fits a simple linear regression model that predicts exam score from study hours?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+The response variable is gpa score, and the predictor variable is study hours. 
+To fit a linear model in R, the code to use is `lm(response ~ predictor, data = dataset)`.
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: lm-which-code-to-use
+exshuffle: TRUE
+
+
+

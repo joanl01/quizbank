@@ -1,0 +1,69 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+n <- sample(30:100, 1)
+# Daily study time (hours)
+study_time <- runif(n, min = 0, max = 8)
+
+# True relationship parameters
+beta_0 <- 2.0   # baseline GPA
+beta_1 <- 0.4   # GPA increase per study hour
+
+# Generate GPA with noise
+gpa <- beta_0 + beta_1 * study_time + rnorm(n, mean = 1, sd = 1)
+
+# Keep GPA within 0–7
+gpa <- pmin(pmax(gpa, 0), 7)
+
+# Final dataset
+data <- data.frame(
+  study_time = study_time,
+  gpa = gpa
+)
+data <- round(data,3)
+
+choices <- character(4)
+
+choices[1] <- "two-sample t-test"
+choices[2] <- "linear regression"
+choices[3] <- "Mann-Whitney U test"
+choices[4] <- "ANOVA"
+
+sol <- c(F, T, F, F)
+explain <- character(4)
+explain[1] <- "Two sample t-test is to test for the effect of 2 groups (categorical) on the mean of numeric data. " 
+explain[4] <- "ANOVA is to test the for effect of 3 or more groups (categorical) on the mean of numeric data. "
+explain[3] <- "Similar to two sample t-test it is to test if there is a different distribution of the numeric data across 2 different groups. "
+
+```
+
+Question
+===============
+A researcher wants to know if daily study time (hours) actually has an effect on students final GPA score (from 0 to 7). They conducted a study with `r n` students, and recorded the students' daily study time and final GPA score. The dataset they collected looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+
+Which is the appropriate test to see if daily study time has an effect on final GPA score? 
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+
+
+Solution
+======================
+The two variables `StudyTime` and `GPA` are both quantitative continuous data (numeric, and can have decimals). Therefore linear regression is the appropriate test for this study. 
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, explain, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: lm-when-to-use
+exshuffle: TRUE
+
+
+

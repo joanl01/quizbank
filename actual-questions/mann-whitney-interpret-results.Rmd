@@ -31,7 +31,7 @@ choices[4] <- "There is no statistically significant difference in the means of 
 sol <- c(mytest$p.value < 0.05, mytest$p.value>0.05, F, F)
 
 
-explain <- ifelse(mytest$p.value < 0.05, "The p-value of the Mann Whitney U test is less than 0.05, therefore the null hypothesis is rejected. That means that there is a statistically significant difference in distribution of the two groups.", "The p-value of the Mann Whitney U test is greater than 0.05, therefore the null hypothesis is retained. That means that a there is insufficient evidence to prove that there is a statistically significant difference in distribution of the two groups.")
+explain <- ifelse(mytest$p.value < 0.05, "The p-value of the Mann-Whitney U test is less than 0.05, therefore the null hypothesis is rejected. That means that there is a statistically significant difference in distribution of the two groups.", "The p-value of the Mann-Whitney U test is greater than 0.05, therefore the null hypothesis is retained. That means that a there is insufficient evidence to prove that there is a statistically significant difference in distribution of the two groups.")
 
 ```
 
@@ -50,7 +50,7 @@ The final dataset looks like:
 head(data)
 ```
 
-A Mann Whitney U test was used in this study, the output is shown below:
+A Mann-Whitney U test was used in this study, the output is shown below:
 ```{r show ouput, echo = FALSE}
 mytest
 ```

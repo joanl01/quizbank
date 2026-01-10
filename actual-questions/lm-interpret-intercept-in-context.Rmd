@@ -1,0 +1,69 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+n <- sample(30:100, 1)
+# Daily study time (hours)
+study_time <- runif(n, min = 0, max = 8)
+
+# True relationship parameters
+beta_0 <- 2.0   # baseline GPA
+beta_1 <- 0.4   # GPA increase per study hour
+
+# Generate GPA with noise
+gpa <- beta_0 + beta_1 * study_time + rnorm(n, mean = 1, sd = 1)
+
+# Keep GPA within 0–7
+gpa <- pmin(pmax(gpa, 0), 7)
+
+# Final dataset
+data <- data.frame(
+  study_time = study_time,
+  gpa = gpa
+)
+data <- round(data,3)
+
+model <- lm(gpa ~ study_time, data = data)
+int <- round(model$coefficients[1],5)
+slope <- round(model$coefficients[2],5)
+
+choices <- character(4)
+
+choices[1] <- paste0("The average GPA score when study time is zero")
+choices[2] <- paste0("The average GPA score of all the students")
+choices[3] <- paste0("The minimum possible GPA score")
+choices[4] <- paste0("The GPA score of the highest scoring student")
+sol <- c(T, F, F, F)
+
+```
+
+Question
+===============
+A researcher wants to know if daily study time (hours) actually has an effect on students final GPA score (from 0 to 7). They conducted a study with `r n` students, and recorded the students' daily study time and final GPA score. The dataset they collected looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+The linear regression model is then fitted, the results are shown below:
+```{r}
+summary(model)
+```
+What does the intercept `r int` represent in this context?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+The coefficents of a regression model describe changes in the average/mean, not a direct causation. 
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: lm-interpret-intercept-in-context
+exshuffle: TRUE
+
+
+

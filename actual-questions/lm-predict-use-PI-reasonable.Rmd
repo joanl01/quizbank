@@ -1,0 +1,90 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+n <- sample(30:100, 1)
+# Daily study time (hours)
+study_time <- runif(n, min = 0, max = 8)
+
+# True relationship parameters
+beta_0 <- 2.0   # baseline GPA
+beta_1 <- 0.4   # GPA increase per study hour
+
+# Generate GPA with noise
+gpa <- beta_0 + beta_1 * study_time + rnorm(n, mean = 1, sd = 1)
+
+# Keep GPA within 0–7
+gpa <- pmin(pmax(gpa, 0), 7)
+
+# Final dataset
+data <- data.frame(
+  study_time = study_time,
+  gpa = gpa
+)
+data <- round(data,3)
+# Fit linear regression model
+model <- lm(gpa ~ study_time, data = data)
+lala <- summary(model)
+
+rand_hour <- round(runif(n = 1, min = 2, max = 8),3)
+
+newdata <- data.frame(study_time = rand_hour)
+conf <- predict(model, newdata = newdata, interval = "confidence")
+conf_lb <- conf[2]
+conf_ub <- conf[3]
+
+pred <- predict(model, newdata = newdata, interval = "prediction")
+pred_lb <- pred[2]
+pred_ub <- pred[3]
+
+
+ques <- round(runif(n = 1, min = 0, max = 7),3)
+
+choices <- character(4)
+choices[1] <- "Unusually high"
+choices[2] <- "Unusually low"
+choices[3] <- "Reasonable"
+choices[4] <- "I don't know"
+
+sol <- c(ques >pred_ub, ques < pred_lb, pred_lb<ques & ques <pred_ub, F)
+
+
+```
+
+Question
+===============
+A researcher wants to know if daily study time (hours) actually has an effect on students final GPA score (from 0 to 7). They conducted a study with `r n` students, and recorded the students' daily study time and final GPA score. The dataset they collected looks like:
+```{r showdata, echo=FALSE}
+head(data)
+```
+The linear regression model is then fitted, the results are shown below:
+```{r}
+summary(model)
+```
+Assume that the 95% confidence interval for the mean GPA score when students that studied for `r rand_hour` hours is $$(`r conf_lb`, `r conf_ub`)$$
+
+and the 95% prediction interval for the GPA score when a student that studied for `r rand_hour` hours is $$(`r pred_lb`, `r pred_ub`)$$
+
+A particular student scored a GPA of `r ques` when they have studied for `r rand_hour` hours. How should their grade be classified?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+Because we are evaluating the GPA of a single student, the appropriate interval to use is the 95% prediction interval, not the confidence interval. The prediction interval describes the range of GPA values we would expect for an individual student who studied for `r rand_hours` hours. 
+
+The student's GPA (`r ques`) is `r ifelse(pred_lb < ques & ques < pred_ub, "within", "outside")` the prediction interval, the student’s grade is classified as `r ifelse(pred_lb < ques & ques < pred_ub, "reasonable", ifelse(ques > pred_ub, "unusually high", "unusually low"))`.
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: lm-predict-use-PI-reasonable
+exshuffle: TRUE
+
+
+
