@@ -1,0 +1,37 @@
+```{r data generation, echo = FALSE, results='hide'}
+
+choices <- character(4)
+choices[1] <- "One-sample t-test"
+choices[2] <- "One-way ANOVA"
+choices[3] <- "Chi-square test"
+choices[4] <- "Kruskal-Wallis test"
+
+sol <- c(F, F, F, T)
+```
+
+Question
+================
+A researcher wants to compare the stress scores of participants across 4 independent treatment groups. The stress scores are continuous but heavily skewed, and normality assumptions are not met. 
+
+Which test is most appropriate?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+The Kruskal-Wallis test is a non-parametric alternative to one-way ANOVA. It's used when comparing three or more independent groups with non-normal data
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: kw-when-to-use
+exshuffle: TRUE
+
+
+

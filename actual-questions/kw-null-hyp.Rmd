@@ -1,0 +1,36 @@
+```{r data generation, echo = FALSE, results='hide'}
+
+choices <- character(4)
+choices[1] <- "All group means are equal"
+choices[2] <- "All group vairances are equal"
+choices[3] <- "All group distributions are identical"
+choices[4] <- "At least one group has a different distribution"
+sol <- c(F, F, T, F)
+```
+
+Question
+================
+Which of the following correctly states the null hypothesis for a Kruskal-Wallis test?
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+The null hypothesis of the Kruskal-Wallis test is that the distributions of the response variable are the same across groups (not the mean or variance). The alternative hypothesis is that there is at least one group with a different distribution. 
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: kw-null-hyp
+exshuffle: TRUE
+
+
+

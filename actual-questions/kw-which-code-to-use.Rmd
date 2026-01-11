@@ -1,0 +1,53 @@
+```{r data generation, echo = FALSE, results='hide'}
+num <- sample(20:50, 1)
+data <- data.frame(
+  treatment = factor(rep(c("A", "B", "C"), each = num)),
+  painscore = c(
+    rnorm(num, mean = 5, sd = 1),
+    rnorm(num, mean = 4, sd = 2),
+    rnorm(num, mean = 3, sd = 1)
+  )
+)
+
+
+choices <- character(4)
+choices[1] <- "`kruskal.test(data$painscore, data$treatment)`"
+choices[2] <- "`kruskal.test(painscore ~ treatment, data = data)`"
+choices[3] <- "`wilcox.test(painscore ~ treatment, data= data)`"
+choices[4] <- "`aov(painscore~treatment, data= data) `"
+
+sol <- c(F, T, F, F)
+```
+
+Question
+==============================
+A medical researcher is stuying the effectiveness of three different brands of aspirin(`treatment`) (Brand A, Brand B, and Brand C) in reducing pain after a surgical procedure. A total of `r num*3` are randomly assigned to receive one of the three aspirin brands, with an equal number of patients in each group. After taking the medication, each patient reports their pain level on a numerical pain scale (`painscore`), where higher values indicate greater pain.
+
+The data collected is shown below:
+```{r}
+head(data)
+```
+
+Which of the following choices is the correct R code to perform a Kruskal-Wallis test?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+The Kruskal-Wallis test is performed using $$`kruskal.test*(response ~ independent, data= data)`$$
+
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: kw-which-code-to-use
+exshuffle: TRUE
+
+
+

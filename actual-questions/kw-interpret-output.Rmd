@@ -1,0 +1,59 @@
+```{r data generation, echo = FALSE, results='hide'}
+pacman::p_load(tidyverse, exams)
+num <- sample(20:50, 1)
+data <- data.frame(
+  treatment = factor(rep(c("A", "B", "C"), each = num)),
+  painscore = c(
+    rnorm(num, mean = 5, sd = 1),
+    rnorm(num, mean = 4, sd = 2),
+    rnorm(num, mean = 3, sd = 1)
+  )
+)
+
+mykw <- kruskal.test(painscore ~ treatment, data = data)
+
+
+choices <- character(4)
+choices[1] <- "There is no evidence of a difference between the groups"
+choices[2] <- "At least one group differs from the others"
+choices[3] <- "All group distributions are different"
+choices[4] <- "The test assumptions have been violated"
+
+sol <- c(mykw$p.value>0.05, mykw$p.value<0.05, F, F)
+```
+
+Question
+==============================
+A medical researcher is stuying the effectiveness of three different brands of aspirin(`treatment`) (Brand A, Brand B, and Brand C) in reducing pain after a surgical procedure. A total of `r num*3` are randomly assigned to receive one of the three aspirin brands, with an equal number of patients in each group. After taking the medication, each patient reports their pain level on a numerical pain scale (`painscore`), where higher values indicate greater pain.
+
+The data collected is shown below:
+```{r}
+head(data)
+```
+The Kruskal-Wallis test is performed, with the output shown below:
+```{r, echo=FALSE}
+mykw
+```
+What is the correct conclusion at the 5% significance level?
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(choices,  markup = "markdown")
+```
+
+Solution
+======================
+The p-value is `r ifelse(mykw$p.value<0.05, "less than", "more than")` 0.05, therefore the null hypothesis is `r ifelse(mykw$p.value<0.05, "rejected", "retained")`. 
+The test does not identify which groups differ. 
+The correct answer is 
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(sol, markup = "markdown")
+```
+
+Meta-information
+================
+extype: mchoice
+exsolution: `r mchoice2string(sol, single = TRUE)`
+exname: kw-interpret-output
+exshuffle: TRUE
+
+
+

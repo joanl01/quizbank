@@ -1,0 +1,49 @@
+```{r data generation, echo=FALSE, results='hide'}
+num <- sample(30:100, 1)
+
+# Generate data for 'hours' (hours studied) and 'Sleep' (hours slept before exams)
+hours <- runif(num, 0, 10)  # Randomly between 0 and 10 hours
+sleep <- runif(num, 4, 9)   # Randomly between 4 and 9 hours
+
+# Generate 'Course' (Math or Arts)
+course <- sample(c("Math", "Arts"), num, replace = TRUE)
+
+# Generate 'gpa' based on a linear relationship with 'hours' and 'Sleep'
+# Add some noise to make it more realistic
+beta0 <- 2          # Intercept
+beta1 <- 0.3        # Effect of hours studied
+beta2 <- 0.5        # Effect of hours slept
+beta3_Math <- 0.5   # Effect of being in Math course
+beta3_Arts <- 0     # Effect of being in Arts course (baseline category)
+
+# Create the GPA formula
+gpa <- beta0 + beta1 * hours + beta2 * sleep + 
+       ifelse(course == "Math", beta3_Math, beta3_Arts) + 
+       rnorm(num, 0, 1)  # Add noise for realism
+
+# Scale GPA to 0-7 range
+gpa_min <- min(gpa)
+gpa_max <- max(gpa)
+
+scaled_gpa <- 7 * (gpa - gpa_min) / (gpa_max - gpa_min)
+
+# Create the dataset with scaled GPA
+data <- data.frame(gpa = round(scaled_gpa, 3), hours = round(hours, 3), sleep = round(sleep, 3), course)
+```
+
+
+
+Question
+===============
+A university lecturer wants to study factors affecting GPA score for university students. They think that there are more factors than just study time that affects GPA score. So for a random sample of `r num` students, the following variables are recorded:
+- `gpa`: The GPA score of the student (ranging from 0 to 7)
+- `hours`: The number of hours studied
+- `sleep`: Average hours of sleep the night before the final exams
+- `course`: Type of course (`Math` or `Arts`)
+
+The data collected looks like:
+```{r show data, echo=FALSE}
+head(data)
+```
+
+The lecturer decides to use a multiple linear regression to understand the relationship between the factors and gpa score. 
